@@ -32,7 +32,7 @@ export function ProductGrid({ products }: ProductGridProps) {
             {/* Image Container with Actions */}
             <div className="aspect-square bg-slate-50 relative overflow-hidden flex items-center justify-center p-6">
               <Image
-                src={product.mainImage || "/logo.jpg"}
+                src={product.mainImage}
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
@@ -59,7 +59,8 @@ export function ProductGrid({ products }: ProductGridProps) {
                 <Link
                   href={`/producto/${product.slug}`}
                   className="bg-slate-900 hover:bg-slate-800 text-white p-2 rounded-lg shadow-sm flex items-center justify-center transition-colors"
-                  title="Personalizar Medidas"
+                  aria-label={`Ver ${product.name}`}
+                  title="Ver producto"
                 >
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
