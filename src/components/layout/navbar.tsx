@@ -4,14 +4,24 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/cart-context";
-import { ShoppingBag, Search, Phone, ShieldCheck, Menu, X } from "lucide-react";
+import { ShoppingBag, Search, Phone, ShieldCheck, Menu, X, UserRound, MapPinned } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
   const { totalItems, setIsCartOpen } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const router = useRouter();
+
+  const submitSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const value = query.trim();
+    router.push(value ? `/catalogo?busqueda=${encodeURIComponent(value)}` : "/catalogo");
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-100">
+    <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur-md">
       {/* Top microbar */}
       <div className="bg-slate-900 text-slate-300 text-xs py-1.5 px-4">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -39,7 +49,7 @@ export function Navbar() {
       </div>
 
       {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-6">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
           <Image
@@ -53,7 +63,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
+        <nav className="hidden items-center gap-5 text-sm font-medium text-slate-700 lg:flex">
           <Link href="/catalogo" className="hover:text-alina-600 transition-colors">
             Catálogo Completo
           </Link>
@@ -71,25 +81,28 @@ export function Navbar() {
           </Link>
         </nav>
 
-        {/* Actions (Search, Tracking, Cart) */}
-        <div className="flex items-center gap-3">
-          <Link
-            href="/catalogo"
-            className="p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors"
-            title="Buscar en catálogo"
-          >
-            <Search className="w-5 h-5" />
+        <div className="hidden min-w-0 flex-1 justify-end gap-3 md:flex">
+          <form onSubmit={submitSearch} className="flex min-w-0 max-w-xs flex-1 items-center rounded-xl border border-slate-200 bg-slate-50 px-3 transition-colors focus-within:border-alina-400 focus-within:bg-white">
+            <Search className="size-4 shrink-0 text-slate-400" aria-hidden="true" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar bases, toppers..." aria-label="Buscar en el catálogo" className="min-w-0 flex-1 bg-transparent px-2 py-2.5 text-xs text-slate-900 outline-none placeholder:text-slate-400" />
+          </form>
+          <Link href="/login" className="hidden items-center gap-2 rounded-xl px-2 py-2 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50 hover:text-alina-700 xl:flex">
+            <UserRound className="size-4" aria-hidden="true" />
+            Ingresar
+          </Link>
+          <Link href="/rastreo" aria-label="Rastrear pedido" className="flex items-center justify-center rounded-xl px-2 py-2 text-slate-700 transition-colors hover:bg-slate-50 hover:text-alina-700">
+            <MapPinned className="size-5" aria-hidden="true" />
           </Link>
 
           {/* Cart Button */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="relative p-2 text-slate-800 hover:text-alina-600 hover:bg-slate-100 rounded-lg transition-colors flex items-center gap-2"
+            className="relative flex items-center gap-2 rounded-xl p-2 text-slate-800 transition-colors hover:bg-slate-50 hover:text-alina-600"
             aria-label="Abrir carrito"
           >
-            <ShoppingBag className="w-5 h-5" />
+            <ShoppingBag className="size-5" aria-hidden="true" />
             {totalItems > 0 && (
-              <span className="absolute -top-1 -right-1 bg-alina-600 text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-xs">
+                <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-alina-600 text-[11px] font-bold text-white shadow-sm">
                 {totalItems}
               </span>
             )}
@@ -99,6 +112,8 @@ export function Navbar() {
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg"
+            aria-label={mobileMenuOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={mobileMenuOpen}
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -107,7 +122,11 @@ export function Navbar() {
 
       {/* Mobile navigation panel */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 space-y-3">
+        <div className="space-y-3 border-t border-slate-100 bg-white px-4 pb-6 pt-3 md:hidden">
+          <form onSubmit={submitSearch} className="flex items-center rounded-xl border border-slate-200 bg-slate-50 px-3 focus-within:border-alina-400 focus-within:bg-white">
+            <Search className="size-4 text-slate-400" aria-hidden="true" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Buscar en catálogo" aria-label="Buscar en el catálogo" className="min-w-0 flex-1 bg-transparent px-2 py-3 text-sm outline-none" />
+          </form>
           <Link
             href="/catalogo"
             className="block py-2 text-sm font-medium text-slate-800"
@@ -142,6 +161,9 @@ export function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
           >
             Rastrear mi Pedido
+          </Link>
+          <Link href="/login" className="block py-2 text-sm font-semibold text-alina-600" onClick={() => setMobileMenuOpen(false)}>
+            Ingresar o crear cuenta
           </Link>
         </div>
       )}

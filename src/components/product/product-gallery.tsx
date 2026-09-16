@@ -37,6 +37,7 @@ export function ProductGallery({ mainImage, images = [], productName }: ProductG
             <button
               key={idx}
               onClick={() => setSelectedImage(img)}
+              aria-label={`Ver vista ${idx + 1} de ${productName}`}
               className={`w-20 h-20 rounded-xl overflow-hidden border-2 shrink-0 p-1 bg-white transition-all ${
                 selectedImage === img
                   ? "border-alina-600 ring-2 ring-alina-100"
@@ -44,7 +45,7 @@ export function ProductGallery({ mainImage, images = [], productName }: ProductG
               }`}
             >
               <div className="w-full h-full relative">
-                <Image src={img} alt={`Vista ${idx + 1}`} fill className="object-contain" />
+                <Image src={img} alt={`Vista ${idx + 1}`} fill sizes="80px" className="object-contain" />
               </div>
             </button>
           ))}
