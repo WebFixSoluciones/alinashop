@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import { useCart } from "@/context/cart-context";
 import { calculateProductPrice } from "@/lib/pricing-calculator";
 import { formatCurrency } from "@/lib/utils";
-import { Check, MessageCircle, CreditCard, ShoppingBag, ShieldCheck, Sparkles, Layers, Sliders } from "lucide-react";
+import { Check, MessageCircle, CreditCard, ShoppingBag, ShieldCheck, Sparkles, Layers, Sliders, Truck } from "lucide-react";
 
 interface Variant {
   code?: string;
@@ -443,9 +443,18 @@ export function ProductCustomizer({ product, whatsappNumber = "593985890956" }: 
 
       {/* Trust Badges */}
       <div className="grid grid-cols-3 gap-2 pt-3 border-t border-slate-100 text-center text-[11px] text-slate-500 font-medium">
-        <div>🔒 Pagos Seguros Payphone</div>
-        <div>🚚 Envíos Servientrega / Laar</div>
-        <div>📦 Seguimiento de Guía</div>
+        <div className="flex items-center justify-center gap-1.5">
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+          <span>Pagos Seguros Payphone</span>
+        </div>
+        <div className="flex items-center justify-center gap-1.5">
+          <Truck className="w-3.5 h-3.5 text-alina-600 shrink-0" />
+          <span>Envíos Servientrega / Laar</span>
+        </div>
+        <div className="flex items-center justify-center gap-1.5">
+          <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+          <span>Garantía en Taller</span>
+        </div>
       </div>
     </div>
   );

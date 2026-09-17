@@ -201,8 +201,9 @@ export default function AdminOrdersPage() {
                   <td className="p-4 max-w-xs">
                     <span className="text-slate-700">{ord.items}</span>
                     {ord.courier && (
-                      <div className="text-[11px] text-blue-700 font-semibold mt-1">
-                        🚚 {ord.courier}: {ord.trackingNumber}
+                      <div className="text-[11px] text-blue-700 font-semibold mt-1 flex items-center gap-1">
+                        <Truck className="w-3 h-3 text-blue-600 shrink-0" />
+                        <span>{ord.courier}: {ord.trackingNumber}</span>
                       </div>
                     )}
                   </td>
@@ -219,11 +220,11 @@ export default function AdminOrdersPage() {
                       onChange={(e) => handleUpdateStatus(ord.id, e.target.value as any)}
                       className="text-xs font-semibold rounded-lg border border-slate-200 px-2 py-1 bg-white focus:outline-none"
                     >
-                      <option value="PENDIENTE">🟡 Pendiente</option>
-                      <option value="PAGADO">💳 Pagado</option>
-                      <option value="EN_PREPARACION">⚙️ En Taller</option>
-                      <option value="ENVIADO">🚚 Enviado</option>
-                      <option value="ENTREGADO">✅ Entregado</option>
+                      <option value="PENDIENTE">Pendiente</option>
+                      <option value="PAGADO">Pagado</option>
+                      <option value="EN_PREPARACION">En Taller / Fabricación</option>
+                      <option value="ENVIADO">Enviado con Guía</option>
+                      <option value="ENTREGADO">Entregado</option>
                     </select>
                   </td>
 
