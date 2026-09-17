@@ -30,12 +30,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
 
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      <main className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] flex-1 px-4 py-8 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-1.5 text-xs text-slate-500 mb-6">
           <Link href="/" className="hover:text-slate-900">Inicio</Link>
           <ChevronRight className="w-3 h-3 text-slate-400" />
-          <Link href="/catalogo" className="hover:text-slate-900">Catálogo</Link>
+          <Link href="/catalogo" className="hover:text-slate-900">Tienda</Link>
           <ChevronRight className="w-3 h-3 text-slate-400" />
           <span className="text-slate-800 font-semibold truncate max-w-xs">{product.name}</span>
         </nav>
@@ -95,7 +95,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </div>
       </main>
 
-      <section className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+      <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 pb-12 sm:px-6 lg:px-8">
         <div className="alina-bokeh relative overflow-hidden rounded-[2rem] border border-alina-200 bg-[#fff2f7] p-5 sm:p-7 lg:p-8">
           <div className="relative z-10 grid items-center gap-6 lg:grid-cols-[1fr_auto]">
             <div className="max-w-xl">
@@ -104,7 +104,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 Completa tu pedido
               </div>
               <h2 className="mt-3 text-balance font-display text-2xl font-extrabold text-slate-950 sm:text-3xl">Un bouquet de detalles para que tu torta llegue completa.</h2>
-              <p className="mt-2 text-pretty text-sm leading-relaxed text-slate-600">Combina esta pieza con toppers, cajas y complementos reales del catálogo Alina Shop.</p>
+              <p className="mt-2 text-pretty text-sm leading-relaxed text-slate-600">Combina esta pieza con toppers, cajas y complementos reales de la tienda virtual Alina Shop.</p>
               <Link href="/catalogo" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-alina-700 hover:text-alina-900">
                 Ver ideas para combinar <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
@@ -126,7 +126,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
       {relatedProducts.length > 0 && (
         <section className="border-t border-slate-100 bg-slate-50/60 py-12">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 sm:px-6 lg:px-8">
             <div className="mb-7 flex items-end justify-between gap-4">
               <div>
                 <p className="text-xs font-bold uppercase text-alina-600">También te puede gustar</p>

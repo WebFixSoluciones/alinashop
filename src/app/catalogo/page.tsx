@@ -36,13 +36,13 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-10">
+      <main className="flex-1 w-[90%] min-w-[80%] max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
         {/* Header Title */}
         <div className="mb-8 border-b border-slate-100 pb-6">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-alina-600">
-                Catálogo Oficial 2026
+                Tienda Virtual Oficial Alina Shop
               </span>
               <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 mt-1 tracking-tight">
                 {currentCategory ? currentCategory.name : "Todos los Insumos de Repostería"}

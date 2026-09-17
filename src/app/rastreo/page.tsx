@@ -9,7 +9,7 @@ export default function TrackingPage() {
     <div className="min-h-screen flex flex-col bg-slate-50/50">
       <Navbar />
 
-      <main className="flex-1 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
+      <main className="flex-1 w-[90%] min-w-[80%] max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center max-w-xl mx-auto mb-8">
           <div className="inline-flex items-center gap-1.5 bg-alina-50 border border-alina-200 text-alina-700 text-xs font-bold px-3 py-1 rounded-full mb-3">
             <Truck className="w-3.5 h-3.5 text-alina-500" />

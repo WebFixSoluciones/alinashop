@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/cart-context";
 import { CartDrawer } from "@/components/cart/cart-drawer";
+import { FloatingSocial } from "@/components/layout/floating-social";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,8 +19,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Alina Shop | Insumos de Repostería & Bases MDF",
-  description: "Tienda virtual de insumos de repostería, bases para tortas personalizadas en MDF, toppers, cajas y herramientas para pastelería en Ecuador.",
+  title: "Alina Shop | Tienda Virtual de Insumos de Repostería & Bases MDF",
+  description: "Tienda virtual de insumos de repostería, bases para tortas personalizadas en MDF con grabado de logotipo, toppers, cajas y herramientas para pastelería en Ecuador.",
   icons: {
     icon: "/logo.jpg",
   },
@@ -36,6 +37,7 @@ export default function RootLayout({
         <CartProvider>
           {children}
           <CartDrawer />
+          <FloatingSocial />
         </CartProvider>
       </body>
     </html>

@@ -24,7 +24,7 @@ export function Navbar() {
     <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur-md">
       {/* Top microbar */}
       <div className="bg-slate-900 text-slate-300 text-xs py-1.5 px-4">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="w-[90%] min-w-[80%] max-w-[1720px] mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
@@ -49,21 +49,21 @@ export function Navbar() {
       </div>
 
       {/* Main Navbar */}
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-24 w-[90%] min-w-[80%] max-w-[1720px] items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-3 shrink-0">
+        <Link href="/" className="flex items-center gap-3 shrink-0 py-2 group">
           <Image
             src="/logo.jpg"
             alt="Alina Shop - Insumos de Repostería"
-            width={140}
-            height={50}
-            className="h-12 w-auto object-contain"
+            width={240}
+            height={80}
+            className="h-16 md:h-20 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
             priority
           />
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden items-center gap-5 text-sm font-medium text-slate-700 lg:flex">
+        <nav className="hidden items-center gap-6 text-sm font-semibold text-slate-700 lg:flex">
           <Link href="/catalogo" className="hover:text-alina-600 transition-colors">
             Catálogo Completo
           </Link>

@@ -1,3 +1,5 @@
+'use client';
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +8,8 @@ import { Footer } from "@/components/layout/footer";
 import { ProductGrid } from "@/components/catalog/product-grid";
 import { QuickViewModal } from "@/components/catalog/quick-view-modal";
 import { HeroSlider } from "@/components/home/hero-slider";
+import { ComboBanner } from "@/components/home/combo-banner";
+import { BottomCtaBanner } from "@/components/home/bottom-cta-banner";
 import { CATEGORIES_DATA, PRODUCTS_DATA } from "@/lib/catalog-data";
 import { ArrowRight, BadgePercent, CakeSlice, PackageCheck, Sparkles } from "lucide-react";
 
@@ -27,18 +31,20 @@ export default function HomePage() {
     <div className="min-h-screen flex flex-col bg-white">
       <Navbar />
 
-      <main className="flex-1">
+      <main className="flex-1 w-full">
+        {/* Hero Slider with min 80% width */}
         <HeroSlider />
 
+        {/* Value props micro-bar */}
         <section className="border-b border-slate-100 bg-white">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-3 px-4 py-5 sm:grid-cols-3 sm:px-6 lg:px-8">
+          <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6 lg:px-8">
             {[
-              [CakeSlice, "Productos reales", "Catálogo basado en la línea oficial Alina Shop"],
-              [PackageCheck, "Envíos a Ecuador", "Despachamos por Servientrega y Laar"],
-              [BadgePercent, "Precio mayorista", "Ahorra desde 12 unidades y compra por volumen"],
+              [CakeSlice, "Tienda Virtual Especializada", "Catálogo completo con fotos reales de Alina Shop"],
+              [PackageCheck, "Envíos a todo el Ecuador", "Despachos asegurados por Servientrega y Laar"],
+              [BadgePercent, "Precios por Docena y Mayor", "Descuentos por volumen calculados automáticamente"],
             ].map(([Icon, title, copy]) => (
-              <div key={title as string} className="flex items-center gap-3 rounded-2xl bg-[#fff8fb] px-4 py-3">
-                <Icon className="size-5 shrink-0 text-alina-600" aria-hidden="true" />
+              <div key={title as string} className="flex items-center gap-3.5 rounded-2xl bg-[#fff8fb] border border-alina-100/80 px-4 py-3.5 shadow-2xs">
+                <Icon className="size-6 shrink-0 text-alina-600" aria-hidden="true" />
                 <div>
                   <p className="text-sm font-bold text-slate-900">{title as string}</p>
                   <p className="text-xs text-slate-500">{copy as string}</p>
@@ -49,37 +55,43 @@ export default function HomePage() {
         </section>
 
         {/* Categories Quick Navigation */}
-        <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 py-14 sm:px-6 lg:px-8">
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-alina-600">Categorías</span>
-              <h2 className="font-display font-bold text-2xl text-slate-900 mt-0.5">Líneas de Producción</h2>
+              <span className="text-xs font-bold uppercase tracking-wider text-alina-600">Líneas de la Tienda</span>
+              <h2 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 mt-0.5">Explora Nuestras Categorías</h2>
             </div>
-            <Link href="/catalogo" className="text-xs font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1">
-              Ver todas <ArrowRight className="w-3.5 h-3.5" />
+            <Link href="/catalogo" className="text-xs sm:text-sm font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1.5 transition-colors">
+              <span>Ver catálogo completo</span> <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
             {CATEGORIES_DATA.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/catalogo?categoria=${cat.slug}`}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-all hover:border-alina-300 hover:shadow-md"
+                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-all hover:border-alina-300 hover:shadow-xl"
               >
-                <div className="relative aspect-[4/3] bg-slate-50">
-                  <Image src={categoryImages[cat.slug]} alt={cat.name} fill sizes="(max-width: 768px) 50vw, 25vw" className="object-contain p-3 transition-transform duration-200 group-hover:scale-105" />
+                <div className="relative aspect-[4/3] bg-slate-50/80 overflow-hidden">
+                  <Image
+                    src={categoryImages[cat.slug]}
+                    alt={cat.name}
+                    fill
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                    className="object-contain p-3 transition-transform duration-300 group-hover:scale-110"
+                  />
                 </div>
-                <div className="p-4">
-                  <h3 className="text-pretty font-display text-sm font-bold text-slate-900 transition-colors group-hover:text-alina-600">
+                <div className="p-4 sm:p-5">
+                  <h3 className="text-pretty font-display text-sm sm:text-base font-bold text-slate-900 transition-colors group-hover:text-alina-600">
                     {cat.name}
                   </h3>
                   <p className="mt-1 line-clamp-2 text-xs text-slate-500">
                     {cat.description}
                   </p>
-                  <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-slate-700 group-hover:text-alina-600">
-                  <span>Ver productos</span>
-                    <ArrowRight className="size-3" aria-hidden="true" />
+                  <div className="mt-4 flex items-center gap-1.5 text-xs font-bold text-slate-700 group-hover:text-alina-600">
+                    <span>Ver productos</span>
+                    <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                   </div>
                 </div>
               </Link>
@@ -87,31 +99,31 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Banner CTA 1: "Un bouquet de detalles para que tu torta llegue completa" */}
+        <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 pb-12 sm:px-6 lg:px-8">
+          <ComboBanner />
+        </section>
+
         {/* Featured Products Section */}
-        <section className="border-t border-slate-100 bg-slate-50/60 py-12">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <section className="border-t border-slate-100 bg-slate-50/60 py-14">
+          <div className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 sm:px-6 lg:px-8">
             <div className="mb-8 flex items-end justify-between gap-4">
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-alina-600">Destacados</span>
-                <h2 className="font-display font-bold text-2xl text-slate-900 mt-0.5">Productos Populares</h2>
+                <span className="text-xs font-bold uppercase tracking-wider text-alina-600">Lo Más Vendido</span>
+                <h2 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 mt-0.5">Productos Destacados en Tienda</h2>
               </div>
-              <Link href="/catalogo" className="text-xs font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1">
-                Ver catálogo completo <ArrowRight className="w-3.5 h-3.5" />
+              <Link href="/catalogo" className="text-xs sm:text-sm font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1.5 transition-colors">
+                <span>Ver toda la tienda</span> <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <div className="mb-7 flex flex-col gap-4 rounded-3xl border border-alina-200 bg-[#fff2f7] p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
-              <div>
-                <p className="text-xs font-bold uppercase text-alina-600">Compra inteligente para tu taller</p>
-                <h3 className="mt-1 text-balance font-display text-xl font-bold text-slate-900">Arma tu mesa dulce con productos que sí combinan.</h3>
-                <p className="mt-1 text-sm text-slate-600">Bases, toppers y complementos para resolver tu próximo pedido.</p>
-              </div>
-              <Link href="/catalogo?categoria=complementos" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition-colors hover:bg-alina-700">
-                Ver complementos <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-            </div>
             <ProductGrid products={featuredProducts} />
           </div>
+        </section>
+
+        {/* Banner CTA 2: Before Footer ("Tu pastelería merece presentaciones que vendan solas") */}
+        <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 py-4 sm:px-6 lg:px-8">
+          <BottomCtaBanner />
         </section>
       </main>
 

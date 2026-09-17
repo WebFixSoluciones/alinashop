@@ -49,7 +49,7 @@ export function HeroSlider() {
 
   return (
     <section className={cn("alina-bokeh border-b border-alina-100", slide.tone)} aria-label="Promociones destacadas">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-16">
+      <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 items-center gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:gap-10 lg:px-8 lg:py-16">
         <div className="lg:col-span-6">
           <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-alina-200 bg-white/80 px-3 py-1.5 text-xs font-bold text-alina-700">
             <Sparkles className="size-3.5 text-alina-500" aria-hidden="true" />

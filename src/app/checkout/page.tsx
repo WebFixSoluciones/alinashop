@@ -162,14 +162,14 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
     <div className="min-h-screen bg-slate-50/50">
       {/* Top Simple Shopify-style Header */}
       <header className="bg-white border-b border-slate-200 py-4 px-4 sm:px-8 sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <div className="w-[90%] min-w-[80%] max-w-[1600px] mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3">
             <Image
               src="/logo.jpg"
               alt="Alina Shop"
-              width={130}
-              height={45}
-              className="h-10 w-auto object-contain"
+              width={180}
+              height={60}
+              className="h-14 md:h-16 w-auto object-contain"
             />
           </Link>
           <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
@@ -179,7 +179,7 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="w-[90%] min-w-[80%] max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
           
           {/* Columna Izquierda: Formulario de Checkout (7 cols) */}

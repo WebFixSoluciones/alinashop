@@ -36,12 +36,13 @@ export function ProductGrid({ products }: ProductGridProps) {
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+                className="object-contain p-3 transition-transform duration-300 ease-out group-hover:scale-115"
               />
 
               {product.hasLogoOption && (
-                <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-alina-700 text-[11px] font-bold px-2 py-0.5 rounded-md border border-alina-200 shadow-2xs">
-                  + Logo Opcional
+                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-alina-700 text-xs font-bold px-2.5 py-1 rounded-lg border border-alina-300 shadow-sm flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-alina-600 animate-pulse" />
+                  + Grabado de Logo
                 </span>
               )}
 
