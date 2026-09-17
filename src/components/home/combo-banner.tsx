@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Sparkles, ArrowRight, CheckCircle2, MessageCircle, Plus } from "lucide-react";
+import { Sparkles, ArrowRight, MessageCircle, Plus } from "lucide-react";
 
 export function ComboBanner() {
   return (
@@ -32,26 +32,6 @@ export function ComboBanner() {
             <p className="text-pretty text-sm sm:text-base leading-relaxed text-slate-600 max-w-xl">
               Combina tu <strong>base MDF con grabado láser</strong> junto a <strong>toppers en acrílico espejo</strong> y <strong>cajas de acetato cristal</strong>. Todo compatible en medidas, en un solo envío asegurado a tu taller.
             </p>
-
-            {/* Checkpoints */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 text-xs font-semibold text-slate-700">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-                <span>Medidas exactas y compatibles</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-                <span>Descuento al armar tu combo</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-                <span>Despacho seguro en un solo paquete</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="size-4 text-emerald-600 shrink-0" />
-                <span>Presentación que fideliza clientes</span>
-              </div>
-            </div>
 
             {/* Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
