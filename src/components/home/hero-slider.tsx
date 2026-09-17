@@ -197,14 +197,15 @@ export function HeroSlider() {
   const [isPaused, setIsPaused] = useState(false);
   const slide = slides[activeSlide];
 
-  // Auto-play timer
+  // Auto-play timer: 5 segundos continuos automáticos
   useEffect(() => {
     if (isPaused) return;
-    const interval = setInterval(() => {
+    const timer = setInterval(() => {
       setActiveSlide((current) => (current + 1) % slides.length);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, [isPaused]);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [activeSlide, isPaused]);
 
   const move = (direction: number) => {
     setActiveSlide((current) => (current + direction + slides.length) % slides.length);
@@ -214,19 +215,23 @@ export function HeroSlider() {
     <section
       className="relative overflow-hidden border-b border-alina-100 bg-white"
       aria-label="Promociones destacadas"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Background Image Layer from themed collection */}
+      {/* Background Image Layer with crossfade between slides */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src={slide.bgImage}
-          alt=""
-          fill
-          priority={activeSlide === 0}
-          sizes="100vw"
-          className="object-cover object-right lg:object-center opacity-30 mix-blend-multiply transition-opacity duration-700 pointer-events-none"
-        />
+        {slides.map((s, idx) => (
+          <Image
+            key={s.id}
+            src={s.bgImage}
+            alt=""
+            fill
+            priority={idx === 0}
+            sizes="100vw"
+            className={cn(
+              "object-cover object-right lg:object-center mix-blend-multiply transition-opacity duration-1000 pointer-events-none",
+              activeSlide === idx ? "opacity-30" : "opacity-0"
+            )}
+          />
+        ))}
         {/* Soft gradient masks ensuring high text contrast */}
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/40 lg:via-white/80 pointer-events-none" />
         <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-white/40 pointer-events-none" />
@@ -236,9 +241,9 @@ export function HeroSlider() {
       <div className="relative z-10 mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 items-center gap-10 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-12 lg:gap-12 lg:px-8 lg:py-16">
         
         {/* Left Column: Copy & Actions */}
-        <div className="lg:col-span-6 space-y-6">
+        <div key={slide.id} className="lg:col-span-6 space-y-6 animate-in fade-in slide-in-from-left-2 duration-500">
           {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-alina-200 bg-white/95 px-3.5 py-1.5 text-xs font-bold text-alina-700 shadow-2xs backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="inline-flex items-center gap-2 rounded-full border border-alina-200 bg-white/95 px-3.5 py-1.5 text-xs font-bold text-alina-700 shadow-2xs backdrop-blur-sm">
             <Sparkles className="size-3.5 text-alina-500 shrink-0" aria-hidden="true" />
             <span>{slide.eyebrow}</span>
           </div>
@@ -270,7 +275,11 @@ export function HeroSlider() {
           </div>
 
           {/* Action CTAs */}
-          <div className="flex flex-wrap items-center gap-3 pt-2">
+          <div
+            className="flex flex-wrap items-center gap-3 pt-2"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <Link
               href={slide.href}
               className="inline-flex items-center gap-2 rounded-xl bg-alina-600 px-6 py-3.5 text-sm font-bold text-white shadow-md shadow-alina-600/25 transition-all hover:bg-alina-700 hover:scale-[1.02] active:scale-[0.98]"
@@ -287,13 +296,17 @@ export function HeroSlider() {
           </div>
 
           {/* Slider Controls */}
-          <div className="flex items-center gap-4 pt-4">
+          <div
+            className="flex items-center gap-4 pt-4"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => move(-1)}
                 aria-label="Promoción anterior"
-                className="flex size-9 items-center justify-center rounded-full border border-slate-300 bg-white/90 text-slate-700 transition-all hover:border-alina-400 hover:text-alina-700 hover:scale-105 shadow-2xs"
+                className="flex size-9 items-center justify-center rounded-full border border-slate-300 bg-white/90 text-slate-700 transition-all hover:border-alina-400 hover:text-alina-700 hover:scale-105 shadow-2xs cursor-pointer"
               >
                 <ChevronLeft className="size-4" aria-hidden="true" />
               </button>
@@ -301,13 +314,13 @@ export function HeroSlider() {
                 type="button"
                 onClick={() => move(1)}
                 aria-label="Siguiente promoción"
-                className="flex size-9 items-center justify-center rounded-full border border-slate-300 bg-white/90 text-slate-700 transition-all hover:border-alina-400 hover:text-alina-700 hover:scale-105 shadow-2xs"
+                className="flex size-9 items-center justify-center rounded-full border border-slate-300 bg-white/90 text-slate-700 transition-all hover:border-alina-400 hover:text-alina-700 hover:scale-105 shadow-2xs cursor-pointer"
               >
                 <ChevronRight className="size-4" aria-hidden="true" />
               </button>
             </div>
 
-            {/* Slide indicators */}
+            {/* Slide indicators con barra de progreso de tiempo */}
             <div className="flex items-center gap-2" role="tablist" aria-label="Líneas de producto">
               {slides.map((item, index) => (
                 <button
@@ -318,12 +331,22 @@ export function HeroSlider() {
                   aria-label={`Ver diapositiva ${index + 1}: ${item.eyebrow}`}
                   onClick={() => setActiveSlide(index)}
                   className={cn(
-                    "h-2 rounded-full transition-all duration-300",
+                    "relative h-2 rounded-full overflow-hidden transition-all duration-300 cursor-pointer",
                     activeSlide === index
-                      ? "w-8 bg-alina-600 shadow-xs"
-                      : "w-2 bg-slate-300 hover:bg-slate-400"
+                      ? "w-10 bg-alina-200"
+                      : "w-2.5 bg-slate-300 hover:bg-slate-400"
                   )}
-                />
+                >
+                  {activeSlide === index && !isPaused && (
+                    <span
+                      key={`progress-${activeSlide}`}
+                      className="absolute inset-0 bg-alina-600 rounded-full animate-hero-progress"
+                    />
+                  )}
+                  {activeSlide === index && isPaused && (
+                    <span className="absolute inset-0 bg-alina-600 rounded-full" />
+                  )}
+                </button>
               ))}
             </div>
 
@@ -334,7 +357,7 @@ export function HeroSlider() {
         </div>
 
         {/* Right Column: 3D Product Bouquet (Buke de Productos Reales) */}
-        <div className="lg:col-span-6 relative flex items-center justify-center">
+        <div key={`bouquet-${slide.id}`} className="lg:col-span-6 relative flex items-center justify-center animate-in fade-in duration-500">
           <div className="relative w-full max-w-lg aspect-[4/3] sm:aspect-[16/11] flex items-center justify-center p-4">
             
             {/* Ambient soft glow aura */}
