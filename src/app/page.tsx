@@ -14,7 +14,7 @@ import { CATEGORIES_DATA, PRODUCTS_DATA } from "@/lib/catalog-data";
 import { ArrowRight, BadgePercent, Store, Sparkles, Truck } from "lucide-react";
 
 export default function HomePage() {
-  const featuredProducts = PRODUCTS_DATA.slice(0, 8);
+  const featuredProducts = PRODUCTS_DATA.slice(0, 10);
 
   const categoryImages: Record<string, string> = {
     "bases-mdf": "/images/products/bases-mdf/base-mdf-blanco-wengue.png",
@@ -109,7 +109,10 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <ProductGrid products={featuredProducts} />
+            <ProductGrid
+              products={featuredProducts}
+              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4.5"
+            />
           </div>
         </section>
 
