@@ -5,47 +5,47 @@ import { ShieldCheck, Truck, CreditCard, MessageCircle, MapPin, Phone } from "lu
 
 export function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-400 mt-auto border-t border-slate-800">
+    <footer className="bg-black text-neutral-400 mt-auto border-t border-neutral-900">
       {/* Value props strip */}
-      <div className="border-b border-slate-800/80 py-8">
+      <div className="border-b border-neutral-900 py-8">
         <div className="w-[90%] min-w-[80%] max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-slate-800 text-alina-400 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 text-alina-400 flex items-center justify-center shrink-0 shadow-2xs">
               <Truck className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-white text-sm font-semibold">Envíos a Nivel Nacional</h4>
-              <p className="text-xs text-slate-400">Servientrega, Laar y Cooperativas</p>
+              <p className="text-xs text-neutral-400">Servientrega, Laar y Cooperativas</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-slate-800 text-alina-400 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 text-alina-400 flex items-center justify-center shrink-0 shadow-2xs">
               <CreditCard className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-white text-sm font-semibold">Pagos con Tarjeta</h4>
-              <p className="text-xs text-slate-400">Botón de pago seguro Payphone</p>
+              <p className="text-xs text-neutral-400">Botón de pago seguro Payphone</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-slate-800 text-alina-400 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 text-alina-400 flex items-center justify-center shrink-0 shadow-2xs">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-white text-sm font-semibold">Corte Láser MDF 3mm</h4>
-              <p className="text-xs text-slate-400">Alta precisión y grado alimenticio</p>
+              <p className="text-xs text-neutral-400">Alta precisión y grado alimenticio</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-slate-800 text-alina-400 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-neutral-900 border border-neutral-800 text-alina-400 flex items-center justify-center shrink-0 shadow-2xs">
               <MessageCircle className="w-5 h-5" />
             </div>
             <div>
               <h4 className="text-white text-sm font-semibold">Pedidos por WhatsApp</h4>
-              <p className="text-xs text-slate-400">Atención personalizada inmediata</p>
+              <p className="text-xs text-neutral-400">Atención personalizada inmediata</p>
             </div>
           </div>
         </div>
@@ -61,7 +61,7 @@ export function Footer() {
             height={70}
             className="h-14 md:h-16 w-auto object-contain brightness-200 invert mb-4"
           />
-          <p className="text-xs leading-relaxed text-slate-400 mb-4">
+          <p className="text-xs leading-relaxed text-neutral-400 mb-4">
             Alina Shop es tu aliado en insumos de repostería profesional, bases para tortas en MDF personalizadas, toppers y empaques de alta calidad.
           </p>
           <div className="flex items-center gap-2.5">
@@ -70,7 +70,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook de Alina Shop"
-              className="w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-[#1877F2] flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-[#1877F2] flex items-center justify-center transition-colors"
               title="Facebook Alina Shop"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram de Alina Shop"
-              className="w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-gradient-to-r hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-gradient-to-r hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] flex items-center justify-center transition-colors"
               title="Instagram @alinashop.ec"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -94,7 +94,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok de Alina Shop"
-              className="w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-black flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-black flex items-center justify-center transition-colors"
               title="TikTok @alinashop.ec"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -106,7 +106,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp de Alina Shop"
-              className="w-9 h-9 rounded-full bg-slate-800 text-slate-300 hover:text-white hover:bg-emerald-600 flex items-center justify-center transition-colors"
+              className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-300 hover:text-white hover:bg-emerald-600 flex items-center justify-center transition-colors"
               title="WhatsApp: 0985890956"
             >
               <MessageCircle className="w-4 h-4" />
@@ -179,7 +179,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+      <div className="border-t border-neutral-900 py-6 text-center text-xs text-neutral-500">
         © {new Date().getFullYear()} Alina Shop — Insumos de Repostería. Todos los derechos reservados.
       </div>
     </footer>

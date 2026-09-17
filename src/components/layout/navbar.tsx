@@ -22,8 +22,8 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 border-b border-slate-100 bg-white/95 backdrop-blur-md">
-      {/* Top microbar */}
-      <div className="bg-slate-900 text-slate-300 text-xs py-1.5 px-4">
+      {/* Top microbar in pure deep black */}
+      <div className="bg-black text-neutral-300 text-xs py-1.5 px-4 border-b border-neutral-900">
         <div className="w-[90%] min-w-[80%] max-w-[1720px] mx-auto flex justify-between items-center">
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1">
@@ -32,7 +32,7 @@ export function Navbar() {
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-2 pr-2 border-r border-slate-700">
+            <div className="hidden sm:flex items-center gap-2 pr-2 border-r border-neutral-800">
               <a
                 href="https://facebook.com/alinashop.ec"
                 target="_blank"
