@@ -7,7 +7,6 @@ import { ProductCustomizer } from "@/components/product/product-customizer";
 import { ProductGrid } from "@/components/catalog/product-grid";
 import { PRODUCTS_DATA } from "@/lib/catalog-data";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { ComboBanner } from "@/components/home/combo-banner";
 
@@ -41,59 +40,18 @@ export default async function ProductDetailPage({ params }: PageProps) {
           <span className="text-slate-800 font-semibold truncate max-w-xs">{product.name}</span>
         </nav>
 
-        {/* 2-Column Product Layout */}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          {/* Columna Izquierda: Galería e Información Técnica */}
-          <div className="lg:col-span-6 space-y-6">
+        {/* 3-Column Modern E-Commerce Presentation (Gallery | Info & Config & Specs | Sticky Buy Box & Trust) */}
+        <ProductCustomizer
+          product={product as any}
+          layout="three-column"
+          gallerySlot={
             <ProductGallery
               mainImage={product.mainImage}
               images={product.images}
               productName={product.name}
             />
-
-            {/* Ficha Técnica Detallada */}
-            <div className="rounded-2xl border border-slate-200/80 bg-slate-50/50 p-5">
-              <h3 className="mb-3 font-display text-sm font-bold uppercase text-slate-900">
-                Especificaciones del Producto
-              </h3>
-              <ul className="text-xs text-slate-600 space-y-2 leading-relaxed">
-                <li className="flex items-start gap-2">
-                  <span className="font-semibold text-slate-800 w-24 shrink-0">Material:</span>
-                  <span>{product.material || "MDF 3mm de alta densidad corte láser"}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="font-semibold text-slate-800 w-24 shrink-0">Código SKU:</span>
-                  <span className="font-mono text-slate-800">{product.sku}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="font-semibold text-slate-800 w-24 shrink-0">Uso:</span>
-                  <span>Pastelería profesional, soporte estructural para tortas pesadas y presentación gourmet.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="font-semibold text-slate-800 w-24 shrink-0">Grabado:</span>
-                  <span>Opción de grabado láser de logo de tu pastelería por solo +$0.20 ctv por unidad.</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Columna Derecha: Configurador Neurálgico & Precios */}
-          <div className="lg:col-span-6">
-            <div className="border-b border-slate-100 pb-4 mb-5">
-              <span className="text-xs font-bold uppercase text-alina-600">
-                Línea Pastelería Alina Shop
-              </span>
-              <h1 className="font-display font-extrabold text-2xl sm:text-3xl text-slate-900 mt-1 tracking-tight">
-                {product.name}
-              </h1>
-              <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-                {product.description}
-              </p>
-            </div>
-
-            <ProductCustomizer product={product as any} />
-          </div>
-        </div>
+          }
+        />
       </main>
 
       <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 pb-12 sm:px-6 lg:px-8">
