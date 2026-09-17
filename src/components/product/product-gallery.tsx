@@ -25,9 +25,6 @@ export function ProductGallery({ mainImage, images = [], productName }: ProductG
           className="object-contain p-4 group-hover:scale-105 transition-transform duration-300"
           priority
         />
-        <span className="absolute top-3 left-3 bg-white/90 backdrop-blur-xs text-xs font-semibold px-2.5 py-1 rounded-md text-slate-700 border border-slate-200 shadow-2xs">
-          Foto Real
-        </span>
       </div>
 
       {/* Thumbnails */}

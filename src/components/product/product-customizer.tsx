@@ -10,9 +10,8 @@ import {
   CreditCard, 
   ShoppingBag, 
   ShieldCheck, 
-  Sparkles, 
-  Layers, 
-  Sliders, 
+  Sparkles,
+  Sliders,
   Truck,
   Clock,
   PackageCheck
@@ -178,21 +177,9 @@ export function ProductCustomizer({
   if (layout === "three-column") {
     return (
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 items-start">
-        {/* COLUMNA 1: Galería de Fotos e Insignias de Calidad (4 cols) */}
-        <div className="lg:col-span-4 xl:col-span-4 lg:sticky lg:top-24 space-y-4">
+        {/* COLUMNA 1: Galería de Fotos (4 cols) */}
+        <div className="lg:col-span-4 xl:col-span-4 lg:sticky lg:top-24">
           {gallerySlot}
-
-          {/* Sellos de Taller y Calidad */}
-          <div className="grid grid-cols-2 gap-2.5 pt-1 text-[11px] font-semibold text-slate-700">
-            <div className="flex items-center gap-2 rounded-xl border border-slate-200/90 bg-slate-50/80 p-2.5 shadow-2xs">
-              <Sparkles className="size-4 text-amber-500 shrink-0" />
-              <span>Corte Láser MDF 3mm</span>
-            </div>
-            <div className="flex items-center gap-2 rounded-xl border border-slate-200/90 bg-slate-50/80 p-2.5 shadow-2xs">
-              <Layers className="size-4 text-alina-600 shrink-0" />
-              <span>Acabado sin Rebabas</span>
-            </div>
-          </div>
         </div>
 
         {/* COLUMNA 2: Información, Configurador y Especificaciones Técnicas (5 cols) */}
@@ -203,8 +190,6 @@ export function ProductCustomizer({
               <span className="text-xs font-bold uppercase tracking-wider text-alina-600">
                 Línea Pastelería Alina Shop
               </span>
-              <span className="text-slate-300">•</span>
-              <span className="font-mono text-xs text-slate-400 font-semibold">{product.sku}</span>
             </div>
             <h1 className="mt-1.5 font-display text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight leading-tight">
               {product.name}
@@ -526,7 +511,7 @@ export function ProductCustomizer({
                 className="w-full bg-slate-900 hover:bg-slate-800 text-white font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all text-xs hover:scale-[1.01] active:scale-[0.99] shadow-sm"
               >
                 <CreditCard className="size-4 shrink-0" />
-                <span>Pagar con Tarjeta (Directo)</span>
+                <span>Pagar con Tarjeta</span>
               </button>
 
               {/* Botón Carrito */}
@@ -540,38 +525,26 @@ export function ProductCustomizer({
               </button>
             </div>
 
-            {/* Icon-Text de Beneficios y Envíos */}
-            <div className="border-t border-slate-100 pt-4 space-y-3 text-xs text-slate-600">
-              <div className="flex items-start gap-2.5">
-                <Truck className="size-4 text-alina-600 shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold text-slate-800 leading-tight">Envíos a todo el Ecuador</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Servientrega y LaarCourier asegurado a domicilio o agencia.</p>
-                </div>
+            {/* Beneficios y Envíos */}
+            <div className="border-t border-slate-100 pt-3.5 space-y-2 text-xs">
+              <div className="flex items-center gap-2.5">
+                <Truck className="size-4 text-emerald-600 shrink-0" />
+                <span className="font-semibold text-slate-800">Envíos a todo el Ecuador</span>
               </div>
 
-              <div className="flex items-start gap-2.5">
-                <Clock className="size-4 text-amber-600 shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold text-slate-800 leading-tight">Despacho Rápido 24-48h</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Fabricación y corte láser continuo en taller Alina Shop.</p>
-                </div>
+              <div className="flex items-center gap-2.5">
+                <Clock className="size-4 text-emerald-600 shrink-0" />
+                <span className="font-semibold text-slate-800">Despacho Rápido 24-48h</span>
               </div>
 
-              <div className="flex items-start gap-2.5">
-                <PackageCheck className="size-4 text-emerald-600 shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold text-slate-800 leading-tight">Empaque Reforzado Antichoque</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Protección especial de esquinas para repostería fina.</p>
-                </div>
+              <div className="flex items-center gap-2.5">
+                <PackageCheck className="size-4 text-emerald-600 shrink-0" />
+                <span className="font-semibold text-slate-800">Empaque Reforzado Antichoque</span>
               </div>
 
-              <div className="flex items-start gap-2.5">
-                <ShieldCheck className="size-4 text-blue-600 shrink-0 mt-0.5" />
-                <div>
-                  <p className="font-bold text-slate-800 leading-tight">Garantía Alina Shop</p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">Reposición inmediata o compra 100% protegida.</p>
-                </div>
+              <div className="flex items-center gap-2.5">
+                <ShieldCheck className="size-4 text-emerald-600 shrink-0" />
+                <span className="font-semibold text-slate-800">Garantía Alina Shop</span>
               </div>
             </div>
 
@@ -858,7 +831,7 @@ export function ProductCustomizer({
             className="bg-slate-900 hover:bg-slate-800 text-white font-display font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all text-xs"
           >
             <CreditCard className="w-4 h-4" />
-            <span>Pagar con Tarjeta (Directo)</span>
+            <span>Pagar con Tarjeta</span>
           </button>
 
           <button
