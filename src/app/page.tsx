@@ -39,7 +39,7 @@ export default function HomePage() {
         <section className="border-b border-slate-100 bg-white">
           <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6 lg:px-8">
             {[
-              [CakeSlice, "Tienda Virtual Especializada", "Catálogo completo con fotos reales de Alina Shop"],
+              [CakeSlice, "Tienda Virtual Especializada", "Tienda completa con fotos y especificaciones de Alina Shop"],
               [PackageCheck, "Envíos a todo el Ecuador", "Despachos asegurados por Servientrega y Laar"],
               [BadgePercent, "Precios por Docena y Mayor", "Descuentos por volumen calculados automáticamente"],
             ].map(([Icon, title, copy]) => (
@@ -62,7 +62,7 @@ export default function HomePage() {
               <h2 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 mt-0.5">Explora Nuestras Categorías</h2>
             </div>
             <Link href="/catalogo" className="text-xs sm:text-sm font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1.5 transition-colors">
-              <span>Ver catálogo completo</span> <ArrowRight className="w-4 h-4" />
+              <span>Ver toda la tienda</span> <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
 

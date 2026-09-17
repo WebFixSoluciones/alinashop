@@ -98,7 +98,7 @@ export default async function CatalogoPage({ searchParams }: CatalogoPageProps) 
               href="/catalogo"
               className="inline-block mt-4 bg-slate-900 text-white text-xs font-semibold px-4 py-2 rounded-lg"
             >
-              Ver Todo el Catálogo
+              Ver Toda la Tienda
             </Link>
           </div>
         )}

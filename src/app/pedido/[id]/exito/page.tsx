@@ -71,7 +71,7 @@ export default async function OrderSuccessPage({ params, searchParams }: PagePro
             href="/catalogo"
             className="block text-xs font-semibold text-slate-500 hover:text-slate-800 pt-2"
           >
-            Seguir comprando en el catálogo
+            Seguir comprando en la tienda
           </Link>
         </div>
 

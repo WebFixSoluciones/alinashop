@@ -8,7 +8,8 @@ import {
   Truck,
   CheckCircle2,
   Lock,
-  Save
+  Save,
+  Share2
 } from "lucide-react";
 
 export default function AdminSettingsPage() {
@@ -19,6 +20,11 @@ export default function AdminSettingsPage() {
     whatsappSecondary: "593979431238",
     whatsappActive: "593985890956",
     whatsappTemplate: "¡Hola Alina Shop! Deseo realizar este pedido: *{orderNumber}* por un valor de *{total}*.",
+
+    // Redes Sociales Oficiales
+    facebookUrl: "https://facebook.com/alinashop.ec",
+    instagramUrl: "https://instagram.com/alinashop.ec",
+    tiktokUrl: "https://tiktok.com/@alinashop.ec",
 
     // Payphone
     payphoneAppId: "live_app_alina_shop",
@@ -128,7 +134,61 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
-        {/* Bloque 2: Pasarela de Pagos Payphone */}
+        {/* Bloque 2: Redes Sociales Oficiales */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs space-y-4">
+          <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
+            <Share2 className="w-4 h-4 text-blue-600" />
+            <h2 className="font-display font-bold text-sm text-slate-900">
+              Redes Sociales Oficiales (Facebook, Instagram, TikTok)
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Página de Facebook
+              </label>
+              <input
+                type="text"
+                value={settings.facebookUrl}
+                onChange={(e) => setSettings({ ...settings, facebookUrl: e.target.value })}
+                placeholder="https://facebook.com/alinashop.ec"
+                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 font-mono focus:outline-none focus:border-alina-600"
+              />
+              <span className="text-[11px] text-slate-400">Por defecto: https://facebook.com/alinashop.ec</span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Cuenta de Instagram
+              </label>
+              <input
+                type="text"
+                value={settings.instagramUrl}
+                onChange={(e) => setSettings({ ...settings, instagramUrl: e.target.value })}
+                placeholder="https://instagram.com/alinashop.ec"
+                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 font-mono focus:outline-none focus:border-alina-600"
+              />
+              <span className="text-[11px] text-slate-400">Por defecto: https://instagram.com/alinashop.ec</span>
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Cuenta de TikTok
+              </label>
+              <input
+                type="text"
+                value={settings.tiktokUrl}
+                onChange={(e) => setSettings({ ...settings, tiktokUrl: e.target.value })}
+                placeholder="https://tiktok.com/@alinashop.ec"
+                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 font-mono focus:outline-none focus:border-alina-600"
+              />
+              <span className="text-[11px] text-slate-400">Por defecto: https://tiktok.com/@alinashop.ec</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Bloque 3: Pasarela de Pagos Payphone */}
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs space-y-4">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
             <CreditCard className="w-4 h-4 text-alina-600" />
@@ -188,7 +248,7 @@ export default function AdminSettingsPage() {
           </div>
         </div>
 
-        {/* Bloque 3: Tarifas de Envío */}
+        {/* Bloque 4: Tarifas de Envío */}
         <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs space-y-4">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
             <Truck className="w-4 h-4 text-slate-700" />

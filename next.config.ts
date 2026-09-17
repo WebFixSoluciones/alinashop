@@ -39,6 +39,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/tienda",
+        destination: "/catalogo",
+      },
+      {
+        source: "/tienda/:path*",
+        destination: "/catalogo/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

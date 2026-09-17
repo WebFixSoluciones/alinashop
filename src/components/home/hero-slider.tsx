@@ -69,7 +69,7 @@ export function HeroSlider() {
               <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
             <Link href="/catalogo" className="rounded-xl border border-slate-300 bg-white/70 px-5 py-3.5 text-sm font-bold text-slate-800 transition-colors hover:border-alina-300 hover:text-alina-700">
-              Ver todo el catálogo
+              Ver toda la tienda
             </Link>
           </div>
           <div className="mt-8 flex items-center gap-3">

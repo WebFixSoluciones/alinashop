@@ -263,7 +263,7 @@ export function ProductCustomizer({ product, whatsappNumber = "593985890956" }: 
                   : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              Medidas de Catálogo
+              Medidas de Tienda
             </button>
             <button
               type="button"

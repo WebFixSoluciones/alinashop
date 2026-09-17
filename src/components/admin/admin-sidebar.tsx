@@ -21,7 +21,7 @@ export function AdminSidebar() {
   const navItems = [
     { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
     { label: "Pedidos y Envíos", href: "/admin/pedidos", icon: ShoppingBag },
-    { label: "Catálogo de Productos", href: "/admin/productos", icon: Package },
+    { label: "Productos de la Tienda", href: "/admin/productos", icon: Package },
     { label: "Analítica WhatsApp", href: "/admin/analitica", icon: TrendingUp },
     { label: "Ajustes de Tienda", href: "/admin/ajustes", icon: Settings },
   ];

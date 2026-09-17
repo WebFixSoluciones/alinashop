@@ -52,13 +52,13 @@ export function CartDrawer() {
                   Tu carrito está vacío
                 </h3>
                 <p className="text-slate-500 text-sm max-w-xs mb-6">
-                  Explora nuestro catálogo de bases MDF, toppers y cajas para empezar a comprar.
+                  Explora nuestra tienda de bases MDF, toppers y cajas para empezar a comprar.
                 </p>
                 <button
                   onClick={() => setIsCartOpen(false)}
                   className="bg-slate-900 text-white font-medium text-sm px-5 py-2.5 rounded-lg hover:bg-slate-800 transition-colors"
                 >
-                  Ver Catálogo
+                  Ir a la Tienda
                 </button>
               </div>
             ) : (

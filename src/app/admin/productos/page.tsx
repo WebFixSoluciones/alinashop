@@ -69,7 +69,7 @@ export default function AdminProductsPage() {
       <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-5">
         <div>
           <h1 className="font-display font-extrabold text-2xl text-slate-900 tracking-tight">
-            Catálogo de Productos & Precios
+            Productos de la Tienda & Precios
           </h1>
           <p className="text-xs text-slate-500 mt-1">
             Modifica especificaciones, variantes de medidas, precios de docena/mayor y sube fotos a Vercel Blob
@@ -117,7 +117,7 @@ export default function AdminProductsPage() {
           />
         </div>
         <div className="text-xs text-slate-500 font-medium">
-          {products.length} productos registrados en catálogo
+          {products.length} productos registrados en la tienda
         </div>
       </div>
 
