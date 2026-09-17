@@ -8,7 +8,8 @@ import { ProductGrid } from "@/components/catalog/product-grid";
 import { PRODUCTS_DATA } from "@/lib/catalog-data";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, ChevronRight, Gift } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
+import { ComboBanner } from "@/components/home/combo-banner";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -96,32 +97,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
       </main>
 
       <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 pb-12 sm:px-6 lg:px-8">
-        <div className="alina-bokeh relative overflow-hidden rounded-[2rem] border border-alina-200 bg-[#fff2f7] p-5 sm:p-7 lg:p-8">
-          <div className="relative z-10 grid items-center gap-6 lg:grid-cols-[1fr_auto]">
-            <div className="max-w-xl">
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3 py-1 text-xs font-bold uppercase text-alina-700">
-                <Gift className="size-3.5" aria-hidden="true" />
-                Completa tu pedido
-              </div>
-              <h2 className="mt-3 text-balance font-display text-2xl font-extrabold text-slate-950 sm:text-3xl">Un bouquet de detalles para que tu torta llegue completa.</h2>
-              <p className="mt-2 text-pretty text-sm leading-relaxed text-slate-600">Combina esta pieza con toppers, cajas y complementos reales de la tienda virtual Alina Shop.</p>
-              <Link href="/catalogo" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-alina-700 hover:text-alina-900">
-                Ver ideas para combinar <ArrowRight className="size-4" aria-hidden="true" />
-              </Link>
-            </div>
-            <div className="flex items-end justify-center gap-2 sm:gap-4">
-              {[
-                ["/images/products/toppers/topper-acrilico-espejo-dorado.png", "Toppers"],
-                ["/images/products/cajas/caja-acetato-tapa-transparente.png", "Cajas"],
-                ["/images/products/complementos/set-boquillas-grandes-manga-pack10.png", "Complementos"],
-              ].map(([image, alt], index) => (
-                <div key={image} className={`relative overflow-hidden rounded-2xl border-4 border-white bg-white shadow-lg ${index === 1 ? "-translate-y-3" : ""}`}>
-                  <Image src={image} alt={alt} width={150} height={150} sizes="150px" className="size-24 object-cover sm:size-32" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <ComboBanner />
       </section>
 
       {relatedProducts.length > 0 && (
