@@ -4,30 +4,39 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { formatCurrency } from "@/lib/utils";
-import { useCart } from "@/context/cart-context";
-import { Eye, ArrowUpRight, MessageCircle } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 interface ProductGridProps {
   products: any[];
 }
 
 export function ProductGrid({ products }: ProductGridProps) {
-  const { setQuickViewProduct } = useCart();
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {products.map((product) => {
-        const lowestDozen = product.variants?.length
-          ? Math.min(...product.variants.map((v: any) => Number(v.dozenPrice)))
-          : 0.16;
-        const lowestWholesale = product.variants?.length
-          ? Math.min(...product.variants.map((v: any) => Number(v.wholesalePrice)))
-          : 0.14;
+        const validUnitPrices = product.variants?.length
+          ? product.variants
+              .map((v: any) => Number(v.unitPrice ?? v.price))
+              .filter((p: number) => !isNaN(p) && p > 0)
+          : [];
+        const lowestUnit = validUnitPrices.length > 0
+          ? Math.min(...validUnitPrices)
+          : (Number(product.price) || 0.20);
+
+        const validWholesalePrices = product.variants?.length
+          ? product.variants
+              .map((v: any) => Number(v.wholesalePrice))
+              .filter((p: number) => !isNaN(p) && p > 0)
+          : [];
+        const lowestWholesale = validWholesalePrices.length > 0
+          ? Math.min(...validWholesalePrices)
+          : (Number(product.wholesalePrice) || Number((lowestUnit * 0.75).toFixed(2)));
 
         return (
-          <div
+          <Link
             key={product.id || product.slug}
-            className="group bg-white border border-slate-200/80 hover:border-alina-300 rounded-2xl overflow-hidden transition-all duration-200 hover:shadow-lg flex flex-col"
+            href={`/producto/${product.slug}`}
+            className="group bg-white border border-slate-200/90 hover:border-alina-400 rounded-2xl overflow-hidden transition-all duration-200 hover:shadow-lg flex flex-col cursor-pointer"
           >
             {/* Image Container with Actions */}
             <div className="aspect-square bg-slate-50 relative overflow-hidden flex items-center justify-center p-6">
@@ -36,72 +45,72 @@ export function ProductGrid({ products }: ProductGridProps) {
                 alt={product.name}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                className="object-contain p-3 transition-transform duration-300 ease-out group-hover:scale-115"
+                className="object-contain p-3 transition-transform duration-300 ease-out group-hover:scale-110"
               />
 
               {product.hasLogoOption && (
-                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-alina-700 text-xs font-bold px-2.5 py-1 rounded-lg border border-alina-300 shadow-sm flex items-center gap-1.5">
+                <span className="absolute top-3 left-3 bg-white/95 backdrop-blur-xs text-alina-700 text-[11px] font-bold px-2 py-0.5 rounded-md border border-alina-200 shadow-xs flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-alina-600 animate-pulse" />
                   + Grabado de Logo
                 </span>
               )}
 
-              {/* Hover Quick Action Buttons */}
-              <div className="absolute inset-x-3 bottom-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                <button
-                  type="button"
-                  onClick={() => setQuickViewProduct(product)}
-                  className="flex-1 bg-white/95 hover:bg-white text-slate-800 text-xs font-semibold py-2 px-3 rounded-lg shadow-sm flex items-center justify-center gap-1.5 transition-colors border border-slate-200"
-                >
-                  <Eye className="w-3.5 h-3.5" />
-                  <span>Vista Rápida</span>
-                </button>
-
-                <Link
-                  href={`/producto/${product.slug}`}
-                  className="bg-slate-900 hover:bg-slate-800 text-white p-2 rounded-lg shadow-sm flex items-center justify-center transition-colors"
-                  aria-label={`Ver ${product.name}`}
-                  title="Ver producto"
-                >
-                  <ArrowUpRight className="w-4 h-4" />
-                </Link>
+              {/* Hover Action: Ver producto en la esquina derecha */}
+              <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-y-1 group-hover:translate-y-0">
+                <span className="inline-flex items-center gap-1.5 bg-slate-900/90 text-white text-xs font-medium px-3 py-1.5 rounded-lg shadow-md backdrop-blur-xs">
+                  <span>Ver producto</span>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-slate-300" />
+                </span>
               </div>
             </div>
 
             {/* Content info */}
             <div className="p-4 flex-1 flex flex-col justify-between">
               <div>
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                  {product.material || "Insumos Pastelería"}
-                </span>
-                <h3 className="font-display font-medium text-slate-800 text-sm mt-0.5 line-clamp-1 group-hover:text-alina-600 transition-colors">
-                  <Link href={`/producto/${product.slug}`}>
-                    {product.name}
-                  </Link>
+                <h3 className="font-display font-medium text-slate-800 text-sm line-clamp-2 min-h-[2.5rem] group-hover:text-alina-600 transition-colors leading-snug">
+                  {product.name}
                 </h3>
-                <p className="text-xs text-slate-500 mt-1 line-clamp-2 leading-relaxed">
-                  {product.description}
-                </p>
               </div>
 
-              {/* Pricing breakdown */}
-              <div className="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
-                <div>
-                  <div className="text-[11px] text-slate-400 font-medium">Por docena desde:</div>
-                  <div className="font-display font-semibold text-base text-slate-900">
-                    {formatCurrency(lowestDozen)} <span className="text-xs font-normal text-slate-500">c/u</span>
+              {/* Pricing breakdown: Precio por unidad vs Precio al por mayor */}
+              <div className="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 items-stretch">
+                {/* Columna 1: Por Unidad */}
+                <div className="flex flex-col justify-between">
+                  <span className="text-[11px] font-semibold text-slate-500 block leading-tight">
+                    Por Unidad
+                  </span>
+                  <div className="mt-1">
+                    <span className="font-display font-bold text-base text-slate-900 tracking-tight">
+                      {formatCurrency(lowestUnit)}
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-normal ml-0.5">c/u</span>
                   </div>
+                  <span className="text-[10px] text-slate-400 block mt-0.5">
+                    Desde PVP
+                  </span>
                 </div>
-                <div className="text-right">
-                  <span className="text-[11px] text-emerald-700 font-semibold bg-emerald-50 px-2 py-0.5 rounded">
-                    Mayor: {formatCurrency(lowestWholesale)}
+
+                {/* Columna 2: Al por Mayor con divisor */}
+                <div className="border-l border-slate-200 pl-3 flex flex-col justify-between">
+                  <span className="text-[11px] font-semibold text-emerald-700 block leading-tight">
+                    Al por Mayor
+                  </span>
+                  <div className="mt-1">
+                    <span className="font-display font-bold text-base text-emerald-700 tracking-tight">
+                      {formatCurrency(lowestWholesale)}
+                    </span>
+                    <span className="text-[10px] text-emerald-600/70 font-normal ml-0.5">c/u</span>
+                  </div>
+                  <span className="text-[10px] text-emerald-600 font-medium block mt-0.5">
+                    Ahorro x mayor
                   </span>
                 </div>
               </div>
             </div>
-          </div>
+          </Link>
         );
       })}
     </div>
   );
 }
+
