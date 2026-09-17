@@ -4,14 +4,10 @@ import React, { useState, useMemo, useEffect, useTransition } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { 
   SlidersHorizontal, 
-  Search, 
   X, 
   RotateCcw, 
   ArrowUpDown, 
-  Sparkles,
-  Package,
-  Layers,
-  ChevronDown
+  Package
 } from "lucide-react";
 import { 
   CatalogSidebar, 
@@ -259,44 +255,17 @@ export function CatalogView({
   return (
     <div className="w-full">
       {/* HEADER PRINCIPAL DE TIENDA COMPLETA */}
-      <div className="mb-8 border-b border-slate-100 pb-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-alina-50 border border-alina-200/80 px-3 py-1 text-xs font-bold uppercase tracking-wider text-alina-700 mb-2">
-              <Sparkles className="size-3.5 text-alina-600" />
-              <span>Tienda Virtual Completa Alina Shop</span>
-            </div>
-            <h1 className="font-display font-extrabold text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight leading-tight">
-              {currentCategory ? currentCategory.name : "Catálogo & Tienda de Insumos"}
-            </h1>
-            <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-              {currentCategory
-                ? currentCategory.description
-                : "Bases de torta en MDF personalizadas con corte láser, toppers en acrílico espejado, cajas de acetato cristal 360° y complementos para pastelerías de todo el Ecuador."}
-            </p>
-          </div>
-
-          {/* Buscador Rápido Superior */}
-          <div className="w-full md:w-80 relative shrink-0">
-            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder="Buscar bases, toppers, cajas..."
-              value={filters.busqueda || ""}
-              onChange={(e) => handleFilterChange({ busqueda: e.target.value })}
-              className="w-full rounded-xl border border-slate-200 bg-slate-50/70 pl-10 pr-9 py-2.5 text-xs sm:text-sm font-medium text-slate-900 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-alina-600 focus:ring-1 focus:ring-alina-600 transition-all shadow-2xs"
-            />
-            {filters.busqueda && (
-              <button
-                type="button"
-                onClick={() => handleFilterChange({ busqueda: "" })}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-0.5"
-                title="Borrar búsqueda"
-              >
-                <X className="size-3.5" />
-              </button>
-            )}
-          </div>
+      <div className="mb-6 border-b border-slate-200/80 pb-4">
+        <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
+          <h1 className="font-display font-bold text-lg sm:text-xl text-slate-900 tracking-tight shrink-0">
+            {currentCategory ? currentCategory.name : "Catálogo & Tienda de Insumos"}
+          </h1>
+          <span className="hidden sm:inline text-slate-300 font-normal select-none">—</span>
+          <p className="text-xs sm:text-sm text-slate-500 font-normal leading-relaxed">
+            {currentCategory
+              ? currentCategory.description
+              : "Bases de torta en MDF personalizadas con corte láser, toppers en acrílico espejado, cajas de acetato cristal 360° y complementos para pastelerías de todo el Ecuador."}
+          </p>
         </div>
       </div>
 
