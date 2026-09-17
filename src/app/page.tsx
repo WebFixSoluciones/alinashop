@@ -11,7 +11,7 @@ import { HeroSlider } from "@/components/home/hero-slider";
 import { ComboBanner } from "@/components/home/combo-banner";
 import { BottomCtaBanner } from "@/components/home/bottom-cta-banner";
 import { CATEGORIES_DATA, PRODUCTS_DATA } from "@/lib/catalog-data";
-import { ArrowRight, BadgePercent, CakeSlice, PackageCheck, Sparkles } from "lucide-react";
+import { ArrowRight, BadgePercent, Store, Sparkles, Truck } from "lucide-react";
 
 export default function HomePage() {
   const featuredProducts = PRODUCTS_DATA.slice(0, 8);
@@ -35,15 +35,16 @@ export default function HomePage() {
         {/* Hero Slider with min 80% width */}
         <HeroSlider />
 
-        {/* Value props micro-bar */}
+        {/* Value props micro-bar: 4 balanced cards */}
         <section className="border-b border-slate-100 bg-white">
-          <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 gap-4 px-4 py-6 sm:grid-cols-3 sm:px-6 lg:px-8">
+          <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 py-6 sm:px-6 lg:px-8">
             {[
-              [CakeSlice, "Tienda Virtual Especializada", "Tienda completa con fotos y especificaciones de Alina Shop"],
-              [PackageCheck, "Envíos a todo el Ecuador", "Despachos asegurados por Servientrega y Laar"],
+              [Store, "Tienda Virtual Especializada", "Insumos, bases y empaques reales de Alina Shop"],
+              [Sparkles, "Corte Láser & Personalización", "Bases con grabado de logotipo para tu pastelería"],
               [BadgePercent, "Precios por Docena y Mayor", "Descuentos por volumen calculados automáticamente"],
+              [Truck, "Envíos a todo el Ecuador", "Despachos asegurados por Servientrega y LaarCourier"],
             ].map(([Icon, title, copy]) => (
-              <div key={title as string} className="flex items-center gap-3.5 rounded-2xl bg-[#fff8fb] border border-alina-100/80 px-4 py-3.5 shadow-2xs">
+              <div key={title as string} className="flex items-center gap-3.5 rounded-2xl bg-[#fff8fb] border border-alina-100/80 px-4 py-3.5 shadow-2xs hover:border-alina-300 transition-colors">
                 <Icon className="size-6 shrink-0 text-alina-600" aria-hidden="true" />
                 <div>
                   <p className="text-sm font-bold text-slate-900">{title as string}</p>
