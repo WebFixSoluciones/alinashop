@@ -180,26 +180,25 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
       </header>
 
       <main className="w-[90%] min-w-[80%] max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          
-          {/* Columna Izquierda: Formulario de Checkout (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            <Link
-              href="/catalogo"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Volver a la tienda</span>
-            </Link>
+        <form onSubmit={handleSubmitOrder}>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+            
+            {/* Columna Izquierda: Formulario de Checkout (7 cols) */}
+            <div className="lg:col-span-7 space-y-6">
+              <Link
+                href="/catalogo"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-slate-900 transition-colors"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Volver a la tienda</span>
+              </Link>
 
-            {errorMessage && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-xs flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0" />
-                <span>{errorMessage}</span>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmitOrder} className="space-y-6">
+              {errorMessage && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
               {/* Bloque 1: Contacto */}
               <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs">
                 <h2 className="font-display font-bold text-base text-slate-900 mb-4 flex items-center justify-between">
@@ -421,6 +420,86 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
                   </label>
                 </div>
               </div>
+            </div>
+
+            {/* Columna Derecha: Resumen de Pedido + Métodos de Pago + Botón de Pago (5 cols) */}
+            <div className="lg:col-span-5 space-y-5 lg:sticky lg:top-8">
+              {/* Resumen del Pedido */}
+              <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs space-y-5">
+                <h3 className="font-display font-bold text-base text-slate-900 pb-3 border-b border-slate-100">
+                  Resumen del Pedido ({checkoutItems.length} {checkoutItems.length === 1 ? "producto" : "productos"})
+                </h3>
+
+                {/* Items List */}
+                <div className="divide-y divide-slate-100 max-h-72 overflow-y-auto pr-1">
+                  {checkoutItems.map((item) => (
+                    <div key={item.id} className="py-3 flex gap-3 items-center">
+                      <div className="relative w-14 h-14 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-center shrink-0">
+                        <Image
+                          src={item.mainImage || "/logo.jpg"}
+                          alt={item.productName}
+                          width={48}
+                          height={48}
+                          className="object-contain p-1"
+                        />
+                        <span className="absolute -top-1.5 -right-1.5 bg-slate-800 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-xs">
+                          {item.quantity}
+                        </span>
+                      </div>
+
+                      <div className="flex-1 min-w-0">
+                        <h4 className="font-semibold text-xs text-slate-900 truncate">
+                          {item.productName}
+                        </h4>
+                        <div className="text-[11px] text-slate-500">
+                          <span>{item.sizeLabel}</span>
+                          {item.shape && <span> · {item.shape}</span>}
+                          {item.withLogo && <span className="text-pink-600 font-semibold"> · +Logo</span>}
+                        </div>
+                      </div>
+
+                      <span className="font-bold text-xs text-slate-900 shrink-0">
+                        {formatCurrency(item.unitPrice * item.quantity)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Cost calculations */}
+                <div className="border-t border-slate-100 pt-4 space-y-2 text-xs">
+                  <div className="flex justify-between text-slate-600">
+                    <span>Subtotal</span>
+                    <span className="font-semibold text-slate-900">{formatCurrency(subtotal)}</span>
+                  </div>
+                  <div className="flex justify-between text-slate-600">
+                    <span>Costo de Envío</span>
+                    <span className="font-semibold text-slate-900">
+                      {shippingCost === 0 ? "Gratis" : formatCurrency(shippingCost)}
+                    </span>
+                  </div>
+                  <div className="border-t border-slate-200 pt-3 flex justify-between items-baseline">
+                    <span className="font-display font-bold text-sm text-slate-900">Total a Pagar</span>
+                    <div className="text-right">
+                      <span className="text-[10px] text-slate-400 font-medium mr-1.5">USD</span>
+                      <span className="font-display font-extrabold text-2xl text-slate-900 tracking-tight">
+                        {formatCurrency(total)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Guarantees */}
+                <div className="bg-slate-50 rounded-xl p-3.5 text-xs text-slate-600 space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <span className="font-medium">Compra protegida directamente por Alina Shop</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Truck className="w-4 h-4 text-alina-600" />
+                    <span className="font-medium">Guía de rastreo asignada inmediatamente</span>
+                  </div>
+                </div>
+              </div>
 
               {/* Bloque 4: Método de Pago */}
               <div className="bg-white border border-slate-200/90 rounded-2xl p-5 shadow-2xs">
@@ -431,7 +510,7 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
                 <div className="space-y-3">
                   {/* Opción Payphone */}
                   <label
-                    className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
+                    className={`flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition-all ${
                       formData.paymentMethod === "payphone"
                         ? "border-alina-600 bg-alina-50/40 ring-1 ring-alina-600"
                         : "border-slate-200 hover:border-slate-300"
@@ -449,21 +528,21 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs text-slate-900 flex items-center gap-1.5">
                           <CreditCard className="w-4 h-4 text-alina-600" />
-                          Tarjeta de Crédito / Débito (Payphone Ecuador)
+                          Tarjeta de Crédito / Débito (Payphone)
                         </span>
                         <span className="bg-emerald-50 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded border border-emerald-200">
                           Cobro Inmediato
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-500 mt-1">
-                        Paga seguro con Visa o Mastercard de cualquier banco nacional o internacional a través de la pasarela certificada Payphone.
+                        Paga seguro con Visa o Mastercard a través de la pasarela certificada Payphone Ecuador.
                       </p>
                     </div>
                   </label>
 
                   {/* Opción WhatsApp / Transferencia */}
                   <label
-                    className={`flex items-start gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
+                    className={`flex items-start gap-3 p-3.5 rounded-xl border cursor-pointer transition-all ${
                       formData.paymentMethod === "whatsapp"
                         ? "border-alina-600 bg-alina-50/40 ring-1 ring-alina-600"
                         : "border-slate-200 hover:border-slate-300"
@@ -481,25 +560,25 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-xs text-slate-900 flex items-center gap-1.5">
                           <MessageCircle className="w-4 h-4 text-emerald-600" />
-                          Pedido por WhatsApp (Transferencia o Depósito)
+                          Pedido por WhatsApp (Transferencia)
                         </span>
                         <span className="bg-slate-100 text-slate-700 text-[10px] font-bold px-2 py-0.5 rounded">
                           Atención Personal
                         </span>
                       </div>
                       <p className="text-[11px] text-slate-500 mt-1">
-                        Tu pedido queda registrado en el sistema y se envía el detalle a WhatsApp para que nos envíes tu comprobante bancario.
+                        Tu pedido queda registrado en el sistema y se envía el detalle a WhatsApp para coordinar tu pago.
                       </p>
                     </div>
                   </label>
                 </div>
               </div>
 
-              {/* Action Button */}
+              {/* Botón de Pagar */}
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-slate-900 hover:bg-slate-800 text-white font-display font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl text-base disabled:opacity-50"
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white font-display font-bold py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-xl text-base disabled:opacity-50 cursor-pointer"
               >
                 {isSubmitting ? (
                   <span>Procesando Pedido...</span>
@@ -509,89 +588,9 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
                   <span>Confirmar Pedido por WhatsApp · {formatCurrency(total)}</span>
                 )}
               </button>
-            </form>
-          </div>
-
-          {/* Columna Derecha: Resumen de Pedido Shopify Style (5 cols) */}
-          <div className="lg:col-span-5">
-            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-2xs sticky top-24 space-y-5">
-              <h3 className="font-display font-bold text-base text-slate-900 pb-3 border-b border-slate-100">
-                Resumen del Pedido ({checkoutItems.length} {checkoutItems.length === 1 ? "producto" : "productos"})
-              </h3>
-
-              {/* Items List */}
-              <div className="divide-y divide-slate-100 max-h-80 overflow-y-auto pr-1">
-                {checkoutItems.map((item) => (
-                  <div key={item.id} className="py-3 flex gap-3 items-center">
-                    <div className="relative w-14 h-14 bg-slate-50 rounded-lg border border-slate-200 flex items-center justify-center shrink-0">
-                      <Image
-                        src={item.mainImage || "/logo.jpg"}
-                        alt={item.productName}
-                        width={48}
-                        height={48}
-                        className="object-contain p-1"
-                      />
-                      <span className="absolute -top-1.5 -right-1.5 bg-slate-800 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-xs">
-                        {item.quantity}
-                      </span>
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-xs text-slate-900 truncate">
-                        {item.productName}
-                      </h4>
-                      <div className="text-[11px] text-slate-500">
-                        <span>{item.sizeLabel}</span>
-                        {item.shape && <span> · {item.shape}</span>}
-                        {item.withLogo && <span className="text-pink-600 font-semibold"> · +Logo</span>}
-                      </div>
-                    </div>
-
-                    <span className="font-bold text-xs text-slate-900 shrink-0">
-                      {formatCurrency(item.unitPrice * item.quantity)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Cost calculations */}
-              <div className="border-t border-slate-100 pt-4 space-y-2 text-xs">
-                <div className="flex justify-between text-slate-600">
-                  <span>Subtotal</span>
-                  <span className="font-semibold text-slate-900">{formatCurrency(subtotal)}</span>
-                </div>
-                <div className="flex justify-between text-slate-600">
-                  <span>Costo de Envío</span>
-                  <span className="font-semibold text-slate-900">
-                    {shippingCost === 0 ? "Gratis" : formatCurrency(shippingCost)}
-                  </span>
-                </div>
-                <div className="border-t border-slate-200 pt-3 flex justify-between items-baseline">
-                  <span className="font-display font-bold text-sm text-slate-900">Total a Pagar</span>
-                  <div className="text-right">
-                    <span className="text-[10px] text-slate-400 font-medium mr-1.5">USD</span>
-                    <span className="font-display font-extrabold text-2xl text-slate-900 tracking-tight">
-                      {formatCurrency(total)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Guarantees */}
-              <div className="bg-slate-50 rounded-xl p-3.5 text-xs text-slate-600 space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span className="font-medium">Compra protegida directamente por Alina Shop</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-alina-600" />
-                  <span className="font-medium">Guía de rastreo asignada inmediatamente</span>
-                </div>
-              </div>
             </div>
           </div>
-
-        </div>
+        </form>
       </main>
     </div>
   );
