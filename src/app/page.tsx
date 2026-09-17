@@ -67,34 +67,25 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
+          <div className="flex md:grid md:grid-cols-8 gap-3 sm:gap-3.5 lg:gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-none snap-x">
             {CATEGORIES_DATA.map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/catalogo?categoria=${cat.slug}`}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/80 bg-white transition-all hover:border-alina-300 hover:shadow-xl"
+                className="group shrink-0 w-[116px] sm:w-[130px] md:w-auto flex flex-col items-center text-center p-3 rounded-2xl border border-slate-200/80 bg-white hover:border-alina-300 hover:shadow-md transition-all duration-200 snap-start"
               >
-                <div className="relative aspect-[4/3] bg-slate-50/80 overflow-hidden">
+                <div className="relative aspect-square w-full rounded-xl bg-slate-50/80 overflow-hidden flex items-center justify-center">
                   <Image
                     src={categoryImages[cat.slug]}
                     alt={cat.name}
                     fill
-                    sizes="(max-width: 768px) 50vw, 25vw"
-                    className="object-contain p-3 transition-transform duration-300 group-hover:scale-110"
+                    sizes="(max-width: 768px) 25vw, 12.5vw"
+                    className="object-contain p-2.5 transition-transform duration-300 ease-out group-hover:scale-110"
                   />
                 </div>
-                <div className="p-4 sm:p-5">
-                  <h3 className="text-pretty font-display text-sm sm:text-base font-semibold text-slate-900 transition-colors group-hover:text-alina-600">
-                    {cat.name}
-                  </h3>
-                  <p className="mt-1 line-clamp-2 text-xs text-slate-500">
-                    {cat.description}
-                  </p>
-                  <div className="mt-4 flex items-center gap-1.5 text-xs font-bold text-slate-700 group-hover:text-alina-600">
-                    <span>Ver productos</span>
-                    <ArrowRight className="size-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
-                  </div>
-                </div>
+                <h3 className="mt-2.5 font-display font-medium text-xs sm:text-[13px] text-slate-800 group-hover:text-alina-600 transition-colors leading-tight line-clamp-2">
+                  {cat.name}
+                </h3>
               </Link>
             ))}
           </div>
