@@ -71,10 +71,10 @@ export function ProductGrid({ products }: ProductGridProps) {
             {/* Content info */}
             <div className="p-4 flex-1 flex flex-col justify-between">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                   {product.material || "Insumos Pastelería"}
                 </span>
-                <h3 className="font-display font-semibold text-slate-900 text-sm mt-0.5 line-clamp-1 group-hover:text-alina-600 transition-colors">
+                <h3 className="font-display font-medium text-slate-800 text-sm mt-0.5 line-clamp-1 group-hover:text-alina-600 transition-colors">
                   <Link href={`/producto/${product.slug}`}>
                     {product.name}
                   </Link>
@@ -88,7 +88,7 @@ export function ProductGrid({ products }: ProductGridProps) {
               <div className="mt-4 pt-3 border-t border-slate-100 flex items-baseline justify-between">
                 <div>
                   <div className="text-[11px] text-slate-400 font-medium">Por docena desde:</div>
-                  <div className="font-display font-bold text-base text-slate-900">
+                  <div className="font-display font-semibold text-base text-slate-900">
                     {formatCurrency(lowestDozen)} <span className="text-xs font-normal text-slate-500">c/u</span>
                   </div>
                 </div>

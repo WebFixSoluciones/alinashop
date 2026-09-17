@@ -21,7 +21,7 @@ export function BottomCtaBanner() {
               <span>Tienda Virtual Oficial · Alina Shop Ecuador</span>
             </div>
 
-            <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight text-balance">
+            <h2 className="font-display font-bold text-3xl sm:text-4xl lg:text-5xl leading-tight tracking-tight text-balance">
               Tu pastelería merece presentaciones que <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-300">vendan solas</span>.
             </h2>
 

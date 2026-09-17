@@ -60,7 +60,7 @@ export default function HomePage() {
           <div className="mb-8 flex items-end justify-between gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-alina-600">Líneas de la Tienda</span>
-              <h2 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 mt-0.5">Explora Nuestras Categorías</h2>
+              <h2 className="font-display font-semibold text-2xl sm:text-3xl text-slate-900 mt-0.5">Explora Nuestras Categorías</h2>
             </div>
             <Link href="/catalogo" className="text-xs sm:text-sm font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1.5 transition-colors">
               <span>Ver toda la tienda</span> <ArrowRight className="w-4 h-4" />
@@ -84,7 +84,7 @@ export default function HomePage() {
                   />
                 </div>
                 <div className="p-4 sm:p-5">
-                  <h3 className="text-pretty font-display text-sm sm:text-base font-bold text-slate-900 transition-colors group-hover:text-alina-600">
+                  <h3 className="text-pretty font-display text-sm sm:text-base font-semibold text-slate-900 transition-colors group-hover:text-alina-600">
                     {cat.name}
                   </h3>
                   <p className="mt-1 line-clamp-2 text-xs text-slate-500">
@@ -111,7 +111,7 @@ export default function HomePage() {
             <div className="mb-8 flex items-end justify-between gap-4">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider text-alina-600">Lo Más Vendido</span>
-                <h2 className="font-display font-bold text-2xl sm:text-3xl text-slate-900 mt-0.5">Productos Destacados en Tienda</h2>
+                <h2 className="font-display font-semibold text-2xl sm:text-3xl text-slate-900 mt-0.5">Productos Destacados en Tienda</h2>
               </div>
               <Link href="/catalogo" className="text-xs sm:text-sm font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1.5 transition-colors">
                 <span>Ver toda la tienda</span> <ArrowRight className="w-4 h-4" />

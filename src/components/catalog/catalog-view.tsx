@@ -257,7 +257,7 @@ export function CatalogView({
       {/* HEADER PRINCIPAL DE TIENDA COMPLETA */}
       <div className="mb-6 border-b border-slate-200/80 pb-4">
         <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-          <h1 className="font-display font-bold text-lg sm:text-xl text-slate-900 tracking-tight shrink-0">
+          <h1 className="font-display font-semibold text-lg sm:text-xl text-slate-900 tracking-tight shrink-0">
             {currentCategory ? currentCategory.name : "Catálogo & Tienda de Insumos"}
           </h1>
           <span className="hidden sm:inline text-slate-300 font-normal select-none">—</span>

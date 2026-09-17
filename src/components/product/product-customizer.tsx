@@ -206,7 +206,7 @@ export function ProductCustomizer({
               <span className="text-slate-300">•</span>
               <span className="font-mono text-xs text-slate-400 font-semibold">{product.sku}</span>
             </div>
-            <h1 className="mt-1.5 font-display text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h1 className="mt-1.5 font-display text-2xl sm:text-3xl font-semibold text-slate-900 tracking-tight leading-tight">
               {product.name}
             </h1>
             <p className="mt-2 text-sm leading-relaxed text-slate-600">
@@ -427,7 +427,7 @@ export function ProductCustomizer({
                 Precio por Unidad
               </span>
               <div className="flex items-baseline gap-2">
-                <span className="font-display font-extrabold text-3xl text-slate-950 tracking-tight">
+                <span className="font-display font-bold text-3xl text-slate-950 tracking-tight">
                   {formatCurrency(pricing.effectiveUnitPrice)}
                 </span>
                 <span className="text-xs font-medium text-slate-500">/ und</span>
@@ -590,7 +590,7 @@ export function ProductCustomizer({
       <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-4 flex flex-wrap items-baseline justify-between gap-2">
         <div>
           <div className="flex items-baseline gap-2">
-            <span className="font-display font-extrabold text-3xl text-slate-900 tracking-tight">
+            <span className="font-display font-bold text-3xl text-slate-900 tracking-tight">
               {formatCurrency(pricing.effectiveUnitPrice)}
             </span>
             <span className="text-slate-500 text-xs font-medium">/ unidad</span>

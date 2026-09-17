@@ -245,7 +245,7 @@ export function HeroSlider() {
 
           {/* Heading */}
           <div aria-live="polite">
-            <h1 className="max-w-xl text-balance font-display text-4xl font-extrabold leading-[1.12] text-slate-950 sm:text-5xl lg:text-6xl tracking-tight">
+            <h1 className="max-w-xl text-balance font-display text-4xl font-bold leading-[1.12] text-slate-950 sm:text-5xl lg:text-6xl tracking-tight">
               {slide.title}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-alina-600 via-rose-600 to-amber-600">
                 {slide.highlight}
@@ -421,7 +421,7 @@ export function HeroSlider() {
 
               {/* Bottom Details */}
               <div className="mt-3">
-                <h3 className="font-display text-sm sm:text-base font-bold text-slate-900 leading-tight">
+                <h3 className="font-display text-sm sm:text-base font-semibold text-slate-900 leading-tight">
                   {slide.heroProduct.title}
                 </h3>
                 <p className="text-[11px] text-slate-500 mt-1 font-medium">

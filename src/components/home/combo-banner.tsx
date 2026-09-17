@@ -22,7 +22,7 @@ export function ComboBanner() {
               <span>Kit de Presentación Completa</span>
             </div>
 
-            <h2 className="text-balance font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 leading-[1.16] tracking-tight">
+            <h2 className="text-balance font-display text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-950 leading-[1.16] tracking-tight">
               Un bouquet de detalles para que tu torta llegue{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-alina-600 via-pink-600 to-rose-600">
                 completa y lista para vender

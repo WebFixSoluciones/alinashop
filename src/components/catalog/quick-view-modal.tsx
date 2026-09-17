@@ -36,7 +36,7 @@ export function QuickViewModal() {
               <span className="text-[11px] font-bold uppercase tracking-wider text-alina-600">
                 Vista Rápida
               </span>
-              <h3 className="font-display font-bold text-xl text-slate-900 mt-0.5">
+              <h3 className="font-display font-semibold text-xl text-slate-900 mt-0.5">
                 {quickViewProduct.name}
               </h3>
               <p className="text-xs text-slate-500 mt-1 line-clamp-2">

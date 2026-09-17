@@ -113,7 +113,7 @@ export function CatalogSidebar({
       <div className="flex items-center justify-between pb-3 border-b border-slate-200">
         <div className="flex items-center gap-2">
           <Filter className="size-4 text-alina-600" />
-          <h2 className="font-display font-bold text-sm uppercase tracking-wider text-slate-900">
+          <h2 className="font-display font-semibold text-sm uppercase tracking-wider text-slate-900">
             Filtros de Tienda
           </h2>
           {activeFiltersCount > 0 && (
@@ -316,7 +316,7 @@ export function CatalogSidebar({
             <span>Venta Mayorista</span>
           </div>
 
-          <h3 className="mt-2 font-display text-sm font-extrabold text-slate-900 leading-snug">
+          <h3 className="mt-2 font-display text-sm font-semibold text-slate-900 leading-snug">
             ¿Tienes pastelería o taller y compras por volumen?
           </h3>
 

@@ -64,7 +64,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <div className="mb-7 flex items-end justify-between gap-4">
               <div>
                 <p className="text-xs font-bold uppercase text-alina-600">También te puede gustar</p>
-                <h2 className="mt-1 text-balance font-display text-2xl font-bold text-slate-950">Más de esta categoría</h2>
+                <h2 className="mt-1 text-balance font-display text-2xl font-semibold text-slate-950">Más de esta categoría</h2>
               </div>
               <Link href={`/catalogo?categoria=${product.categorySlug}`} className="hidden items-center gap-1 text-sm font-bold text-alina-700 sm:flex">
                 Ver categoría <ArrowRight className="size-4" aria-hidden="true" />
