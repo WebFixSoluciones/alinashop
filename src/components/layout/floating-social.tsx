@@ -2,12 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Phone, X } from "lucide-react";
-
+import { Phone } from "lucide-react";
 export function FloatingSocial() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
-  const [tooltipOpen, setTooltipOpen] = useState(true);
 
   useEffect(() => {
     setMounted(true);
@@ -125,35 +123,6 @@ export function FloatingSocial() {
         aria-label="Atención por WhatsApp"
         className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3 pointer-events-auto"
       >
-        {/* Floating Welcome Message Card */}
-        {tooltipOpen && (
-          <div className="relative flex items-center gap-3 bg-white/95 backdrop-blur-md border border-alina-200 shadow-xl rounded-2xl p-3.5 pr-8 max-w-xs animate-in fade-in slide-in-from-bottom-2 duration-300">
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setTooltipOpen(false);
-              }}
-              className="absolute top-2 right-2 text-slate-400 hover:text-slate-600 p-0.5 rounded-full transition-colors"
-              title="Cerrar"
-              aria-label="Cerrar mensaje"
-            >
-              <X className="size-3.5" />
-            </button>
-            <div className="size-9 rounded-full bg-emerald-500/10 flex items-center justify-center shrink-0">
-              <svg className="size-5 text-emerald-600" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.072-2.182-.544-1.745-.722-2.883-2.493-2.97-2.609-.087-.116-.708-.942-.708-1.796 0-.855.449-1.277.608-1.45.16-.174.348-.217.464-.217.116 0 .232.001.333.006.107.005.25.04.391.378.145.348.493 1.202.536 1.29.043.087.072.188.014.304-.058.116-.087.188-.174.289l-.261.304c-.087.101-.179.209-.077.384.101.174.45 0.742.966 1.202.664.591 1.224.774 1.398.861.174.087.275.072.377-.044.101-.116.435-.506.551-.68.116-.174.232-.145.391-.087.16.058 1.014.478 1.188.565.174.087.29.13.333.203.044.072.044.42-.1.825z" />
-              </svg>
-            </div>
-            <div className="text-xs">
-              <p className="font-bold text-slate-900">¿Asesoría o pedidos?</p>
-              <p className="text-slate-500 text-[11px] leading-tight">
-                Escríbenos directamente a WhatsApp.
-              </p>
-            </div>
-          </div>
-        )}
-
         {/* Primary WhatsApp Floating Button */}
         <button
           type="button"
@@ -169,11 +138,6 @@ export function FloatingSocial() {
             <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.072-2.182-.544-1.745-.722-2.883-2.493-2.97-2.609-.087-.116-.708-.942-.708-1.796 0-.855.449-1.277.608-1.45.16-.174.348-.217.464-.217.116 0 .232.001.333.006.107.005.25.04.391.378.145.348.493 1.202.536 1.29.043.087.072.188.014.304-.058.116-.087.188-.174.289l-.261.304c-.087.101-.179.209-.077.384.101.174.45 0.742.966 1.202.664.591 1.224.774 1.398.861.174.087.275.072.377-.044.101-.116.435-.506.551-.68.116-.174.232-.145.391-.087.16.058 1.014.478 1.188.565.174.087.29.13.333.203.044.072.044.42-.1.825z" />
             <path d="M12 2C6.477 2 2 6.477 2 12c0 1.891.524 3.662 1.435 5.178L2 22l4.981-1.398A9.957 9.957 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm.031 16.666c-1.353 0-2.628-.396-3.714-1.077l-.266-.164-2.766.726.738-2.695-.18-.287A7.625 7.625 0 014.375 12c0-4.223 3.435-7.658 7.656-7.658 4.22 0 7.655 3.435 7.656 7.658 0 4.223-3.435 7.666-7.656 7.666z" />
           </svg>
-
-          {/* Active online notification badge */}
-          <span className="absolute top-1 right-1 size-3.5 bg-rose-500 border-2 border-white rounded-full flex items-center justify-center text-[9px] font-bold">
-            1
-          </span>
         </button>
       </aside>
     </>
