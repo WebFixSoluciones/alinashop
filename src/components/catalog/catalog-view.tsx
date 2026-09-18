@@ -300,11 +300,11 @@ export function CatalogView({
         </div>
       </div>
 
-      {/* LAYOUT PRINCIPAL: BARRA LATERAL (COLUMNA IZQUIERDA) + PRODUCTOS (COLUMNA DERECHA) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* BARRA LATERAL EN ESCRITORIO (3 COLS) */}
-        <div className="hidden lg:block lg:col-span-3 xl:col-span-3 lg:sticky lg:top-24">
-          <div className="rounded-2xl border border-slate-200/90 bg-white p-5 shadow-sm">
+      {/* LAYOUT PRINCIPAL: BARRA LATERAL (COLUMNA IZQUIERDA COMPACTA) + PRODUCTOS (COLUMNA DERECHA) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 xl:gap-8 items-start">
+        {/* BARRA LATERAL EN ESCRITORIO (REDUCIDA: 2-3 COLS) */}
+        <div className="hidden lg:block lg:col-span-3 xl:col-span-2 2xl:col-span-2 lg:sticky lg:top-24">
+          <div className="rounded-2xl border border-slate-200/90 bg-white p-3.5 sm:p-4 shadow-sm">
             <CatalogSidebar
               filters={filters}
               onFilterChange={handleFilterChange}
@@ -316,8 +316,8 @@ export function CatalogView({
           </div>
         </div>
 
-        {/* ZONA DE PRODUCTOS Y CONTROLES (9 COLS) */}
-        <div className="lg:col-span-9 xl:col-span-9 space-y-6">
+        {/* COLUMNA DERECHA: BARRA SUPERIOR DE RESULTADOS + PRODUCTOS (AMPLIADA: 9-10 COLS) */}
+        <div className="lg:col-span-9 xl:col-span-10 2xl:col-span-10 space-y-6">
           {/* Barra Superior de Control de la Cuadrícula */}
           <div className="flex flex-wrap items-center justify-between gap-4 p-3.5 rounded-2xl border border-slate-200/80 bg-slate-50/60">
             <div className="text-xs font-semibold text-slate-600">

@@ -12,6 +12,7 @@ import {
   PackageCheck
 } from "lucide-react";
 import { CATEGORIES_DATA } from "@/lib/catalog-data";
+import { cn } from "@/lib/utils";
 
 export interface FilterState {
   categoria?: string;
@@ -108,16 +109,16 @@ export function CatalogSidebar({
     : [];
 
   return (
-    <aside className={`space-y-6 ${className}`}>
-      {/* Header del Sidebar */}
-      <div className="flex items-center justify-between pb-3 border-b border-slate-200">
+    <aside className={cn("space-y-4", className)}>
+      {/* Encabezado del panel de filtros */}
+      <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
         <div className="flex items-center gap-2">
-          <Filter className="size-4 text-alina-600" />
-          <h2 className="font-display font-semibold text-sm uppercase tracking-wider text-slate-900">
+          <Filter className="size-3.5 text-alina-600" />
+          <h2 className="font-display font-bold text-xs uppercase tracking-wider text-slate-900">
             Filtros de Tienda
           </h2>
           {activeFiltersCount > 0 && (
-            <span className="flex size-5 items-center justify-center rounded-full bg-alina-600 text-[10px] font-bold text-white">
+            <span className="flex size-4 items-center justify-center rounded-full bg-alina-600 text-[9px] font-bold text-white">
               {activeFiltersCount}
             </span>
           )}
@@ -128,7 +129,7 @@ export function CatalogSidebar({
             <button
               type="button"
               onClick={onResetFilters}
-              className="inline-flex items-center gap-1 text-xs font-semibold text-slate-500 hover:text-alina-600 transition-colors"
+              className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-alina-600 transition-colors"
               title="Limpiar todos los filtros"
             >
               <RotateCcw className="size-3" />
@@ -140,34 +141,34 @@ export function CatalogSidebar({
             <button
               type="button"
               onClick={onCloseMobile}
-              className="lg:hidden p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg"
+              className="lg:hidden p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg"
               aria-label="Cerrar filtros"
             >
-              <X className="size-5" />
+              <X className="size-4" />
             </button>
           )}
         </div>
       </div>
 
       {/* SECCIÓN 1: CATEGORÍAS PRINCIPALES */}
-      <div className="space-y-2">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+      <div className="space-y-1.5">
+        <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
           Categorías
         </label>
 
-        <div className="space-y-1 text-xs">
+        <div className="space-y-0.5 text-xs">
           {/* Todas las categorías */}
           <button
             type="button"
             onClick={() => onFilterChange({ categoria: undefined, subcategoria: undefined })}
-            className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-all font-semibold ${
+            className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg transition-all font-semibold ${
               !filters.categoria
                 ? "bg-slate-900 text-white shadow-xs"
                 : "text-slate-700 hover:bg-slate-100"
             }`}
           >
             <span>Todas las Categorías</span>
-            <span className={`text-[11px] px-2 py-0.5 rounded-full ${
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
               !filters.categoria ? "bg-white/20 text-white" : "bg-slate-200/70 text-slate-600"
             }`}>
               {totalProductsCount}
@@ -180,7 +181,7 @@ export function CatalogSidebar({
             const count = categoryCounts[cat.slug] || 0;
 
             return (
-              <div key={cat.slug} className="space-y-1">
+              <div key={cat.slug} className="space-y-0.5">
                 <button
                   type="button"
                   onClick={() =>
@@ -189,14 +190,14 @@ export function CatalogSidebar({
                       subcategoria: undefined,
                     })
                   }
-                  className={`w-full flex items-center justify-between px-3 py-2 rounded-xl transition-all font-semibold text-left ${
+                  className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg transition-all font-semibold text-left ${
                     isSelected
                       ? "bg-alina-600 text-white shadow-xs"
                       : "text-slate-700 hover:bg-slate-100"
                   }`}
                 >
-                  <span className="truncate pr-2">{cat.name}</span>
-                  <span className={`text-[11px] px-2 py-0.5 rounded-full shrink-0 ${
+                  <span className="truncate pr-1.5 text-xs">{cat.name}</span>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full shrink-0 ${
                     isSelected ? "bg-white/20 text-white" : "bg-slate-100 text-slate-500"
                   }`}>
                     {count}
@@ -205,8 +206,8 @@ export function CatalogSidebar({
 
                 {/* Subcategorías anidadas si la categoría está seleccionada */}
                 {isSelected && currentCategorySubcategories.length > 0 && (
-                  <div className="pl-3 pr-1 py-1 space-y-1 border-l-2 border-alina-200 ml-3">
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-alina-700 px-2 pt-1">
+                  <div className="pl-2.5 pr-1 py-0.5 space-y-0.5 border-l-2 border-alina-200 ml-2">
+                    <p className="text-[9px] font-bold uppercase tracking-wider text-alina-700 px-1.5 pt-0.5">
                       Subcategorías:
                     </p>
                     {currentCategorySubcategories.map((sub) => {
@@ -220,7 +221,7 @@ export function CatalogSidebar({
                               subcategoria: isSubSelected ? undefined : sub.id,
                             })
                           }
-                          className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs transition-colors ${
+                          className={`w-full flex items-center justify-between px-2 py-1 rounded-md text-[11px] transition-colors ${
                             isSubSelected
                               ? "bg-alina-100 text-alina-900 font-bold"
                               : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
@@ -243,17 +244,17 @@ export function CatalogSidebar({
       </div>
 
       {/* SECCIÓN 2: FILTRO POR RANGO DE PRECIO */}
-      <div className="space-y-2 pt-3 border-t border-slate-100">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+      <div className="space-y-1.5 pt-2.5 border-t border-slate-100">
+        <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
           Rango de Precio
         </label>
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           {PRICE_RANGES.map((tier) => {
             const isSelected = (filters.precioRango || "all") === tier.id;
             return (
               <label
                 key={tier.id}
-                className={`flex items-start gap-2.5 px-3 py-2 rounded-xl cursor-pointer text-xs transition-colors ${
+                className={`flex items-start gap-2 px-2.5 py-1.5 rounded-lg cursor-pointer text-xs transition-colors ${
                   isSelected
                     ? "bg-alina-50/70 border border-alina-200 text-alina-900 font-bold"
                     : "hover:bg-slate-50 text-slate-700"
@@ -281,29 +282,29 @@ export function CatalogSidebar({
       </div>
 
       {/* SECCIÓN 3: ATRIBUTOS & SERVICIOS */}
-      <div className="space-y-2 pt-3 border-t border-slate-100">
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+      <div className="space-y-1.5 pt-2.5 border-t border-slate-100">
+        <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
           Personalización & Taller
         </label>
-        <div className="space-y-2 text-xs">
-          <label className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-slate-50 text-slate-700">
+        <div className="space-y-1 text-xs">
+          <label className="flex items-center gap-2 px-2 py-1 rounded-md cursor-pointer hover:bg-slate-50 text-slate-700">
             <input
               type="checkbox"
               checked={Boolean(filters.conLogo)}
               onChange={(e) => onFilterChange({ conLogo: e.target.checked || undefined })}
               className="size-3.5 rounded border-slate-300 text-alina-600 focus:ring-alina-500"
             />
-            <span>Con opción de grabado de logo</span>
+            <span className="text-[11px]">Con grabado de logo</span>
           </label>
 
-          <label className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg cursor-pointer hover:bg-slate-50 text-slate-700">
+          <label className="flex items-center gap-2 px-2 py-1 rounded-md cursor-pointer hover:bg-slate-50 text-slate-700">
             <input
               type="checkbox"
               checked={Boolean(filters.aMedida)}
               onChange={(e) => onFilterChange({ aMedida: e.target.checked || undefined })}
               className="size-3.5 rounded border-slate-300 text-alina-600 focus:ring-alina-500"
             />
-            <span>Fabricación a medida disponible</span>
+            <span className="text-[11px]">Fabricación a medida</span>
           </label>
         </div>
       </div>
