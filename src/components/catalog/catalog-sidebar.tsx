@@ -2,7 +2,6 @@
 
 import React from "react";
 import { 
-  Filter, 
   Sparkles, 
   ChevronRight, 
   Check, 
@@ -110,51 +109,45 @@ export function CatalogSidebar({
 
   return (
     <aside className={cn("space-y-4", className)}>
-      {/* Encabezado del panel de filtros */}
-      <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
-        <div className="flex items-center gap-2">
-          <Filter className="size-3.5 text-alina-600" />
-          <h2 className="font-display font-bold text-xs uppercase tracking-wider text-slate-900">
-            Filtros de Tienda
-          </h2>
-          {activeFiltersCount > 0 && (
-            <span className="flex size-4 items-center justify-center rounded-full bg-alina-600 text-[9px] font-bold text-white">
-              {activeFiltersCount}
-            </span>
-          )}
-        </div>
-
-        <div className="flex items-center gap-2">
-          {activeFiltersCount > 0 && (
-            <button
-              type="button"
-              onClick={onResetFilters}
-              className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-alina-600 transition-colors"
-              title="Limpiar todos los filtros"
-            >
-              <RotateCcw className="size-3" />
-              <span>Limpiar</span>
-            </button>
-          )}
-
-          {onCloseMobile && (
-            <button
-              type="button"
-              onClick={onCloseMobile}
-              className="lg:hidden p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg"
-              aria-label="Cerrar filtros"
-            >
-              <X className="size-4" />
-            </button>
-          )}
-        </div>
-      </div>
-
       {/* SECCIÓN 1: CATEGORÍAS PRINCIPALES */}
       <div className="space-y-1.5">
-        <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-600">
-          Categorías
-        </label>
+        <div className="flex items-center justify-between pb-1">
+          <div className="flex items-center gap-2">
+            <label className="block text-[11px] font-bold uppercase tracking-wider text-slate-700">
+              Categorías
+            </label>
+            {activeFiltersCount > 0 && (
+              <span className="flex size-4 items-center justify-center rounded-full bg-alina-600 text-[9px] font-bold text-white">
+                {activeFiltersCount}
+              </span>
+            )}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {activeFiltersCount > 0 && (
+              <button
+                type="button"
+                onClick={onResetFilters}
+                className="inline-flex items-center gap-1 text-[11px] font-semibold text-slate-500 hover:text-alina-600 transition-colors"
+                title="Limpiar todos los filtros"
+              >
+                <RotateCcw className="size-3" />
+                <span>Limpiar</span>
+              </button>
+            )}
+
+            {onCloseMobile && (
+              <button
+                type="button"
+                onClick={onCloseMobile}
+                className="lg:hidden p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg"
+                aria-label="Cerrar filtros"
+              >
+                <X className="size-4" />
+              </button>
+            )}
+          </div>
+        </div>
 
         <div className="space-y-0.5 text-xs">
           {/* Todas las categorías */}
