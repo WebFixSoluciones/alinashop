@@ -194,8 +194,24 @@ const slides: SlideData[] = [
 
 export function HeroSlider() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [activeThumb, setActiveThumb] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const slide = slides[activeSlide];
+
+  // Reset thumbnail selection when slide changes
+  useEffect(() => {
+    setActiveThumb(null);
+  }, [activeSlide]);
+
+  const currentSatellite = activeThumb !== null ? slide.satellites[activeThumb] : null;
+  const displayItem = currentSatellite
+    ? {
+        image: currentSatellite.image,
+        title: currentSatellite.title,
+        spec: currentSatellite.tag,
+        badge: currentSatellite.tag,
+      }
+    : slide.heroProduct;
 
   // Auto-play timer: 5 segundos continuos automáticos
   useEffect(() => {
@@ -361,100 +377,97 @@ export function HeroSlider() {
           </div>
         </div>
 
-        {/* Right Column: 3D Product Bouquet (Buke de Productos Reales) */}
-        <div key={`bouquet-${slide.id}`} className="lg:col-span-6 relative flex items-center justify-center animate-in fade-in duration-500">
-          <div className="relative w-full max-w-lg aspect-[4/3] sm:aspect-[16/11] flex items-center justify-center p-4">
+        {/* Right Column: Vitrina de Producto Destacado + Galería de Modelos (Sin solapamientos) */}
+        <div
+          key={`showcase-${slide.id}`}
+          className="lg:col-span-6 relative flex items-center justify-center animate-in fade-in duration-500 w-full"
+        >
+          {/* Ambient soft glow aura */}
+          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-alina-400/20 via-pink-300/15 to-amber-200/20 blur-3xl pointer-events-none" />
+
+          {/* Unified Clean Showcase Card */}
+          <div className="relative z-10 w-full max-w-md sm:max-w-lg rounded-3xl border border-white/90 bg-white/95 p-4 sm:p-6 shadow-2xl shadow-pink-500/5 backdrop-blur-md transition-all duration-300">
             
-            {/* Ambient soft glow aura */}
-            <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-alina-400/20 via-pink-300/20 to-amber-200/20 blur-2xl pointer-events-none" />
-
-            {/* Satellite 1: Top-Left floating card */}
-            <div className="absolute -top-1 left-0 sm:left-2 z-20 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-lg p-2.5 flex items-center gap-3 transition-transform duration-300 hover:scale-105 group animate-in fade-in slide-in-from-top-2">
-              <div className="relative size-12 sm:size-14 rounded-xl bg-slate-50 border border-slate-100 overflow-hidden shrink-0 flex items-center justify-center p-1">
-                <Image
-                  src={slide.satellites[0].image}
-                  alt={slide.satellites[0].title}
-                  width={56}
-                  height={56}
-                  className="object-contain size-full transition-transform group-hover:scale-110"
-                />
+            {/* Header: Badge & Category Indicator */}
+            <div className="flex items-center justify-between gap-2 mb-3">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-alina-50 border border-alina-200/80 px-3 py-1 text-[11px] font-bold text-alina-700 shadow-2xs">
+                <Sparkles className="size-3 text-alina-500" />
+                <span>{displayItem.badge}</span>
               </div>
-              <div className="pr-1">
-                <span className="text-[10px] font-bold text-alina-600 uppercase tracking-wider block">
-                  {slide.satellites[0].tag}
-                </span>
-                <p className="text-xs font-bold text-slate-900 leading-tight">
-                  {slide.satellites[0].title}
-                </p>
-              </div>
-            </div>
-
-            {/* Satellite 2: Bottom-Right floating card */}
-            <div className="absolute -bottom-1 right-0 sm:right-2 z-20 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/80 shadow-lg p-2.5 flex items-center gap-3 transition-transform duration-300 hover:scale-105 group animate-in fade-in slide-in-from-bottom-2">
-              <div className="relative size-12 sm:size-14 rounded-xl bg-slate-50 border border-slate-100 overflow-hidden shrink-0 flex items-center justify-center p-1">
-                <Image
-                  src={slide.satellites[1].image}
-                  alt={slide.satellites[1].title}
-                  width={56}
-                  height={56}
-                  className="object-contain size-full transition-transform group-hover:scale-110"
-                />
-              </div>
-              <div className="pr-1">
-                <span className="text-[10px] font-bold text-alina-600 uppercase tracking-wider block">
-                  {slide.satellites[1].tag}
-                </span>
-                <p className="text-xs font-bold text-slate-900 leading-tight">
-                  {slide.satellites[1].title}
-                </p>
-              </div>
-            </div>
-
-            {/* Satellite 3: Bottom-Left compact badge (Desktop only) */}
-            <div className="absolute bottom-6 -left-3 sm:-left-4 z-10 hidden sm:flex bg-white/90 backdrop-blur-md rounded-xl border border-slate-200/80 shadow-md p-2 items-center gap-2 transition-transform duration-300 hover:scale-105">
-              <div className="relative size-9 rounded-lg bg-slate-50 border border-slate-100 overflow-hidden shrink-0 flex items-center justify-center p-0.5">
-                <Image
-                  src={slide.satellites[2].image}
-                  alt={slide.satellites[2].title}
-                  width={36}
-                  height={36}
-                  className="object-contain size-full"
-                />
-              </div>
-              <span className="text-[11px] font-semibold text-slate-700 pr-1">
-                {slide.satellites[2].title}
+              <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400">
+                Línea {slide.eyebrow}
               </span>
             </div>
 
-            {/* Central Hero Product Card of the Bouquet */}
-            <div className="relative z-10 w-64 sm:w-72 md:w-80 rounded-[2rem] border-4 border-white bg-white/95 p-5 shadow-2xl backdrop-blur-md text-center transition-all duration-300 hover:scale-[1.03]">
-              
-              {/* Top pill badge */}
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-alina-50 border border-alina-200/80 px-3 py-1 text-[11px] font-bold text-alina-700 shadow-2xs mb-3">
-                <Sparkles className="size-3 text-alina-500" />
-                <span>{slide.heroProduct.badge}</span>
+            {/* Central Large Product Image Stage */}
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50/80 to-white/60 flex items-center justify-center p-4 border border-slate-100/90 group">
+              <Image
+                src={displayItem.image}
+                alt={displayItem.title}
+                fill
+                sizes="(max-width: 768px) 90vw, 480px"
+                className="object-contain p-2 filter drop-shadow-md transition-transform duration-500 group-hover:scale-105"
+                priority={activeSlide === 0}
+              />
+            </div>
+
+            {/* Product Title & Spec */}
+            <div className="mt-3.5 px-1">
+              <h3 className="font-display text-base sm:text-lg font-bold text-slate-900 leading-tight">
+                {displayItem.title}
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5 font-medium">
+                {displayItem.spec}
+              </p>
+            </div>
+
+            {/* Dock de Modelos y Variantes (3 Columnas simétricas, 0 solapamiento) */}
+            <div className="mt-4 pt-3.5 border-t border-slate-100">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                  Modelos de la colección
+                </span>
+                <span className="text-[10px] text-alina-600 font-semibold">
+                  Toca para previsualizar
+                </span>
               </div>
 
-              {/* Central High-Res Product Image */}
-              <div className="relative aspect-square w-full max-h-52 sm:max-h-60 overflow-hidden rounded-2xl bg-slate-50/80 flex items-center justify-center p-3 border border-slate-100">
-                <Image
-                  src={slide.heroProduct.image}
-                  alt={slide.heroProduct.title}
-                  fill
-                  sizes="(max-width: 768px) 70vw, 350px"
-                  className="object-contain p-2 filter drop-shadow-md transition-transform duration-500 hover:scale-110"
-                  priority={activeSlide === 0}
-                />
-              </div>
-
-              {/* Bottom Details */}
-              <div className="mt-3">
-                <h3 className="font-display text-sm sm:text-base font-semibold text-slate-900 leading-tight">
-                  {slide.heroProduct.title}
-                </h3>
-                <p className="text-[11px] text-slate-500 mt-1 font-medium">
-                  {slide.heroProduct.spec}
-                </p>
+              <div className="grid grid-cols-3 gap-2">
+                {slide.satellites.map((sat, idx) => {
+                  const isSelected = activeThumb === idx;
+                  return (
+                    <button
+                      key={sat.title}
+                      type="button"
+                      onMouseEnter={() => setActiveThumb(idx)}
+                      onClick={() => setActiveThumb(activeThumb === idx ? null : idx)}
+                      className={cn(
+                        "flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl border text-left transition-all duration-200 cursor-pointer",
+                        isSelected
+                          ? "bg-alina-50/90 border-alina-300 ring-1 ring-alina-400 shadow-xs"
+                          : "bg-slate-50/70 border-slate-200/80 hover:bg-white hover:border-alina-200 hover:shadow-xs"
+                      )}
+                    >
+                      <div className="relative size-8 sm:size-10 rounded-lg bg-white border border-slate-100 overflow-hidden shrink-0 flex items-center justify-center p-0.5">
+                        <Image
+                          src={sat.image}
+                          alt={sat.title}
+                          width={40}
+                          height={40}
+                          className="object-contain size-full"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1 pr-0.5">
+                        <span className="text-[9px] font-bold text-alina-600 uppercase tracking-tight block truncate">
+                          {sat.tag}
+                        </span>
+                        <p className="text-[10px] sm:text-[11px] font-semibold text-slate-800 leading-tight truncate">
+                          {sat.title}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
