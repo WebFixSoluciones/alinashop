@@ -12,6 +12,7 @@ import { ComboBanner } from "@/components/home/combo-banner";
 import { BottomCtaBanner } from "@/components/home/bottom-cta-banner";
 import { CATEGORIES_DATA, PRODUCTS_DATA } from "@/lib/catalog-data";
 import { ArrowRight, BadgePercent, Store, Sparkles, Truck } from "lucide-react";
+import { HomePromotionModal } from "@/components/home/home-promotion-modal";
 
 export default function HomePage() {
   const featuredProducts = PRODUCTS_DATA.slice(0, 10);
@@ -123,6 +124,7 @@ export default function HomePage() {
       </main>
 
       <QuickViewModal />
+      <HomePromotionModal />
       <Footer />
     </div>
   );

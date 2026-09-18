@@ -2,6 +2,10 @@ import { NextResponse } from "next/server";
 import { clearAdminSession } from "@/lib/auth";
 
 export async function POST() {
-  await clearAdminSession();
-  return NextResponse.json({ success: true });
+  try {
+    await clearAdminSession();
+    return NextResponse.json({ success: true });
+  } catch (err: any) {
+    return NextResponse.json({ success: false, message: err.message }, { status: 500 });
+  }
 }

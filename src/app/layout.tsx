@@ -4,6 +4,7 @@ import "./globals.css";
 import { CartProvider } from "@/context/cart-context";
 import { CartDrawer } from "@/components/cart/cart-drawer";
 import { FloatingSocial } from "@/components/layout/floating-social";
+import { CookieConsent } from "@/components/common/cookie-consent";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,6 +39,7 @@ export default function RootLayout({
           {children}
           <CartDrawer />
           <FloatingSocial />
+          <CookieConsent />
         </CartProvider>
       </body>
     </html>
