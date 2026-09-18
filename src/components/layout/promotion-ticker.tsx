@@ -32,15 +32,58 @@ const DEFAULT_MESSAGES: NavbarPromotionItem[] = [
   },
 ];
 
-export function PromotionTicker() {
-  const [messages, setMessages] = useState<NavbarPromotionItem[]>(DEFAULT_MESSAGES);
-  const [enabled, setEnabled] = useState(true);
-  const [intervalSec, setIntervalSec] = useState(4);
+interface PromotionTickerProps {
+  customMessages?: NavbarPromotionItem[];
+  customInterval?: number;
+  customEnabled?: boolean;
+}
+
+export function PromotionTicker({
+  customMessages,
+  customInterval,
+  customEnabled,
+}: PromotionTickerProps = {}) {
+  const isControlled = customMessages !== undefined;
+  const [messages, setMessages] = useState<NavbarPromotionItem[]>(customMessages || DEFAULT_MESSAGES);
+  const [enabled, setEnabled] = useState(customEnabled ?? true);
+  const [intervalSec, setIntervalSec] = useState(customInterval ?? 4);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Si se pasan props controladas (ej. vista previa en admin)
   useEffect(() => {
-    fetch("/api/admin/promotions")
+    if (isControlled) {
+      if (customMessages) setMessages(customMessages);
+      if (customEnabled !== undefined) setEnabled(customEnabled);
+      if (customInterval !== undefined) setIntervalSec(customInterval);
+    }
+  }, [isControlled, customMessages, customInterval, customEnabled]);
+
+  // Si no está controlado, sincronizar con localStorage y API
+  useEffect(() => {
+    if (isControlled) return;
+
+    // 1. Carga inmediata desde almacenamiento local
+    try {
+      const cached = localStorage.getItem("alina_promotions_config");
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed?.ticker) {
+          if (parsed.ticker.messages?.length > 0) {
+            setMessages(parsed.ticker.messages);
+          }
+          if (parsed.ticker.enabled !== undefined) {
+            setEnabled(parsed.ticker.enabled);
+          }
+          if (parsed.ticker.intervalSeconds) {
+            setIntervalSec(parsed.ticker.intervalSeconds);
+          }
+        }
+      }
+    } catch (e) {}
+
+    // 2. Consulta a la API en vivo
+    fetch(`/api/admin/promotions?t=${Date.now()}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.promotions?.ticker) {
@@ -51,10 +94,34 @@ export function PromotionTicker() {
           if (data.promotions.ticker.intervalSeconds) {
             setIntervalSec(data.promotions.ticker.intervalSeconds);
           }
+          try {
+            localStorage.setItem("alina_promotions_config", JSON.stringify(data.promotions));
+          } catch (e) {}
         }
       })
       .catch(() => {});
-  }, []);
+
+    // 3. Escuchar evento en vivo
+    const handleUpdate = (e: any) => {
+      const ticker = e.detail?.ticker;
+      if (ticker) {
+        if (ticker.messages?.length > 0) {
+          setMessages(ticker.messages);
+        }
+        if (ticker.enabled !== undefined) {
+          setEnabled(ticker.enabled);
+        }
+        if (ticker.intervalSeconds) {
+          setIntervalSec(ticker.intervalSeconds);
+        }
+      }
+    };
+
+    window.addEventListener("alina_promotions_updated", handleUpdate);
+    return () => {
+      window.removeEventListener("alina_promotions_updated", handleUpdate);
+    };
+  }, [isControlled]);
 
   useEffect(() => {
     if (!enabled || messages.length <= 1 || isPaused) return;

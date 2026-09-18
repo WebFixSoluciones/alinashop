@@ -1,3 +1,6 @@
+import fs from "fs";
+import path from "path";
+
 export interface PopupPromotion {
   enabled: boolean;
   badge: string;
@@ -6,6 +9,7 @@ export interface PopupPromotion {
   buttonText: string;
   buttonUrl: string;
   imageUrl?: string;
+  updatedAt?: string;
 }
 
 export interface NavbarPromotionItem {
@@ -23,9 +27,10 @@ export interface PromotionsConfig {
     intervalSeconds: number;
     messages: NavbarPromotionItem[];
   };
+  updatedAt?: string;
 }
 
-const DEFAULT_PROMOTIONS: PromotionsConfig = {
+export const DEFAULT_PROMOTIONS: PromotionsConfig = {
   popup: {
     enabled: true,
     badge: "OFERTA MAYORISTA ALINA SHOP",
@@ -35,6 +40,7 @@ const DEFAULT_PROMOTIONS: PromotionsConfig = {
     buttonText: "Ver Catálogo Completo",
     buttonUrl: "/catalogo",
     imageUrl: "/images/products/bases-mdf/base-mdf-blanco-wengue.png",
+    updatedAt: "2026-01-01T00:00:00.000Z",
   },
   ticker: {
     enabled: true,
@@ -70,20 +76,61 @@ const DEFAULT_PROMOTIONS: PromotionsConfig = {
       },
     ],
   },
+  updatedAt: "2026-01-01T00:00:00.000Z",
 };
 
-// Variable persistente en memoria durante la ejecución de Node.js
-let currentPromotions: PromotionsConfig = JSON.parse(JSON.stringify(DEFAULT_PROMOTIONS));
+const DATA_FILE = path.join(process.cwd(), "data", "promotions.json");
+
+function loadStoredPromotions(): PromotionsConfig {
+  try {
+    if (fs.existsSync(DATA_FILE)) {
+      const data = fs.readFileSync(DATA_FILE, "utf-8");
+      const parsed = JSON.parse(data);
+      if (parsed && parsed.popup && parsed.ticker) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    // Fallback a configuración inicial
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_PROMOTIONS));
+}
+
+function savePromotionsToFile(config: PromotionsConfig): void {
+  try {
+    const dir = path.dirname(DATA_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(DATA_FILE, JSON.stringify(config, null, 2), "utf-8");
+  } catch (e) {
+    // Si estamos en un entorno serverless de sólo lectura, no romper la ejecución
+  }
+}
+
+// Inicializar tienda con datos guardados o por defecto
+let currentPromotions: PromotionsConfig = loadStoredPromotions();
 
 export function getPromotionsConfig(): PromotionsConfig {
+  try {
+    if (fs.existsSync(DATA_FILE)) {
+      const data = fs.readFileSync(DATA_FILE, "utf-8");
+      currentPromotions = JSON.parse(data);
+    }
+  } catch (e) {
+    // Mantener variable en memoria
+  }
   return currentPromotions;
 }
 
 export function updatePromotionsConfig(updates: Partial<PromotionsConfig>): PromotionsConfig {
+  const timestamp = new Date().toISOString();
+
   if (updates.popup) {
     currentPromotions.popup = {
       ...currentPromotions.popup,
       ...updates.popup,
+      updatedAt: timestamp,
     };
   }
 
@@ -95,5 +142,16 @@ export function updatePromotionsConfig(updates: Partial<PromotionsConfig>): Prom
     };
   }
 
+  currentPromotions.updatedAt = timestamp;
+  savePromotionsToFile(currentPromotions);
+  return currentPromotions;
+}
+
+export function resetPromotionsConfig(): PromotionsConfig {
+  const timestamp = new Date().toISOString();
+  currentPromotions = JSON.parse(JSON.stringify(DEFAULT_PROMOTIONS));
+  currentPromotions.updatedAt = timestamp;
+  currentPromotions.popup.updatedAt = timestamp;
+  savePromotionsToFile(currentPromotions);
   return currentPromotions;
 }
