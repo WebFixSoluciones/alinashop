@@ -96,7 +96,7 @@ export function PromotionTicker() {
       className="flex items-center justify-center gap-2 text-neutral-200 text-xs py-0.5 px-2 hover:text-white transition-all cursor-pointer group"
     >
       {renderIcon(currentMsg.icon)}
-      <span className="font-medium tracking-tight truncate max-w-[280px] sm:max-w-md md:max-w-lg lg:max-w-xl transition-all duration-300">
+      <span className="font-medium tracking-tight truncate max-w-[300px] sm:max-w-lg md:max-w-2xl lg:max-w-4xl transition-all duration-300">
         {currentMsg.text}
       </span>
       {currentMsg.linkUrl && (
@@ -107,7 +107,7 @@ export function PromotionTicker() {
 
   if (currentMsg.linkUrl) {
     return (
-      <Link href={currentMsg.linkUrl} className="inline-block">
+      <Link href={currentMsg.linkUrl} className="inline-flex items-center justify-center">
         {content}
       </Link>
     );
