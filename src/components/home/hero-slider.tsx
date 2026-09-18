@@ -213,11 +213,16 @@ export function HeroSlider() {
 
   return (
     <section
-      className="relative overflow-hidden border-b border-alina-100 bg-white"
+      className="relative overflow-hidden border-b border-alina-200/80 bg-gradient-to-br from-[#fff2f7] via-[#fdedf4] to-[#fce4ee]"
       aria-label="Promociones destacadas"
     >
-      {/* Background Image Layer with crossfade between slides */}
+      {/* Background Image Layer with crossfade between slides & ambient rosy glow */}
       <div className="absolute inset-0 z-0">
+        {/* Ambient pink glow orbs with ~30% logo color opacity */}
+        <div className="absolute -top-32 -left-32 size-[500px] rounded-full bg-alina-400/25 blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 -right-32 size-[600px] -translate-y-1/2 rounded-full bg-alina-300/30 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 left-1/3 size-[400px] rounded-full bg-alina-200/40 blur-3xl pointer-events-none" />
+
         {slides.map((s, idx) => (
           <Image
             key={s.id}
@@ -228,13 +233,13 @@ export function HeroSlider() {
             sizes="100vw"
             className={cn(
               "object-cover object-right lg:object-center mix-blend-multiply transition-opacity duration-1000 pointer-events-none",
-              activeSlide === idx ? "opacity-30" : "opacity-0"
+              activeSlide === idx ? "opacity-35" : "opacity-0"
             )}
           />
         ))}
-        {/* Soft gradient masks ensuring high text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/40 lg:via-white/80 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-white/40 pointer-events-none" />
+        {/* Soft rosy gradient masks ensuring high text contrast while preserving the brand pink tint */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#fff2f7] via-[#fff2f7]/90 to-transparent lg:via-[#fff2f7]/85 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#fce4ee]/70 via-transparent to-transparent pointer-events-none" />
       </div>
 
       {/* Main Content Grid with 80% min width */}
