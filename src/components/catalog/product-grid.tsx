@@ -91,9 +91,6 @@ export function ProductGrid({ products, className }: ProductGridProps) {
                     </span>
                     <span className="text-[9px] sm:text-[10px] text-slate-400 font-normal ml-0.5">c/u</span>
                   </div>
-                  <span className="text-[9px] sm:text-[10px] text-slate-400 block mt-0.5 truncate">
-                    Desde PVP
-                  </span>
                 </div>
 
                 {/* Columna 2: Al por Mayor con divisor */}
@@ -107,9 +104,6 @@ export function ProductGrid({ products, className }: ProductGridProps) {
                     </span>
                     <span className="text-[9px] sm:text-[10px] text-emerald-600/70 font-normal ml-0.5">c/u</span>
                   </div>
-                  <span className="text-[9px] sm:text-[10px] text-emerald-600 font-medium block mt-0.5 truncate">
-                    Ahorro x mayor
-                  </span>
                 </div>
               </div>
             </div>
