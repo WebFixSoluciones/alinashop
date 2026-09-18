@@ -13,7 +13,7 @@ import {
   Menu,
   X,
   UserRound,
-  Truck,
+  MapPinned,
   LayoutGrid,
   ChevronDown,
   Boxes,
@@ -219,14 +219,14 @@ export function Navbar() {
             type="button"
             onClick={() => setMegaMenuOpen(!megaMenuOpen)}
             onMouseEnter={() => setMegaMenuOpen(true)}
-            className="inline-flex items-center gap-2 rounded-xl bg-slate-100/90 hover:bg-slate-200/80 px-3.5 py-2.5 text-xs font-bold text-slate-800 transition-all shadow-2xs hover:shadow-xs cursor-pointer group"
+            className="inline-flex items-center gap-2.5 rounded-xl bg-slate-100/90 hover:bg-slate-200/80 px-4 py-2.5 text-sm font-semibold text-slate-800 transition-all shadow-2xs hover:shadow-xs cursor-pointer group"
             aria-expanded={megaMenuOpen}
             aria-haspopup="true"
           >
-            <LayoutGrid className="size-4 text-alina-600 group-hover:rotate-90 transition-transform duration-300" />
+            <LayoutGrid className="size-4.5 text-alina-600 group-hover:rotate-90 transition-transform duration-300" />
             <span className="whitespace-nowrap">Todos nuestros productos</span>
             <ChevronDown
-              className={cn("size-3.5 text-slate-500 transition-transform duration-200", megaMenuOpen && "rotate-180")}
+              className={cn("size-4 text-slate-500 transition-transform duration-200", megaMenuOpen && "rotate-180")}
             />
           </button>
 
@@ -290,13 +290,33 @@ export function Navbar() {
           )}
         </div>
 
-        {/* 3. Buscador de productos TODO CENTRADO con sugerencias en tiempo real */}
+        {/* 3. Icon Box / Botón de Compra al por Mayor (Antes del buscador) */}
+        <a
+          href="https://wa.me/593985890956?text=Hola%20Alina%20Shop,%20deseo%20comprar%20al%20por%20mayor%20para%20mi%20pasteler%C3%ADa.%20%C2%BFMe%20pueden%20ayudar%20con%20precios%20de%20f%C3%A1brica%20y%20cat%C3%A1logo?"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden xl:inline-flex items-center gap-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100/90 border border-emerald-200/90 px-3.5 py-2 text-slate-800 transition-all shadow-2xs hover:shadow-xs group cursor-pointer shrink-0"
+          title="Compra al por mayor con descuentos de hasta el 25% y precios de fábrica"
+        >
+          <div className="size-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
+            <Boxes className="size-4.5" />
+          </div>
+          <div className="text-left leading-tight">
+            <div className="text-[13px] font-bold text-emerald-950 flex items-center gap-1.5">
+              <span>Compra por Mayor</span>
+              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            </div>
+            <div className="text-[11px] text-emerald-700 font-medium">Precios de fábrica</div>
+          </div>
+        </a>
+
+        {/* 4. Buscador de productos TODO CENTRADO con sugerencias en tiempo real */}
         <div ref={searchContainerRef} className="flex-1 max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto relative">
           <form
             onSubmit={submitSearch}
-            className="flex items-center rounded-2xl border border-slate-200 bg-slate-50/80 px-3.5 py-1.5 transition-all focus-within:border-alina-500 focus-within:bg-white focus-within:shadow-md focus-within:ring-2 focus-within:ring-alina-100"
+            className="flex items-center rounded-2xl border border-slate-200 bg-slate-50/80 px-4 py-2 transition-all focus-within:border-alina-500 focus-within:bg-white focus-within:shadow-md focus-within:ring-2 focus-within:ring-alina-100"
           >
-            <Search className="size-4 shrink-0 text-slate-400" aria-hidden="true" />
+            <Search className="size-4.5 shrink-0 text-slate-400" aria-hidden="true" />
             <input
               type="text"
               value={query}
@@ -307,7 +327,7 @@ export function Navbar() {
               onFocus={() => setIsSearchFocused(true)}
               placeholder="Buscar bases, toppers, cajas, medidas..."
               aria-label="Buscar en la tienda"
-              className="min-w-0 flex-1 bg-transparent px-2.5 py-1.5 text-xs text-slate-900 outline-none placeholder:text-slate-400 font-medium"
+              className="min-w-0 flex-1 bg-transparent px-3 py-1 text-sm text-slate-900 outline-none placeholder:text-slate-400 font-medium"
             />
             {query && (
               <button
@@ -316,7 +336,7 @@ export function Navbar() {
                 className="text-slate-400 hover:text-slate-600 p-1"
                 title="Borrar búsqueda"
               >
-                <X className="size-3.5" />
+                <X className="size-4" />
               </button>
             )}
           </form>
@@ -324,7 +344,7 @@ export function Navbar() {
           {/* Dropdown de Sugerencias en Vivo (Autocompletado al escribir cualquier letra) */}
           {isSearchFocused && query.trim().length > 0 && (
             <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-2xl border border-slate-200/90 shadow-2xl p-3 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-              <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 text-[11px] font-semibold text-slate-500 px-1">
+              <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-100 text-xs font-semibold text-slate-500 px-1">
                 <span>
                   Sugerencias para &ldquo;<strong className="text-slate-800">{query.trim()}</strong>&rdquo;
                 </span>
@@ -341,23 +361,23 @@ export function Navbar() {
                         onClick={() => handleSelectProduct(product.slug)}
                         className="flex items-center gap-3 p-2 rounded-xl hover:bg-slate-50 hover:border-alina-200 border border-transparent transition-all cursor-pointer group"
                       >
-                        <div className="relative size-11 rounded-lg bg-slate-50 border border-slate-200/80 overflow-hidden shrink-0 flex items-center justify-center p-1">
+                        <div className="relative size-12 rounded-lg bg-slate-50 border border-slate-200/80 overflow-hidden shrink-0 flex items-center justify-center p-1">
                           <Image
                             src={product.mainImage}
                             alt={product.name}
-                            width={44}
-                            height={44}
+                            width={48}
+                            height={48}
                             className="object-contain size-full"
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-xs text-slate-900 truncate group-hover:text-alina-600 transition-colors">
+                          <h4 className="font-semibold text-sm text-slate-900 truncate group-hover:text-alina-600 transition-colors">
                             {highlightMatch(product.name, query.trim())}
                           </h4>
-                          <div className="flex items-center gap-2 mt-0.5 text-[11px]">
+                          <div className="flex items-center gap-2 mt-0.5 text-xs">
                             <span className="font-bold text-slate-900">
                               {formatCurrency(lowestUnit)}
-                              <span className="font-normal text-slate-400 text-[10px] ml-0.5">c/u</span>
+                              <span className="font-normal text-slate-400 text-[11px] ml-0.5">c/u</span>
                             </span>
                             <span className="text-slate-300">·</span>
                             <span className="font-bold text-emerald-700">
@@ -377,7 +397,7 @@ export function Navbar() {
                         setIsSearchFocused(false);
                         router.push(`/catalogo?busqueda=${encodeURIComponent(query.trim())}`);
                       }}
-                      className="w-full text-center py-2 text-xs font-bold text-alina-600 hover:text-alina-700 hover:bg-alina-50 rounded-xl transition-colors flex items-center justify-center gap-1.5"
+                      className="w-full text-center py-2.5 text-xs sm:text-sm font-bold text-alina-600 hover:text-alina-700 hover:bg-alina-50 rounded-xl transition-colors flex items-center justify-center gap-1.5"
                     >
                       <span>Ver todos los resultados ({totalMatchesCount}) en el catálogo</span>
                       <ArrowRight className="size-3.5" />
@@ -386,10 +406,10 @@ export function Navbar() {
                 </div>
               ) : (
                 <div className="p-4 text-center">
-                  <p className="text-xs text-slate-600">
+                  <p className="text-sm text-slate-600">
                     No encontramos productos que coincidan con &ldquo;{query}&rdquo;.
                   </p>
-                  <p className="text-[11px] text-slate-400 mt-1">
+                  <p className="text-xs text-slate-400 mt-1">
                     Presiona Enter o busca por forma (rizada, redonda) o material.
                   </p>
                 </div>
@@ -398,34 +418,14 @@ export function Navbar() {
           )}
         </div>
 
-        {/* 4. Icon Box / Botón de Compra al por Mayor */}
-        <a
-          href="https://wa.me/593985890956?text=Hola%20Alina%20Shop,%20deseo%20comprar%20al%20por%20mayor%20para%20mi%20pasteler%C3%ADa.%20%C2%BFMe%20pueden%20ayudar%20con%20precios%20de%20f%C3%A1brica%20y%20cat%C3%A1logo?"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden xl:inline-flex items-center gap-2 rounded-xl bg-emerald-50 hover:bg-emerald-100/90 border border-emerald-200 px-3 py-2 text-xs font-bold text-emerald-800 transition-all shadow-2xs hover:shadow-xs group cursor-pointer shrink-0"
-          title="Compra al por mayor con descuentos de hasta el 25% y precios de fábrica"
-        >
-          <div className="size-7 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform shadow-2xs">
-            <Boxes className="size-4" />
-          </div>
-          <div className="text-left leading-tight">
-            <div className="text-[11px] font-extrabold text-emerald-950 flex items-center gap-1">
-              <span>Compra por Mayor</span>
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            </div>
-            <div className="text-[10px] text-emerald-700 font-medium">Precios de fábrica</div>
-          </div>
-        </a>
-
         {/* 5. Ingresar + 6. Rastreo + 7. Cesta */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
           {/* 5. Ingresar */}
           <Link
             href="/login"
-            className="hidden md:inline-flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
+            className="hidden md:inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
           >
-            <UserRound className="size-4 text-slate-500" />
+            <UserRound className="size-4.5 text-slate-500" />
             <span>Ingresar</span>
           </Link>
 
@@ -434,10 +434,10 @@ export function Navbar() {
             href="/rastreo"
             aria-label="Rastrear pedido"
             title="Rastrear Pedido"
-            className="inline-flex items-center gap-1.5 rounded-xl px-2.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
+            className="inline-flex items-center gap-1.5 rounded-xl px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
           >
-            <Truck className="size-4 text-slate-500" />
-            <span className="hidden 2xl:inline">Rastreo</span>
+            <MapPinned className="size-4.5 text-slate-500" />
+            <span className="hidden sm:inline">Rastreo</span>
           </Link>
 
           {/* 7. Cesta */}
@@ -446,7 +446,7 @@ export function Navbar() {
             className="relative flex items-center justify-center rounded-xl p-2.5 text-slate-800 hover:bg-slate-100 hover:text-alina-600 transition-colors cursor-pointer shrink-0"
             aria-label="Abrir carrito"
           >
-            <ShoppingBag className="size-5" aria-hidden="true" />
+            <ShoppingBag className="size-5.5" aria-hidden="true" />
             {totalItems > 0 && (
               <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-alina-600 text-[11px] font-bold text-white shadow-xs">
                 {totalItems}
