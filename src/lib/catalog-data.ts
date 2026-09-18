@@ -279,9 +279,9 @@ export const PRODUCTS_DATA: SeedProduct[] = [
     mainImage: "/images/products/toppers/topper-acrilico-espejo-dorado.png",
     images: [
       "/images/products/toppers/topper-mdf-vinil.png",
-      "/images/products/toppers/modelos/topper-tac-cumpleanos-01.png",
-      "/images/products/toppers/modelos/topper-tab-bautizo-comunion-01.png",
-      "/images/products/toppers/modelos/topper-tav-fechas-especiales-01.png",
+      "/images/products/toppers/topper-acrilico-oro-rosa.png",
+      "/images/products/toppers/topper-mdf-personalizado-2.png",
+      "/images/products/toppers/topper-numeros-mdf-one-ten.png",
     ],
     hasLogoOption: false,
     allowCustomSize: false,

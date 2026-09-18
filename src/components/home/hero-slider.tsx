@@ -98,9 +98,9 @@ const slides: SlideData[] = [
         tag: "Bodas y Quinceaños",
       },
       {
-        image: "/images/products/toppers/modelos/topper-tac-cumpleanos-01.png",
-        title: "Feliz Cumpleaños Cursiva",
-        tag: "Caligrafía Fina",
+        image: "/images/products/toppers/topper-mdf-vinil.png",
+        title: "Topper Cumpleaños Vinil",
+        tag: "Personalizado",
       },
       {
         image: "/images/products/apliques/aplique-acrilico-miniatura-4cm-6cm-01.png",
@@ -169,14 +169,14 @@ const slides: SlideData[] = [
     },
     satellites: [
       {
-        image: "/images/products/complementos/raspador-acrilico-texturas-pack3.png",
-        title: "Peines & Raspadores Textura",
-        tag: "Bordes Perfectos",
+        image: "/images/products/complementos/set-moldes-figuras-pack12.png",
+        title: "Moldes & Figuras Decorativas",
+        tag: "Set 12 Piezas",
       },
       {
-        image: "/images/products/complementos/espatula-reposteria-acero.png",
-        title: "Espátula Angular Acero",
-        tag: "Alisado Profesional",
+        image: "/images/products/complementos/esfera-decorativa-dorado-pack20.png",
+        title: "Esferas Decorativas Cake",
+        tag: "Pack 20 Unidades",
       },
       {
         image: "/images/products/complementos/cortador-acero-margarita-pack3.png",
