@@ -11,7 +11,6 @@ import {
   ShoppingBag, 
   ShieldCheck, 
   Sparkles,
-  Sliders,
   Truck,
   Clock,
   PackageCheck,
@@ -288,11 +287,11 @@ export function ProductCustomizer({
             )}
 
             {/* 3. Selector de Medidas o Medida Personalizada */}
-            <div className="border border-slate-200 rounded-xl p-3 sm:p-4 bg-white shadow-2xs">
-              <div className="flex items-center justify-between mb-2 sm:mb-3">
-                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-                  <Sliders className="w-3.5 h-3.5 text-alina-600" />
-                  3. Medida y Dimensiones
+            <div>
+              <div className="flex items-center justify-between mb-1.5 sm:mb-2">
+                <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700">
+                  3. Medida y Dimensiones:{" "}
+                  <span className="font-semibold text-alina-600 normal-case">{sizeDisplayText}</span>
                 </label>
                 {product.allowCustomSize && (
                   <span className="text-[10px] sm:text-[11px] text-alina-600 font-semibold bg-alina-50 px-2 py-0.5 rounded border border-alina-200">
@@ -302,11 +301,11 @@ export function ProductCustomizer({
               </div>
 
               {product.allowCustomSize && (
-                <div className="grid grid-cols-2 gap-1.5 sm:gap-2 p-1 bg-slate-100 rounded-lg mb-2.5 sm:mb-3">
+                <div className="inline-flex gap-1.5 p-1 bg-slate-100 rounded-lg mb-2">
                   <button
                     type="button"
                     onClick={() => setIsCustomSize(false)}
-                    className={`py-1 sm:py-1.5 text-xs font-semibold rounded-md transition-all ${
+                    className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
                       !isCustomSize
                         ? "bg-white text-slate-900 shadow-xs"
                         : "text-slate-600 hover:text-slate-900"
@@ -317,7 +316,7 @@ export function ProductCustomizer({
                   <button
                     type="button"
                     onClick={() => setIsCustomSize(true)}
-                    className={`py-1 sm:py-1.5 text-xs font-semibold rounded-md transition-all ${
+                    className={`px-3 py-1 text-xs font-semibold rounded-md transition-all ${
                       isCustomSize
                         ? "bg-white text-slate-900 shadow-xs"
                         : "text-slate-600 hover:text-slate-900"
@@ -329,20 +328,20 @@ export function ProductCustomizer({
               )}
 
               {!isCustomSize ? (
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-1.5 sm:gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 sm:gap-2">
                   {product.variants.map((v, idx) => (
                     <button
                       key={idx}
                       type="button"
                       onClick={() => setSelectedVariantIndex(idx)}
-                      className={`p-1.5 sm:p-2 rounded-lg border text-left transition-all ${
+                      className={`p-2 sm:p-2.5 rounded-xl border text-left transition-all ${
                         selectedVariantIndex === idx
-                          ? "border-alina-600 bg-alina-50/50 ring-1 ring-alina-600 font-bold"
-                          : "border-slate-200 bg-white hover:border-slate-300"
+                          ? "border-alina-600 bg-alina-50/60 ring-1 ring-alina-600 font-bold shadow-2xs"
+                          : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/60"
                       }`}
                     >
-                      <div className="font-semibold text-[11px] sm:text-xs text-slate-900 truncate">{v.sizeLabel}</div>
-                      <div className="text-[10px] sm:text-[11px] text-slate-500">{formatCurrency(v.dozenPrice)} doc.</div>
+                      <div className="font-semibold text-xs text-slate-900 truncate">{v.sizeLabel}</div>
+                      <div className="text-[11px] text-slate-500 mt-0.5">{formatCurrency(v.dozenPrice)} doc.</div>
                     </button>
                   ))}
                 </div>
@@ -381,24 +380,43 @@ export function ProductCustomizer({
 
             {/* 4. Grabado de Logotipo Personalizado (+ $0.20 ctv) */}
             {product.hasLogoOption && (
-              <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-2.5 sm:p-3.5 flex items-center justify-between">
-                <div>
-                  <div className="font-display font-semibold text-xs text-slate-900 flex items-center gap-1.5">
-                    <span>¿Grabar el logo de tu pastelería?</span>
-                  </div>
-                  <p className="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
-                    Grabado láser permanente por <strong>+$0.20 ctvs</strong>/base
-                  </p>
-                </div>
-                <label className="flex items-center gap-1.5 cursor-pointer font-bold text-xs text-alina-600 shrink-0 ml-2">
-                  <input
-                    type="checkbox"
-                    checked={withLogo}
-                    onChange={(e) => setWithLogo(e.target.checked)}
-                    className="w-4 h-4 rounded border-slate-300 text-alina-600 focus:ring-alina-500"
-                  />
-                  <span>Incluir</span>
+              <div>
+                <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5 sm:mb-2">
+                  4. Personalización con Logotipo:{" "}
+                  <span className="font-semibold text-alina-600 normal-case">
+                    {withLogo ? "Sí (+$0.20/base)" : "No"}
+                  </span>
                 </label>
+                <div
+                  onClick={() => setWithLogo(!withLogo)}
+                  className={`flex items-center justify-between p-2.5 sm:p-3 rounded-xl border cursor-pointer transition-all ${
+                    withLogo
+                      ? "border-alina-600 bg-alina-50/50 ring-1 ring-alina-600 shadow-2xs"
+                      : "border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50/50"
+                  }`}
+                >
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={withLogo}
+                      onChange={(e) => setWithLogo(e.target.checked)}
+                      className="w-4 h-4 rounded border-slate-300 text-alina-600 focus:ring-alina-500 cursor-pointer"
+                    />
+                    <div>
+                      <span className="font-semibold text-xs text-slate-900 block">
+                        Grabar logo de mi pastelería en las bases
+                      </span>
+                      <span className="text-[10px] sm:text-[11px] text-slate-500 block">
+                        Grabado láser permanente por <strong>+$0.20 ctvs</strong>/base
+                      </span>
+                    </div>
+                  </div>
+                  <span className={`text-xs font-bold px-2 py-0.5 rounded ${
+                    withLogo ? "bg-alina-600 text-white" : "bg-slate-100 text-slate-600"
+                  }`}>
+                    {withLogo ? "Incluido" : "+$0.20"}
+                  </span>
+                </div>
               </div>
             )}
           </div>
@@ -715,11 +733,11 @@ export function ProductCustomizer({
       )}
 
       {/* 3. Selector de Medidas o Medida Personalizada */}
-      <div className="border border-slate-200 rounded-xl p-4 bg-white shadow-2xs">
-        <div className="flex items-center justify-between mb-3">
-          <label className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-1.5">
-            <Sliders className="w-4 h-4 text-alina-600" />
-            3. Medida y Dimensiones
+      <div>
+        <div className="flex items-center justify-between mb-2">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+            3. Medida y Dimensiones:{" "}
+            <span className="font-semibold text-alina-600 normal-case">{sizeDisplayText}</span>
           </label>
           {product.allowCustomSize && (
             <span className="text-[11px] text-alina-600 font-semibold bg-alina-50 px-2 py-0.5 rounded border border-alina-200">
@@ -729,11 +747,11 @@ export function ProductCustomizer({
         </div>
 
         {product.allowCustomSize && (
-          <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-lg mb-3">
+          <div className="inline-flex gap-2 p-1 bg-slate-100 rounded-lg mb-3">
             <button
               type="button"
               onClick={() => setIsCustomSize(false)}
-              className={`py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
                 !isCustomSize
                   ? "bg-white text-slate-900 shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
@@ -744,7 +762,7 @@ export function ProductCustomizer({
             <button
               type="button"
               onClick={() => setIsCustomSize(true)}
-              className={`py-1.5 text-xs font-semibold rounded-md transition-all ${
+              className={`px-3 py-1.5 text-xs font-semibold rounded-md transition-all ${
                 isCustomSize
                   ? "bg-white text-slate-900 shadow-xs"
                   : "text-slate-600 hover:text-slate-900"
@@ -756,20 +774,20 @@ export function ProductCustomizer({
         )}
 
         {!isCustomSize ? (
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
             {product.variants.map((v, idx) => (
               <button
                 key={idx}
                 type="button"
                 onClick={() => setSelectedVariantIndex(idx)}
-                className={`p-2 rounded-lg border text-left transition-all ${
+                className={`p-2 rounded-xl border text-left transition-all ${
                   selectedVariantIndex === idx
-                    ? "border-alina-600 bg-alina-50/50 ring-1 ring-alina-600"
+                    ? "border-alina-600 bg-alina-50/50 ring-1 ring-alina-600 font-bold"
                     : "border-slate-200 bg-white hover:border-slate-300"
                 }`}
               >
                 <div className="font-semibold text-xs text-slate-900 truncate">{v.sizeLabel}</div>
-                <div className="text-[11px] text-slate-500">{formatCurrency(v.dozenPrice)} doc.</div>
+                <div className="text-[11px] text-slate-500 mt-0.5">{formatCurrency(v.dozenPrice)} doc.</div>
               </button>
             ))}
           </div>
@@ -808,24 +826,39 @@ export function ProductCustomizer({
 
       {/* 4. Grabado de Logotipo Personalizado (+ $0.20 ctv) */}
       {product.hasLogoOption && (
-        <div className="bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 flex items-center justify-between">
-          <div>
-            <div className="font-display font-semibold text-xs text-slate-900 flex items-center gap-1.5">
-              <span>¿Deseas grabar el logo de tu pastelería?</span>
-            </div>
-            <p className="text-[11px] text-slate-500 mt-0.5">
-              Grabado láser permanente en cada base por solo <strong>+$0.20 ctvs</strong>
-            </p>
-          </div>
-          <label className="flex items-center gap-2 cursor-pointer font-bold text-xs text-alina-600">
-            <input
-              type="checkbox"
-              checked={withLogo}
-              onChange={(e) => setWithLogo(e.target.checked)}
-              className="w-4 h-4 rounded border-slate-300 text-alina-600 focus:ring-alina-500"
-            />
-            <span>Incluir Logo</span>
+        <div>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+            4. Personalización con Logotipo:{" "}
+            <span className="font-semibold text-alina-600 normal-case">
+              {withLogo ? "Sí (+$0.20/base)" : "No"}
+            </span>
           </label>
+          <div
+            onClick={() => setWithLogo(!withLogo)}
+            className={`flex items-center justify-between p-3 rounded-xl border cursor-pointer transition-all ${
+              withLogo
+                ? "border-alina-600 bg-alina-50/50 ring-1 ring-alina-600"
+                : "border-slate-200 bg-white hover:border-slate-300"
+            }`}
+          >
+            <div>
+              <div className="font-display font-semibold text-xs text-slate-900 flex items-center gap-1.5">
+                <span>¿Deseas grabar el logo de tu pastelería?</span>
+              </div>
+              <p className="text-[11px] text-slate-500 mt-0.5">
+                Grabado láser permanente en cada base por solo <strong>+$0.20 ctvs</strong>
+              </p>
+            </div>
+            <label className="flex items-center gap-2 cursor-pointer font-bold text-xs text-alina-600">
+              <input
+                type="checkbox"
+                checked={withLogo}
+                onChange={(e) => setWithLogo(e.target.checked)}
+                className="w-4 h-4 rounded border-slate-300 text-alina-600 focus:ring-alina-500 cursor-pointer"
+              />
+              <span>{withLogo ? "Incluido" : "+$0.20"}</span>
+            </label>
+          </div>
         </div>
       )}
 
