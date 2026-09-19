@@ -73,6 +73,19 @@ export function Navbar() {
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const megaMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const [customer, setCustomer] = useState<{ name: string; email: string } | null>(null);
+
+  // Check customer session on mount
+  useEffect(() => {
+    fetch("/api/customer/me")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (d?.authenticated && d?.customer) {
+          setCustomer(d.customer);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   // Close menus on outside click
   useEffect(() => {
@@ -343,14 +356,26 @@ export function Navbar() {
 
         {/* 5. Ingresar + 6. Rastreo + 7. Cesta */}
         <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-          {/* 5. Ingresar */}
-          <Link
-            href="/login"
-            className="hidden md:inline-flex h-11 items-center gap-2 rounded-xl px-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
-          >
-            <UserRound className="size-4.5 text-slate-500" />
-            <span>Ingresar</span>
-          </Link>
+          {/* 5. Ingresar / Mi Cuenta */}
+          {customer ? (
+            <Link
+              href="/cuenta/pedidos"
+              className="hidden md:inline-flex h-11 items-center gap-2 rounded-xl px-3.5 text-sm font-semibold text-slate-800 hover:bg-slate-100 hover:text-alina-600 transition-colors shrink-0 border border-slate-200/80 bg-slate-50/70 shadow-2xs"
+            >
+              <div className="size-6 rounded-full bg-alina-500 text-white font-bold text-[11px] flex items-center justify-center">
+                {customer.name ? customer.name.charAt(0).toUpperCase() : "C"}
+              </div>
+              <span className="max-w-[100px] truncate">{customer.name.split(" ")[0]}</span>
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="hidden md:inline-flex h-11 items-center gap-2 rounded-xl px-3.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
+            >
+              <UserRound className="size-4.5 text-slate-500" />
+              <span>Ingresar</span>
+            </Link>
+          )}
 
           {/* 6. Rastreo */}
           <Link
@@ -453,11 +478,11 @@ export function Navbar() {
               Rastrear mi Pedido
             </Link>
             <Link
-              href="/login"
+              href={customer ? "/cuenta/pedidos" : "/login"}
               className="block py-2 text-sm font-semibold text-alina-600"
               onClick={() => setMobileMenuOpen(false)}
             >
-              Ingresar o crear cuenta
+              {customer ? `Mi Cuenta (${customer.name.split(" ")[0]})` : "Ingresar o crear cuenta"}
             </Link>
           </div>
 

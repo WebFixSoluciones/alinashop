@@ -47,6 +47,25 @@ function CheckoutContent() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Pre-fill logged-in customer info
+  useEffect(() => {
+    fetch("/api/customer/me")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data?.authenticated && data?.customer) {
+          const c = data.customer;
+          setFormData((prev) => ({
+            ...prev,
+            email: prev.email || c.email || "",
+            fullName: prev.fullName || c.name || "",
+            phone: prev.phone || c.phone || "",
+            idNumber: prev.idNumber || c.idNumber || "",
+          }));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const subtotal = checkoutItems.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
 
   const shippingCost =

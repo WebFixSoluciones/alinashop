@@ -1,0 +1,59 @@
+[
+  {
+    "id": "ord-test-cust-b-002",
+    "orderNumber": "ALN-2026-9002",
+    "customerId": "cust-uuid-222",
+    "customerName": "Cliente B Cafetería",
+    "customerEmail": "cliente_b@panaderia.ec",
+    "customerPhone": "0992222222",
+    "shippingAddress": "Av. 9 de Octubre 200",
+    "shippingCity": "Guayaquil",
+    "shippingProvince": "Guayas",
+    "shippingMethod": "national",
+    "shippingCost": 5.5,
+    "paymentMethod": "whatsapp",
+    "paymentStatus": "PENDIENTE",
+    "orderStatus": "PENDIENTE",
+    "subtotal": 30,
+    "total": 35.5,
+    "items": [
+      {
+        "name": "Topper Acrílico Dorado",
+        "quantity": 5,
+        "unitPrice": 2.5,
+        "subtotal": 12.5
+      }
+    ],
+    "createdAt": "2026-09-19T03:53:02.275Z",
+    "updatedAt": "2026-09-19T03:53:02.924Z"
+  },
+  {
+    "id": "ord-test-cust-a-001",
+    "orderNumber": "ALN-2026-9001",
+    "customerId": "cust-uuid-111",
+    "customerName": "Cliente A Pastelería",
+    "customerEmail": "cliente_a@empresa.ec",
+    "customerPhone": "0991111111",
+    "shippingAddress": "Av. Amazonas 100",
+    "shippingCity": "Quito",
+    "shippingProvince": "Pichincha",
+    "shippingMethod": "pichincha",
+    "shippingCost": 3.5,
+    "paymentMethod": "payphone",
+    "paymentStatus": "PAGADO",
+    "orderStatus": "EN_PREPARACION",
+    "subtotal": 45,
+    "total": 48.5,
+    "items": [
+      {
+        "name": "Base MDF Redonda 30cm",
+        "quantity": 12,
+        "unitPrice": 0.64,
+        "subtotal": 7.68,
+        "withLogo": true
+      }
+    ],
+    "createdAt": "2026-09-19T03:53:02.273Z",
+    "updatedAt": "2026-09-19T03:53:02.923Z"
+  }
+]

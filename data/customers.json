@@ -1,0 +1,32 @@
+[
+  {
+    "id": "cust_demo_01",
+    "name": "Pastelería Sweet Cakes (Karla Morales)",
+    "email": "cliente@pasteleria.com",
+    "phone": "0991234567",
+    "idNumber": "1723456789",
+    "passwordHash": "$2b$10$i/.q7HBkDNh8oLvVc5qTZeSUC85rA/ADLnEuSFmZ4557y86/keP.q",
+    "createdAt": "2026-01-15T00:00:00.000Z",
+    "updatedAt": "2026-01-15T00:00:00.000Z"
+  },
+  {
+    "id": "cust_1789789941409_ji6u",
+    "name": "Pastelería Delicias Quito",
+    "email": "test_security_cliente@pasteleria.com",
+    "phone": "0998877665",
+    "idNumber": "1712345678",
+    "passwordHash": "$2b$10$NLPjJHvzzlqhfTqX.f4tN.bVVCueLGMc7wuTBMMH4hFOe3c68NDbS",
+    "createdAt": "2026-09-19T03:52:21.409Z",
+    "updatedAt": "2026-09-19T03:52:21.409Z"
+  },
+  {
+    "id": "cust_1789789982917_gtdm",
+    "name": "Pastelería Delicias Quito",
+    "email": "test_sec_1789789982272@pasteleria.ec",
+    "phone": "0998877665",
+    "idNumber": "1712345678",
+    "passwordHash": "$2b$10$muvg02gWVtvAN3MvECFdGeLYiyuQTdslSvJ0vNMvGL8iRAoUtHcr6",
+    "createdAt": "2026-09-19T03:53:02.917Z",
+    "updatedAt": "2026-09-19T03:53:02.917Z"
+  }
+]

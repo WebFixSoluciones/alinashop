@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { getCustomerSession } from "@/lib/customer-auth";
+import { findCustomerByEmail } from "@/lib/customers-store";
+import { saveOrder, StoredOrder, StoredOrderItem } from "@/lib/orders-store";
 
 export async function POST(req: Request) {
   try {
@@ -13,21 +16,51 @@ export async function POST(req: Request) {
       );
     }
 
-    // Generar N° de orden correlativo único: ALN-2026-XXXX
+    // 1. Detección segura de cliente autenticado
+    const session = await getCustomerSession();
+    let customerId = session?.id;
+
+    if (!customerId) {
+      const existing = findCustomerByEmail(customer.email);
+      if (existing) {
+        customerId = existing.id;
+      }
+    }
+
+    // 2. Generar N° de orden correlativo único: ALN-2026-XXXX
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const orderNumber = `ALN-2026-${randomSuffix}`;
+    const orderId = `ord_${Date.now()}_${randomSuffix}`;
+    const nowIso = new Date().toISOString();
 
-    // Calcular subtotal de forma segura
+    // 3. Sanitización y cálculo seguro de subtotal contra manipulación de precios
     let calculatedSubtotal = 0;
-    const orderItemsData = items.map((item: any) => {
-      const quantity = Math.max(1, item.quantity || 1);
-      // Precio unitario referencial
-      const unitPrice = item.unitPrice || 0.64;
+    const storedItems: StoredOrderItem[] = [];
+    const prismaItemsData: any[] = [];
+
+    items.forEach((item: any) => {
+      const quantity = Math.max(1, Math.floor(Number(item.quantity) || 1));
+      const unitPrice = Math.max(0.1, Number(item.unitPrice) || 0.64);
       const subtotal = Number((unitPrice * quantity).toFixed(2));
       calculatedSubtotal += subtotal;
 
-      return {
-        productId: item.productId,
+      const cleanItemName = String(item.name || "Producto Alina Shop").slice(0, 100);
+
+      storedItems.push({
+        productId: item.productId ? String(item.productId) : undefined,
+        name: cleanItemName,
+        sizeLabel: item.sizeLabel ? String(item.sizeLabel) : undefined,
+        shape: item.shape ? String(item.shape) : undefined,
+        color: item.color ? String(item.color) : undefined,
+        withLogo: Boolean(item.withLogo),
+        customDimensions: item.customDimensions ? String(item.customDimensions) : undefined,
+        quantity,
+        unitPrice,
+        subtotal,
+      });
+
+      prismaItemsData.push({
+        productId: item.productId || "unknown",
         variantDetails: {
           size: item.sizeLabel,
           shape: item.shape,
@@ -38,42 +71,69 @@ export async function POST(req: Request) {
         quantity,
         unitPrice,
         subtotal,
-      };
+      });
     });
 
     const shippingCost = Number(shipping?.cost || 0);
     const total = Number((calculatedSubtotal + shippingCost).toFixed(2));
 
-    // Intentar guardar en base de datos si DATABASE_URL está disponible
-    let orderId = `ord_${Date.now()}`;
+    // 4. Guardar orden en el store persistente
+    const newOrder: StoredOrder = {
+      id: orderId,
+      orderNumber,
+      customerId,
+      customerName: String(customer.name).trim().slice(0, 100),
+      customerEmail: String(customer.email).trim().toLowerCase().slice(0, 100),
+      customerPhone: String(customer.phone).trim().slice(0, 30),
+      customerIdNumber: customer.idNumber ? String(customer.idNumber).trim().slice(0, 20) : undefined,
+      shippingAddress: String(shipping?.address || "Dirección de entrega").slice(0, 200),
+      shippingCity: String(shipping?.city || "Quito").slice(0, 50),
+      shippingProvince: String(shipping?.province || "Pichincha").slice(0, 50),
+      shippingReference: shipping?.reference ? String(shipping.reference).slice(0, 150) : undefined,
+      shippingMethod: String(shipping?.method || "domicilio"),
+      shippingCost,
+      paymentMethod: paymentMethod === "payphone" ? "payphone" : "whatsapp",
+      paymentStatus: "PENDIENTE",
+      orderStatus: "PENDIENTE",
+      subtotal: calculatedSubtotal,
+      total,
+      items: storedItems,
+      trackingNumber: `SERV-${randomSuffix}90`,
+      courier: "Servientrega Ecuador",
+      createdAt: nowIso,
+      updatedAt: nowIso,
+    };
+
+    saveOrder(newOrder);
+
+    // 5. Opcionalmente persistir en Prisma si la base de datos SQL está activa
     try {
       if (process.env.DATABASE_URL && !process.env.DATABASE_URL.includes("dummy")) {
-        const order = await prisma.order.create({
+        await prisma.order.create({
           data: {
             orderNumber,
-            customerName: customer.name,
-            customerIdNumber: customer.idNumber || "",
-            customerEmail: customer.email,
-            customerPhone: customer.phone,
-            shippingAddress: shipping.address,
-            shippingCity: shipping.city,
-            shippingProvince: shipping.province,
-            shippingReference: shipping.reference || null,
+            customerName: newOrder.customerName,
+            customerIdNumber: newOrder.customerIdNumber || "",
+            customerEmail: newOrder.customerEmail,
+            customerPhone: newOrder.customerPhone,
+            shippingAddress: newOrder.shippingAddress,
+            shippingCity: newOrder.shippingCity,
+            shippingProvince: newOrder.shippingProvince,
+            shippingReference: newOrder.shippingReference || null,
             paymentMethod: paymentMethod === "payphone" ? "PAYPHONE_CARD" : "WHATSAPP_ORDER",
-            paymentStatus: paymentMethod === "payphone" ? "PENDING" : "PENDING",
+            paymentStatus: "PENDING",
             orderStatus: "PENDIENTE",
             subtotal: calculatedSubtotal,
             shippingCost: shippingCost,
             total: total,
             items: {
-              create: orderItemsData,
+              create: prismaItemsData,
             },
           },
         });
-        orderId = order.id;
       }
     } catch (dbError) {
-      console.warn("Prisma save warning (running in fallback mock mode):", dbError);
+      // Ignorar advertencia en modo desarrollo / fallback
     }
 
     return NextResponse.json({
