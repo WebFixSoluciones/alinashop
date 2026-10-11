@@ -28,5 +28,25 @@
     "passwordHash": "$2b$10$muvg02gWVtvAN3MvECFdGeLYiyuQTdslSvJ0vNMvGL8iRAoUtHcr6",
     "createdAt": "2026-09-19T03:53:02.917Z",
     "updatedAt": "2026-09-19T03:53:02.917Z"
+  },
+  {
+    "id": "cust_1789832499224_s7at",
+    "name": "Pastelería Delicias Quito",
+    "email": "test_sec_1789832498808@pasteleria.ec",
+    "phone": "0998877665",
+    "idNumber": "1712345678",
+    "passwordHash": "$2b$10$aqIOgmzJ5nzON4TtyvH5beJq.iNhr1UHqc5qdM83ZrAcG4BvE7bEG",
+    "createdAt": "2026-09-19T15:41:39.224Z",
+    "updatedAt": "2026-09-19T15:41:39.224Z"
+  },
+  {
+    "id": "cust_1791749150840_v1a0",
+    "name": "Pastelería Delicias Quito",
+    "email": "test_sec_1791749150306@pasteleria.ec",
+    "phone": "0998877665",
+    "idNumber": "1712345678",
+    "passwordHash": "$2b$10$Rg1W2cCLFAd2CI7DRxOy7O8V2uiHLIwzfS9PtPeVU.Bum4M2TUvq6",
+    "createdAt": "2026-10-11T20:05:50.840Z",
+    "updatedAt": "2026-10-11T20:05:50.840Z"
   }
 ]

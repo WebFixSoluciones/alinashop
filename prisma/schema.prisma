@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -9,6 +9,7 @@ generator client {
 
 enum Role {
   ADMIN
+  COLABORADOR
   CLIENTE
 }
 
@@ -30,10 +31,14 @@ enum PaymentMethod {
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
+  username      String?   @unique
   passwordHash  String
   name          String
   phone         String?
+  idNumber      String?   // Cédula o RUC
   role          Role      @default(CLIENTE)
+  isActive      Boolean   @default(true)
+  lastLogin     DateTime?
   addresses     Address[]
   orders        Order[]
   createdAt     DateTime  @default(now())
@@ -59,7 +64,7 @@ model Category {
   id          String    @id @default(cuid())
   name        String    @unique
   slug        String    @unique
-  description String?
+  description String?   @db.Text
   order       Int       @default(0)
   products    Product[]
 }
@@ -69,12 +74,12 @@ model Product {
   sku             String           @unique
   name            String
   slug            String           @unique
-  description     String
+  description     String           @db.Text
   material        String?          // Ej: "MDF 3mm", "Acrílico", "Cartulina"
   categoryId      String
   category        Category         @relation(fields: [categoryId], references: [id])
-  mainImage       String           // URL en Vercel Blob o placeholder
-  images          String[]         // Galería
+  mainImage       String           // URL local en /uploads/ o placeholder
+  images          Json             // Array de URLs de galería guardadas como JSON
   hasLogoOption   Boolean          @default(false) // Grabado láser (+ $0.20)
   logoPriceExtra  Decimal          @default(0.20) @db.Decimal(10, 2)
   allowCustomSize Boolean          @default(false) // Medidas bajo pedido
@@ -110,10 +115,11 @@ model Order {
   customerIdNumber      String            // Cédula o RUC
   customerEmail         String
   customerPhone         String
-  shippingAddress       String
+  shippingAddress       String            @db.Text
   shippingCity          String
   shippingProvince      String
-  shippingReference     String?
+  shippingReference     String?           @db.Text
+  shippingMethod        String            @default("pichincha") // pichincha, national, pickup
   paymentMethod         PaymentMethod
   paymentStatus         String            @default("PENDING") // PENDING, APPROVED, REJECTED
   payphoneTransactionId String?
@@ -121,7 +127,7 @@ model Order {
   subtotal              Decimal           @db.Decimal(10, 2)
   shippingCost          Decimal           @default(0.00) @db.Decimal(10, 2)
   total                 Decimal           @db.Decimal(10, 2)
-  notes                 String?
+  notes                 String?           @db.Text
   items                 OrderItem[]
   tracking              ShippingTracking?
   createdAt             DateTime          @default(now())
@@ -149,7 +155,7 @@ model ShippingTracking {
   trackingUrl   String?
   shippedAt     DateTime  @default(now())
   deliveredAt   DateTime?
-  notes         String?
+  notes         String?   @db.Text
 }
 
 model WhatsAppInteraction {
@@ -167,12 +173,18 @@ model StoreSettings {
   whatsappPrimary       String   @default("593985890956")
   whatsappSecondary     String   @default("593979431238")
   whatsappActiveNumber  String   @default("593985890956")
-  whatsappTemplate      String   @default("Hola Alina Shop, deseo realizar este pedido: *{orderNumber}*...")
+  whatsappTemplate      String   @default("Hola Alina Shop, deseo realizar este pedido: *{orderNumber}*...") @db.Text
   payphoneClientId      String?
   payphoneAppId         String?
-  payphoneToken         String?
+  payphoneToken         String?  @db.Text
   payphoneIsSandbox     Boolean  @default(true)
   shippingBasePichincha Decimal  @default(3.50) @db.Decimal(10, 2)
   shippingBaseNational  Decimal  @default(5.50) @db.Decimal(10, 2)
   updatedAt             DateTime @updatedAt
+}
+
+model PromotionSetting {
+  id        String   @id @default("default")
+  config    Json     // Almacena PopupPromotion y Ticker config
+  updatedAt DateTime @updatedAt
 }

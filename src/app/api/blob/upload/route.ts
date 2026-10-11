@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { put } from "@vercel/blob";
+import fs from "fs";
+import path from "path";
 import { getAdminSession } from "@/lib/auth";
 import { getCustomerSession } from "@/lib/customer-auth";
 
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           success: false,
-          message: `El archivo supera el tamaño máximo permitido de 4 MB.`,
+          message: "El archivo supera el tamaño máximo permitido de 4 MB.",
         },
         { status: 413 }
       );
@@ -68,24 +69,27 @@ export async function POST(req: Request) {
 
     const safeFilename = `${Date.now()}_${sanitizedName}`;
 
-    // 5. Si el token de Vercel Blob está configurado en producción
-    if (process.env.BLOB_READ_WRITE_TOKEN && !process.env.BLOB_READ_WRITE_TOKEN.includes("dummy")) {
-      const blob = await put(`alina-uploads/${safeFilename}`, file, {
-        access: "public",
-      });
-      return NextResponse.json({ success: true, url: blob.url });
+    // 5. Guardado local en almacenamiento del servidor cPanel (public/uploads/)
+    const uploadsDir = path.join(process.cwd(), "public", "uploads");
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
     }
 
-    // Fallback de demostración / desarrollo
+    const filePath = path.join(uploadsDir, safeFilename);
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    await fs.promises.writeFile(filePath, buffer);
+
+    const publicUrl = `/uploads/${safeFilename}`;
+
     return NextResponse.json({
       success: true,
-      url: `/images/products/bases-mdf/base-mdf-blanco-wengue.png`,
-      note: "Modo seguro de desarrollo local",
+      url: publicUrl,
     });
   } catch (error: any) {
-    console.error("Vercel Blob upload error:", error);
+    console.error("Local file upload error on server:", error);
     return NextResponse.json(
-      { success: false, message: error.message || "Error al procesar archivo." },
+      { success: false, message: error.message || "Error al procesar archivo en el servidor." },
       { status: 500 }
     );
   }
