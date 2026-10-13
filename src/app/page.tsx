@@ -12,20 +12,64 @@ import { ComboBanner } from "@/components/home/combo-banner";
 import { BottomCtaBanner } from "@/components/home/bottom-cta-banner";
 import { CATEGORIES_DATA, PRODUCTS_DATA } from "@/lib/catalog-data";
 import { ArrowRight, BadgePercent, Store, Sparkles, Truck } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { HomePromotionModal } from "@/components/home/home-promotion-modal";
 
 export default function HomePage() {
   const featuredProducts = PRODUCTS_DATA.slice(0, 10);
 
-  const categoryImages: Record<string, string> = {
-    "bases-mdf": "/images/products/bases-mdf/base-mdf-blanco-wengue.png",
-    minibases: "/images/products/minibases/minibase-cheesecake-rizada.png",
-    "bases-rectangulares": "/images/products/bases-rectangulares/base-rectangular-mdf-personalizada.png",
-    "bases-disenos": "/images/products/bases-disenos/base-diseno-coleccion.png",
-    toppers: "/images/products/toppers/topper-acrilico-espejo-dorado.png",
-    apliques: "/images/products/apliques/aplique-acrilico-miniatura-4cm-6cm-01.png",
-    cajas: "/images/products/cajas/caja-acetato-tapa-transparente.png",
-    complementos: "/images/products/complementos/set-boquillas-grandes-manga-pack10.png",
+  const CATEGORY_META: Record<
+    string,
+    { image: string; bg: string; ring: string; fit?: "cover" | "contain" }
+  > = {
+    "bases-mdf": {
+      image: "/images/products/bases-mdf/base-mdf-hero-muestrario.png",
+      bg: "bg-gradient-to-br from-[#ffeaf2] to-[#ffd4e5]",
+      ring: "ring-rose-200 group-hover:ring-alina-400",
+      fit: "cover",
+    },
+    minibases: {
+      image: "/images/products/minibases/minibase-cheesecake-rizada.png",
+      bg: "bg-gradient-to-br from-[#fff4ea] to-[#ffe2cc]",
+      ring: "ring-amber-200 group-hover:ring-amber-400",
+      fit: "cover",
+    },
+    "bases-rectangulares": {
+      image: "/images/products/bases-rectangulares/base-rectangular-mdf-personalizada.png",
+      bg: "bg-gradient-to-br from-[#fff0f6] to-[#fce4ee]",
+      ring: "ring-pink-200 group-hover:ring-pink-400",
+      fit: "cover",
+    },
+    "bases-disenos": {
+      image: "/images/products/bases-disenos/base-diseno-coleccion.png",
+      bg: "bg-gradient-to-br from-[#f8f0ff] to-[#edd9ff]",
+      ring: "ring-purple-200 group-hover:ring-purple-400",
+      fit: "cover",
+    },
+    toppers: {
+      image: "/images/products/toppers/topper-acrilico-espejo-dorado.png",
+      bg: "bg-gradient-to-br from-[#f0f6ff] to-[#dbeafe]",
+      ring: "ring-sky-200 group-hover:ring-sky-400",
+      fit: "cover",
+    },
+    apliques: {
+      image: "/images/products/apliques/aplique-acrilico-10cm-15cm-mariposa.png",
+      bg: "bg-gradient-to-br from-[#fffdeb] to-[#fef08a]",
+      ring: "ring-yellow-200 group-hover:ring-yellow-400",
+      fit: "contain",
+    },
+    cajas: {
+      image: "/images/products/cajas/caja-acetato-tapa-transparente.png",
+      bg: "bg-gradient-to-br from-[#f0fdf4] to-[#bbf7d0]",
+      ring: "ring-emerald-200 group-hover:ring-emerald-400",
+      fit: "cover",
+    },
+    complementos: {
+      image: "/images/products/complementos/set-boquillas-grandes-manga-pack10.png",
+      bg: "bg-gradient-to-br from-[#f5f3ff] to-[#ddd6fe]",
+      ring: "ring-indigo-200 group-hover:ring-indigo-400",
+      fit: "contain",
+    },
   };
 
   return (
@@ -68,27 +112,49 @@ export default function HomePage() {
             </Link>
           </div>
 
-          <div className="flex md:grid md:grid-cols-8 gap-3 sm:gap-3.5 lg:gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0 scrollbar-none snap-x">
-            {CATEGORIES_DATA.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/catalogo?categoria=${cat.slug}`}
-                className="group shrink-0 w-[116px] sm:w-[130px] md:w-auto flex flex-col items-center text-center p-3 rounded-2xl border border-slate-200/80 bg-white hover:border-alina-300 hover:shadow-md transition-all duration-200 snap-start"
-              >
-                <div className="relative aspect-square w-full rounded-xl bg-slate-50/80 overflow-hidden flex items-center justify-center">
-                  <Image
-                    src={categoryImages[cat.slug]}
-                    alt={cat.name}
-                    fill
-                    sizes="(max-width: 768px) 25vw, 12.5vw"
-                    className="object-contain p-2.5 transition-transform duration-300 ease-out group-hover:scale-110"
-                  />
-                </div>
-                <h3 className="mt-2.5 font-display font-medium text-xs sm:text-[13px] text-slate-800 group-hover:text-alina-600 transition-colors leading-tight line-clamp-2">
-                  {cat.name}
-                </h3>
-              </Link>
-            ))}
+          <div className="grid grid-cols-4 lg:grid-cols-8 gap-x-3 gap-y-6 sm:gap-x-4 sm:gap-y-8 lg:gap-x-6 items-start justify-items-center">
+            {CATEGORIES_DATA.map((cat) => {
+              const meta = CATEGORY_META[cat.slug] || {
+                image: "/images/products/bases-mdf/base-mdf-hero-muestrario.png",
+                bg: "bg-gradient-to-br from-[#ffeaf2] to-[#ffd4e5]",
+                ring: "ring-rose-200 group-hover:ring-alina-400",
+                fit: "cover" as const,
+              };
+
+              return (
+                <Link
+                  key={cat.slug}
+                  href={`/catalogo?categoria=${cat.slug}`}
+                  className="group flex flex-col items-center text-center w-full max-w-[140px] transition-transform duration-200 hover:-translate-y-1"
+                >
+                  <div
+                    className={cn(
+                      "relative aspect-square w-full max-w-[90px] sm:max-w-[110px] md:max-w-[120px] lg:max-w-[135px] rounded-full overflow-hidden p-1 sm:p-1.5 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:shadow-md ring-2",
+                      meta.bg,
+                      meta.ring
+                    )}
+                  >
+                    <div className="relative size-full rounded-full overflow-hidden bg-white/40 flex items-center justify-center">
+                      <Image
+                        src={meta.image}
+                        alt={cat.name}
+                        fill
+                        sizes="(max-width: 640px) 25vw, (max-width: 1024px) 25vw, 12.5vw"
+                        className={cn(
+                          "transition-transform duration-500 group-hover:scale-110",
+                          meta.fit === "contain"
+                            ? "object-contain p-2 sm:p-3"
+                            : "object-cover"
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <span className="mt-2.5 sm:mt-3 font-display font-semibold text-xs sm:text-[13px] text-slate-800 text-center leading-snug group-hover:text-alina-600 transition-colors line-clamp-2 max-w-[120px]">
+                    {cat.name}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </section>
 
