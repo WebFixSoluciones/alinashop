@@ -117,10 +117,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Banner CTA 2: Before Footer ("Tu pastelería merece presentaciones que vendan solas") */}
-        <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 py-4 sm:px-6 lg:px-8">
-          <BottomCtaBanner />
-        </section>
+        {/* Banner CTA 2: Full-Width Before Footer ("Tu pastelería merece presentaciones que vendan solas") */}
+        <BottomCtaBanner />
       </main>
 
       <QuickViewModal />
