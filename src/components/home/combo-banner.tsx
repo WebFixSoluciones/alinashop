@@ -8,7 +8,7 @@ import { Sparkles, ArrowRight, MessageCircle, Plus } from "lucide-react";
 export function ComboBanner() {
   return (
     <section className="w-full py-6">
-      <div className="alina-bokeh relative overflow-hidden rounded-[2.5rem] border border-alina-200/90 bg-gradient-to-br from-[#fff2f7] via-[#fff8fb] to-[#fff0f5] p-6 sm:p-8 lg:p-12 shadow-sm">
+      <div className="alina-bokeh relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#fff2f7] via-[#fff8fb] to-[#fff0f5] p-6 sm:p-8 lg:p-12 shadow-sm">
         {/* Soft decorative ambient glow orbs */}
         <div className="absolute top-0 right-1/4 w-72 h-72 rounded-full bg-pink-200/40 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-10 w-60 h-60 rounded-full bg-amber-100/40 blur-2xl pointer-events-none" />
