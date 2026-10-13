@@ -7,13 +7,14 @@ import { Sparkles, ArrowRight, MessageCircle, Plus } from "lucide-react";
 
 export function ComboBanner() {
   return (
-    <section className="w-full py-4 sm:py-6">
-      <div className="alina-bokeh relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#fff2f7] via-[#fff8fb] to-[#fff0f5] p-5 sm:p-7 lg:p-8 shadow-sm">
-        {/* Soft decorative ambient glow orbs */}
-        <div className="absolute top-0 right-1/4 w-72 h-72 rounded-full bg-pink-200/40 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 right-10 w-60 h-60 rounded-full bg-amber-100/40 blur-2xl pointer-events-none" />
+    <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#fff4f8] via-[#fff9fb] to-[#fff1f6] py-12 sm:py-16 border-t border-slate-100">
+      {/* Soft decorative ambient glow orbs */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-pink-200/40 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-80 h-80 rounded-full bg-amber-100/40 blur-3xl pointer-events-none" />
+      <div className="absolute -top-12 left-12 w-72 h-72 rounded-full bg-rose-100/40 blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
+      <div className="relative z-10 mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
           
           {/* Left Column: Value Proposition & CTAs (7 cols on lg) */}
           <div className="lg:col-span-6 xl:col-span-7 space-y-4 sm:space-y-5">

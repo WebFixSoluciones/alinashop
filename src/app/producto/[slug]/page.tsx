@@ -54,9 +54,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         />
       </main>
 
-      <section className="mx-auto w-full max-w-[1720px] px-3 sm:px-6 lg:px-8 pb-8 sm:pb-12">
-        <ComboBanner />
-      </section>
+      <ComboBanner />
 
       {relatedProducts.length > 0 && (
         <section className="border-t border-slate-100 bg-slate-50/60 py-8 sm:py-12">

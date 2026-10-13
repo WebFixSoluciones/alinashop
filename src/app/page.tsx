@@ -155,9 +155,7 @@ export default function HomePage() {
         </section>
 
         {/* Banner CTA 1: "Un bouquet de detalles para que tu torta llegue completa" */}
-        <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 pb-12 sm:px-6 lg:px-8">
-          <ComboBanner />
-        </section>
+        <ComboBanner />
 
         {/* Featured Products Section */}
         <section className="border-t border-slate-100 bg-slate-50/60 py-14">
