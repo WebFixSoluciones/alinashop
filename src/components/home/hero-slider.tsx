@@ -3,13 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  ChevronLeft,
-  ChevronRight,
-  Sparkles,
-  CheckCircle2,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SatelliteCard {
@@ -223,10 +217,6 @@ export function HeroSlider() {
     return () => clearInterval(timer);
   }, [activeSlide, isPaused]);
 
-  const move = (direction: number) => {
-    setActiveSlide((current) => (current + direction + slides.length) % slides.length);
-  };
-
   return (
     <section
       className="relative overflow-hidden border-b border-alina-200/80 bg-gradient-to-br from-[#fff2f7] via-[#fdedf4] to-[#fce4ee]"
@@ -263,12 +253,6 @@ export function HeroSlider() {
         
         {/* Left Column: Copy & Actions */}
         <div key={slide.id} className="lg:col-span-6 space-y-6 animate-in fade-in slide-in-from-left-2 duration-500">
-          {/* Eyebrow Pill */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-alina-200 bg-white/95 px-3.5 py-1.5 text-xs font-bold text-alina-700 shadow-2xs backdrop-blur-sm">
-            <Sparkles className="size-3.5 text-alina-500 shrink-0" aria-hidden="true" />
-            <span>{slide.eyebrow}</span>
-          </div>
-
           {/* Heading */}
           <div aria-live="polite">
             <h1 className="max-w-xl text-balance font-display text-4xl font-bold leading-[1.12] text-slate-950 sm:text-5xl lg:text-6xl tracking-tight">
@@ -280,19 +264,6 @@ export function HeroSlider() {
             <p className="mt-4 max-w-xl text-pretty text-sm sm:text-base leading-relaxed text-slate-600">
               {slide.body}
             </p>
-          </div>
-
-          {/* Features Checkpoints */}
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-1">
-            {slide.features.map((feat) => (
-              <span
-                key={feat}
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-700 bg-white/90 border border-slate-200/80 px-2.5 py-1 rounded-lg shadow-2xs"
-              >
-                <CheckCircle2 className="size-3.5 text-emerald-600 shrink-0" />
-                <span>{feat}</span>
-              </span>
-            ))}
           </div>
 
           {/* Action CTAs */}
@@ -316,33 +287,15 @@ export function HeroSlider() {
             </Link>
           </div>
 
-          {/* Slider Controls */}
+          {/* Slider Indicators (Dots Centered, No Arrows) */}
           <div
-            className="flex items-center gap-4 pt-4"
+            className="flex items-center justify-center gap-2.5 pt-4"
+            role="tablist"
+            aria-label="Líneas de producto"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
             <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => move(-1)}
-                aria-label="Promoción anterior"
-                className="flex size-9 items-center justify-center rounded-full border border-slate-300 bg-white/90 text-slate-700 transition-all hover:border-alina-400 hover:text-alina-700 hover:scale-105 shadow-2xs cursor-pointer"
-              >
-                <ChevronLeft className="size-4" aria-hidden="true" />
-              </button>
-              <button
-                type="button"
-                onClick={() => move(1)}
-                aria-label="Siguiente promoción"
-                className="flex size-9 items-center justify-center rounded-full border border-slate-300 bg-white/90 text-slate-700 transition-all hover:border-alina-400 hover:text-alina-700 hover:scale-105 shadow-2xs cursor-pointer"
-              >
-                <ChevronRight className="size-4" aria-hidden="true" />
-              </button>
-            </div>
-
-            {/* Slide indicators con barra de progreso de tiempo */}
-            <div className="flex items-center gap-2" role="tablist" aria-label="Líneas de producto">
               {slides.map((item, index) => (
                 <button
                   key={item.id}
@@ -386,27 +339,16 @@ export function HeroSlider() {
           <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-alina-400/20 via-pink-300/15 to-amber-200/20 blur-3xl pointer-events-none" />
 
           {/* Unified Clean Showcase Card */}
-          <div className="relative z-10 w-full max-w-md sm:max-w-lg rounded-3xl border border-white/90 bg-white/95 p-4 sm:p-6 shadow-2xl shadow-pink-500/5 backdrop-blur-md transition-all duration-300">
+          <div className="relative z-10 w-full max-w-md sm:max-w-lg rounded-3xl border border-white/90 bg-white/95 p-4 sm:p-5 shadow-2xl shadow-pink-500/5 backdrop-blur-md transition-all duration-300">
             
-            {/* Header: Badge & Category Indicator */}
-            <div className="flex items-center justify-between gap-2 mb-3">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-alina-50 border border-alina-200/80 px-3 py-1 text-[11px] font-bold text-alina-700 shadow-2xs">
-                <Sparkles className="size-3 text-alina-500" />
-                <span>{displayItem.badge}</span>
-              </div>
-              <span className="text-[10px] font-bold tracking-wider uppercase text-slate-400">
-                Línea {slide.eyebrow}
-              </span>
-            </div>
-
             {/* Central Large Product Image Stage */}
-            <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50/80 to-white/60 flex items-center justify-center p-4 border border-slate-100/90 group">
+            <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50/80 to-white/60 flex items-center justify-center p-2 border border-slate-100/90 group">
               <Image
                 src={displayItem.image}
                 alt={displayItem.title}
                 fill
                 sizes="(max-width: 768px) 90vw, 480px"
-                className="object-contain p-2 filter drop-shadow-md transition-transform duration-500 group-hover:scale-105"
+                className="object-contain filter drop-shadow-md transition-transform duration-500 group-hover:scale-105"
                 priority={activeSlide === 0}
               />
             </div>
@@ -421,17 +363,8 @@ export function HeroSlider() {
               </p>
             </div>
 
-            {/* Dock de Modelos y Variantes (3 Columnas simétricas, 0 solapamiento) */}
-            <div className="mt-4 pt-3.5 border-t border-slate-100">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
-                  Modelos de la colección
-                </span>
-                <span className="text-[10px] text-alina-600 font-semibold">
-                  Toca para previsualizar
-                </span>
-              </div>
-
+            {/* Dock de Modelos y Variantes (3 Columnas simétricas) */}
+            <div className="mt-3.5 pt-3 border-t border-slate-100">
               <div className="grid grid-cols-3 gap-2">
                 {slide.satellites.map((sat, idx) => {
                   const isSelected = activeThumb === idx;
