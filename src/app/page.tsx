@@ -37,7 +37,7 @@ export default function HomePage() {
         <HeroSlider />
 
         {/* Value props micro-bar: 4 balanced cards */}
-        <section className="border-b border-slate-100 bg-white">
+        <section className="bg-white">
           <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 py-6 sm:px-6 lg:px-8">
             {[
               [Store, "Tienda Virtual Especializada", "Insumos, bases y empaques reales de Alina Shop"],
