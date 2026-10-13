@@ -7,8 +7,8 @@ import { Sparkles, ArrowRight, MessageCircle, Plus } from "lucide-react";
 
 export function ComboBanner() {
   return (
-    <section className="w-full py-6">
-      <div className="alina-bokeh relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#fff2f7] via-[#fff8fb] to-[#fff0f5] p-6 sm:p-8 lg:p-12 shadow-sm">
+    <section className="w-full py-4 sm:py-6">
+      <div className="alina-bokeh relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#fff2f7] via-[#fff8fb] to-[#fff0f5] p-5 sm:p-7 lg:p-8 shadow-sm">
         {/* Soft decorative ambient glow orbs */}
         <div className="absolute top-0 right-1/4 w-72 h-72 rounded-full bg-pink-200/40 blur-3xl pointer-events-none" />
         <div className="absolute bottom-0 right-10 w-60 h-60 rounded-full bg-amber-100/40 blur-2xl pointer-events-none" />
@@ -16,7 +16,7 @@ export function ComboBanner() {
         <div className="relative z-10 grid items-center gap-8 lg:grid-cols-12 lg:gap-10">
           
           {/* Left Column: Value Proposition & CTAs (7 cols on lg) */}
-          <div className="lg:col-span-6 xl:col-span-7 space-y-5">
+          <div className="lg:col-span-6 xl:col-span-7 space-y-4 sm:space-y-5">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/95 border border-alina-200 px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider text-alina-700 shadow-2xs">
               <Sparkles className="size-3.5 text-amber-500" aria-hidden="true" />
               <span>Kit de Presentación Completa</span>
@@ -63,95 +63,96 @@ export function ComboBanner() {
               <span>Combo 3 en 1 para Pastelerías</span>
             </div>
 
-            {/* 3 Interconnected Cards */}
+            {/* 3 Interconnected Cards with reduced padding and expanded images */}
             <div className="relative flex items-center justify-center gap-2 sm:gap-3 w-full">
               
               {/* Card 1: Toppers Acrílico */}
               <Link
                 href="/catalogo?categoria=toppers"
-                className="group relative flex flex-col items-center justify-between rounded-2xl border-2 border-white bg-white/95 p-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 w-28 sm:w-36 shrink-0"
+                className="group relative flex flex-col items-center rounded-2xl border-2 border-white bg-white/95 p-2 sm:p-2.5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 w-32 sm:w-40 md:w-44 shrink-0"
               >
-                <span className="text-[10px] font-bold text-alina-600 bg-alina-50 border border-alina-100 rounded-md px-2 py-0.5 uppercase tracking-wider block mb-1">
-                  Topper
-                </span>
-                <div className="relative size-20 sm:size-24 overflow-hidden rounded-xl bg-slate-50/80 flex items-center justify-center p-1">
+                <div className="w-full flex items-center justify-between mb-1.5 px-0.5">
+                  <span className="text-[10px] font-bold text-alina-600 bg-alina-50 border border-alina-100 rounded-md px-1.5 py-0.5 uppercase tracking-wider">
+                    Topper
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-semibold">$1.50</span>
+                </div>
+                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center">
                   <Image
                     src="/images/products/toppers/topper-acrilico-espejo-dorado.png"
                     alt="Toppers decorativos para pastel"
-                    width={110}
-                    height={110}
-                    sizes="110px"
-                    className="object-contain size-full transition-transform duration-300 group-hover:scale-110"
+                    fill
+                    sizes="(max-width: 768px) 30vw, 180px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-108"
                   />
                 </div>
-                <div className="mt-2 text-center">
-                  <p className="text-[11px] font-bold text-slate-800 leading-tight">Acrílico Espejo</p>
-                  <span className="text-[10px] text-slate-500 font-semibold">Desde $1.50</span>
-                </div>
+                <p className="mt-2 text-xs font-bold text-slate-800 leading-tight text-center truncate w-full">
+                  Acrílico Espejo
+                </p>
               </Link>
 
               {/* Plus Sign 1 */}
-              <div className="flex size-7 sm:size-8 items-center justify-center rounded-full bg-alina-600 text-white font-bold text-xs sm:text-sm shadow-md shrink-0 z-10">
+              <div className="flex size-7 sm:size-8 items-center justify-center rounded-full bg-alina-600 text-white font-bold text-xs sm:text-sm shadow-md shrink-0 z-30">
                 +
               </div>
 
               {/* Card 2: Center Hero - Cajas de Acetato */}
               <Link
                 href="/catalogo?categoria=cajas"
-                className="group relative flex flex-col items-center justify-between rounded-2xl border-2 border-alina-300 bg-white p-3.5 shadow-xl hover:shadow-2xl transition-all duration-300 -translate-y-2 sm:-translate-y-3 hover:-translate-y-4 w-32 sm:w-44 shrink-0"
+                className="group relative flex flex-col items-center rounded-2xl border-2 border-alina-300 bg-white p-2 sm:p-2.5 shadow-xl hover:shadow-2xl transition-all duration-300 -translate-y-2 sm:-translate-y-3 hover:-translate-y-4 w-36 sm:w-48 md:w-52 shrink-0 z-20"
               >
-                <span className="text-[10px] font-bold text-white bg-alina-600 rounded-md px-2.5 py-0.5 uppercase tracking-wider block mb-1 shadow-2xs">
-                  Más Vendido
-                </span>
-                <div className="relative size-24 sm:size-28 overflow-hidden rounded-xl bg-slate-50/80 flex items-center justify-center p-1">
+                <div className="w-full flex items-center justify-between mb-1.5 px-0.5">
+                  <span className="text-[10px] font-bold text-white bg-alina-600 rounded-md px-2 py-0.5 uppercase tracking-wider shadow-2xs">
+                    Más Vendido
+                  </span>
+                  <span className="text-[10px] text-emerald-600 font-bold">Visor 360°</span>
+                </div>
+                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center">
                   <Image
                     src="/images/products/cajas/caja-acetato-tapa-transparente.png"
                     alt="Cajas de acetato transparentes"
-                    width={130}
-                    height={130}
-                    sizes="130px"
-                    className="object-contain size-full transition-transform duration-300 group-hover:scale-110"
+                    fill
+                    sizes="(max-width: 768px) 35vw, 210px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-108"
                   />
                 </div>
-                <div className="mt-2 text-center">
-                  <p className="text-xs font-bold text-slate-900 leading-tight">Caja Acetato Cristal</p>
-                  <span className="text-[10px] text-emerald-600 font-bold">Visibilidad 360°</span>
-                </div>
+                <p className="mt-2 text-xs sm:text-sm font-bold text-slate-900 leading-tight text-center truncate w-full">
+                  Caja Acetato Cristal
+                </p>
               </Link>
 
               {/* Plus Sign 2 */}
-              <div className="flex size-7 sm:size-8 items-center justify-center rounded-full bg-alina-600 text-white font-bold text-xs sm:text-sm shadow-md shrink-0 z-10">
+              <div className="flex size-7 sm:size-8 items-center justify-center rounded-full bg-alina-600 text-white font-bold text-xs sm:text-sm shadow-md shrink-0 z-30">
                 +
               </div>
 
               {/* Card 3: Bases MDF con Logo */}
               <Link
                 href="/catalogo?categoria=bases-mdf"
-                className="group relative flex flex-col items-center justify-between rounded-2xl border-2 border-white bg-white/95 p-3 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 w-28 sm:w-36 shrink-0"
+                className="group relative flex flex-col items-center rounded-2xl border-2 border-white bg-white/95 p-2 sm:p-2.5 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1.5 w-32 sm:w-40 md:w-44 shrink-0"
               >
-                <span className="text-[10px] font-bold text-alina-600 bg-alina-50 border border-alina-100 rounded-md px-2 py-0.5 uppercase tracking-wider block mb-1">
-                  Base MDF
-                </span>
-                <div className="relative size-20 sm:size-24 overflow-hidden rounded-xl bg-slate-50/80 flex items-center justify-center p-1">
+                <div className="w-full flex items-center justify-between mb-1.5 px-0.5">
+                  <span className="text-[10px] font-bold text-alina-600 bg-alina-50 border border-alina-100 rounded-md px-1.5 py-0.5 uppercase tracking-wider">
+                    Base MDF
+                  </span>
+                  <span className="text-[10px] text-slate-500 font-semibold">$0.55</span>
+                </div>
+                <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-slate-50 flex items-center justify-center">
                   <Image
-                    src="/images/products/bases-mdf/base-mdf-personalizada-logo.png"
-                    alt="Base MDF con grabado de logotipo"
-                    width={110}
-                    height={110}
-                    sizes="110px"
-                    className="object-contain size-full transition-transform duration-300 group-hover:scale-110"
+                    src="/images/products/bases-mdf/base-mdf-hero-muestrario.png"
+                    alt="Bases de torta MDF con corte láser"
+                    fill
+                    sizes="(max-width: 768px) 30vw, 180px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-108"
                   />
                 </div>
-                <div className="mt-2 text-center">
-                  <p className="text-[11px] font-bold text-slate-800 leading-tight">+ Grabado Láser</p>
-                  <span className="text-[10px] text-slate-500 font-semibold">Desde $0.55</span>
-                </div>
+                <p className="mt-2 text-xs font-bold text-slate-800 leading-tight text-center truncate w-full">
+                  + Grabado Láser
+                </p>
               </Link>
 
             </div>
-
           </div>
-
         </div>
       </div>
     </section>
