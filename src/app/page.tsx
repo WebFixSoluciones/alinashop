@@ -102,14 +102,10 @@ export default function HomePage() {
 
         {/* Categories Quick Navigation */}
         <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 py-14 sm:px-6 lg:px-8">
-          <div className="mb-8 flex items-end justify-between gap-4">
-            <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-alina-600">Líneas de la Tienda</span>
-              <h2 className="font-display font-semibold text-2xl sm:text-3xl text-slate-900 mt-0.5">Explora Nuestras Categorías</h2>
-            </div>
-            <Link href="/catalogo" className="text-xs sm:text-sm font-bold text-alina-600 hover:text-alina-700 flex items-center gap-1.5 transition-colors">
-              <span>Ver toda la tienda</span> <ArrowRight className="w-4 h-4" />
-            </Link>
+          <div className="mb-8 sm:mb-10 text-center">
+            <h2 className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight">
+              Explora Nuestras Categorías
+            </h2>
           </div>
 
           <div className="grid grid-cols-4 lg:grid-cols-8 gap-x-3 gap-y-6 sm:gap-x-4 sm:gap-y-8 lg:gap-x-6 items-start justify-items-center">
