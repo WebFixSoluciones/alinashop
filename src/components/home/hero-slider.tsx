@@ -3,14 +3,8 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface SatelliteCard {
-  image: string;
-  title: string;
-  tag: string;
-}
 
 interface SlideData {
   id: string;
@@ -21,14 +15,7 @@ interface SlideData {
   cta: string;
   href: string;
   bgImage: string;
-  heroProduct: {
-    image: string;
-    title: string;
-    spec: string;
-    badge: string;
-  };
-  satellites: SatelliteCard[];
-  features: string[];
+  products: [string, string, string];
 }
 
 const slides: SlideData[] = [
@@ -41,33 +28,10 @@ const slides: SlideData[] = [
     cta: "Explorar Bases MDF",
     href: "/catalogo?categoria=bases-mdf",
     bgImage: "/images/slider/bg-bases.jpg",
-    heroProduct: {
-      image: "/images/products/bases-mdf/base-mdf-personalizada-logo.png",
-      title: "Base MDF Personalizada con Logo",
-      spec: "MDF 3mm · Acabado Blanco / Wengue",
-      badge: "Grabado Láser de Marca",
-    },
-    satellites: [
-      {
-        image: "/images/products/bases-disenos/base-diseno-coleccion.png",
-        title: "Bases con Ondas & Festón",
-        tag: "Colección Diseño",
-      },
-      {
-        image: "/images/products/minibases/minibase-cheesecake-rizada.png",
-        title: "Minibases Cheesecake",
-        tag: "Monoporción",
-      },
-      {
-        image: "/images/products/bases-rectangulares/base-rectangular-mdf-personalizada.png",
-        title: "Bases Rectangulares",
-        tag: "Bajo Medida",
-      },
-    ],
-    features: [
-      "Corte Láser MDF 3mm",
-      "Grabado de Logo (+ $0.20)",
-      "Escala Mayorista desde $0.55",
+    products: [
+      "/images/slider/transparent/base-corazones.png",
+      "/images/slider/transparent/base-flores.png",
+      "/images/slider/transparent/base-trebol.png",
     ],
   },
   {
@@ -79,33 +43,10 @@ const slides: SlideData[] = [
     cta: "Ver Colección de Toppers",
     href: "/catalogo?categoria=toppers",
     bgImage: "/images/slider/bg-toppers.jpg",
-    heroProduct: {
-      image: "/images/products/toppers/topper-acrilico-espejo-dorado.png",
-      title: "Topper Acrílico Espejo Dorado",
-      spec: "Acrílico 2mm Alta Densidad · Reutilizable",
-      badge: "Efecto Espejo Brillante",
-    },
-    satellites: [
-      {
-        image: "/images/products/toppers/topper-acrilico-oro-rosa.png",
-        title: "Topper Oro Rosa Espejo",
-        tag: "Bodas y Quinceaños",
-      },
-      {
-        image: "/images/products/toppers/topper-mdf-vinil.png",
-        title: "Topper Cumpleaños Vinil",
-        tag: "Personalizado",
-      },
-      {
-        image: "/images/products/apliques/aplique-acrilico-miniatura-4cm-6cm-01.png",
-        title: "Mini Apliques Acrílicos",
-        tag: "Detalles 4 a 6 cm",
-      },
-    ],
-    features: [
-      "Acrílico Espejo Premium",
-      "Dorado · Oro Rosa · Plata",
-      "+48 Diseños en Stock",
+    products: [
+      "/images/slider/transparent/topper-fechas.png",
+      "/images/slider/transparent/topper-cumpleanos.png",
+      "/images/slider/transparent/topper-comunion.png",
     ],
   },
   {
@@ -117,33 +58,10 @@ const slides: SlideData[] = [
     cta: "Explorar Cajas y Empaques",
     href: "/catalogo?categoria=cajas",
     bgImage: "/images/slider/bg-cajas.jpg",
-    heroProduct: {
-      image: "/images/products/cajas/caja-acetato-tapa-transparente.png",
-      title: "Caja Acetato Cristal Visor 360°",
-      spec: "Cuerpo Rígido Transparente + Base",
-      badge: "Visibilidad Total",
-    },
-    satellites: [
-      {
-        image: "/images/products/cajas/caja-cupcakes-dorado-4-servicios.png",
-        title: "Caja Cupcakes Dorada",
-        tag: "4 Servicios",
-      },
-      {
-        image: "/images/products/cajas/caja-acetato-tapa-blanca.png",
-        title: "Caja Acetato Tapa Blanca",
-        tag: "Tortas Altas",
-      },
-      {
-        image: "/images/products/cajas/caja-mdf-kit-torta-porta-flores-30x30.png",
-        title: "Kit Torta Porta Flores MDF",
-        tag: "Edición Especial",
-      },
-    ],
-    features: [
-      "Acetato Rígido Cristal",
-      "Protección de Transporte",
-      "Formatos Altos y Cupcakes",
+    products: [
+      "/images/slider/transparent/caja-acetato-1.png",
+      "/images/slider/transparent/caja-kit-cinta.png",
+      "/images/slider/transparent/caja-cupcakes-dorada.png",
     ],
   },
   {
@@ -155,57 +73,18 @@ const slides: SlideData[] = [
     cta: "Ver Herramientas y Utensilios",
     href: "/catalogo?categoria=complementos",
     bgImage: "/images/slider/bg-complementos.jpg",
-    heroProduct: {
-      image: "/images/products/complementos/set-boquillas-grandes-manga-pack10.png",
-      title: "Set 10 Boquillas Grandes + Manga",
-      spec: "Acero Inoxidable Grado Alimenticio",
-      badge: "Set Profesional Taller",
-    },
-    satellites: [
-      {
-        image: "/images/products/complementos/set-moldes-figuras-pack12.png",
-        title: "Moldes & Figuras Decorativas",
-        tag: "Set 12 Piezas",
-      },
-      {
-        image: "/images/products/complementos/esfera-decorativa-dorado-pack20.png",
-        title: "Esferas Decorativas Cake",
-        tag: "Pack 20 Unidades",
-      },
-      {
-        image: "/images/products/complementos/cortador-acero-margarita-pack3.png",
-        title: "Cortadores de Galletas",
-        tag: "Pack 3 Piezas",
-      },
-    ],
-    features: [
-      "Acero Inoxidable Grado Alimenticio",
-      "Kits Completos para Crema y Fondant",
-      "Durabilidad y Precisión",
+    products: [
+      "/images/slider/transparent/cortadores-margarita.png",
+      "/images/slider/transparent/boquillas-manga.png",
+      "/images/slider/transparent/esferas-doradas.png",
     ],
   },
 ];
 
 export function HeroSlider() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [activeThumb, setActiveThumb] = useState<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
   const slide = slides[activeSlide];
-
-  // Reset thumbnail selection when slide changes
-  useEffect(() => {
-    setActiveThumb(null);
-  }, [activeSlide]);
-
-  const currentSatellite = activeThumb !== null ? slide.satellites[activeThumb] : null;
-  const displayItem = currentSatellite
-    ? {
-        image: currentSatellite.image,
-        title: currentSatellite.title,
-        spec: currentSatellite.tag,
-        badge: currentSatellite.tag,
-      }
-    : slide.heroProduct;
 
   // Auto-play timer: 5 segundos continuos automáticos
   useEffect(() => {
@@ -216,6 +95,10 @@ export function HeroSlider() {
 
     return () => clearInterval(timer);
   }, [activeSlide, isPaused]);
+
+  const move = (direction: number) => {
+    setActiveSlide((current) => (current + direction + slides.length) % slides.length);
+  };
 
   return (
     <section
@@ -287,121 +170,77 @@ export function HeroSlider() {
             </Link>
           </div>
 
-          {/* Slider Indicators (Dots Centered, No Arrows) */}
+          {/* Minimalist Navigation Arrows (No sliding dots, super clean) */}
           <div
-            className="flex items-center justify-center gap-2.5 pt-4"
-            role="tablist"
-            aria-label="Líneas de producto"
+            className="flex items-center gap-2.5 pt-3"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
           >
-            <div className="flex items-center gap-2">
-              {slides.map((item, index) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeSlide === index}
-                  aria-label={`Ver diapositiva ${index + 1}: ${item.eyebrow}`}
-                  onClick={() => setActiveSlide(index)}
-                  className={cn(
-                    "relative h-2 rounded-full overflow-hidden transition-all duration-300 cursor-pointer",
-                    activeSlide === index
-                      ? "w-10 bg-alina-200"
-                      : "w-2.5 bg-slate-300 hover:bg-slate-400"
-                  )}
-                >
-                  {activeSlide === index && !isPaused && (
-                    <span
-                      key={`progress-${activeSlide}`}
-                      className="absolute inset-0 bg-alina-600 rounded-full animate-hero-progress"
-                    />
-                  )}
-                  {activeSlide === index && isPaused && (
-                    <span className="absolute inset-0 bg-alina-600 rounded-full" />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            <span className="text-[11px] font-semibold text-slate-400">
+            <button
+              type="button"
+              onClick={() => move(-1)}
+              aria-label="Promoción anterior"
+              className="size-8 sm:size-9 rounded-full bg-white/80 hover:bg-white text-slate-700 hover:text-alina-600 border border-slate-200/90 hover:border-alina-300 shadow-2xs flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95"
+            >
+              <ChevronLeft className="size-4" aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              onClick={() => move(1)}
+              aria-label="Siguiente promoción"
+              className="size-8 sm:size-9 rounded-full bg-white/80 hover:bg-white text-slate-700 hover:text-alina-600 border border-slate-200/90 hover:border-alina-300 shadow-2xs flex items-center justify-center transition-all cursor-pointer hover:scale-105 active:scale-95"
+            >
+              <ChevronRight className="size-4" aria-hidden="true" />
+            </button>
+            <span className="text-[11px] font-semibold text-slate-400 ml-1.5">
               0{activeSlide + 1} / 0{slides.length}
             </span>
           </div>
         </div>
 
-        {/* Right Column: Vitrina de Producto Destacado + Galería de Modelos (Sin solapamientos) */}
+        {/* Right Column: Trio of isolated PNG products floating directly on the slider background */}
         <div
-          key={`showcase-${slide.id}`}
-          className="lg:col-span-6 relative flex items-center justify-center animate-in fade-in duration-500 w-full"
+          key={`products-${slide.id}`}
+          className="lg:col-span-6 relative flex items-center justify-center min-h-[300px] sm:min-h-[360px] lg:min-h-[440px] w-full animate-in fade-in zoom-in-95 duration-700 select-none"
         >
           {/* Ambient soft glow aura */}
-          <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-alina-400/20 via-pink-300/15 to-amber-200/20 blur-3xl pointer-events-none" />
+          <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-alina-400/20 via-pink-300/15 to-amber-200/20 blur-3xl pointer-events-none" />
 
-          {/* Unified Clean Showcase Card */}
-          <div className="relative z-10 w-full max-w-md sm:max-w-lg rounded-3xl border border-white/90 bg-white/95 p-4 sm:p-5 shadow-2xl shadow-pink-500/5 backdrop-blur-md transition-all duration-300">
+          {/* Dynamic 3-Product Trio Composition (No white card, no names, pure transparent PNGs) */}
+          <div className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center">
             
-            {/* Central Large Product Image Stage */}
-            <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50/80 to-white/60 flex items-center justify-center p-2 border border-slate-100/90 group">
+            {/* Product 1: Flanking Left (floating, subtle tilt) */}
+            <div className="absolute left-1 sm:left-4 bottom-2 sm:bottom-6 w-32 sm:w-44 lg:w-52 aspect-square z-10 -rotate-6 transition-all duration-500 hover:scale-105 hover:-rotate-3">
               <Image
-                src={displayItem.image}
-                alt={displayItem.title}
+                src={slide.products[0]}
+                alt=""
                 fill
-                sizes="(max-width: 768px) 90vw, 480px"
-                className="object-contain filter drop-shadow-md transition-transform duration-500 group-hover:scale-105"
+                sizes="(max-width: 768px) 35vw, 220px"
+                className="object-contain filter drop-shadow-xl"
+              />
+            </div>
+
+            {/* Product 2: Central Hero Product (large, elevated, prominent) */}
+            <div className="relative w-44 sm:w-60 lg:w-72 aspect-square z-20 transition-all duration-500 hover:scale-110">
+              <Image
+                src={slide.products[1]}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 50vw, 300px"
+                className="object-contain filter drop-shadow-2xl"
                 priority={activeSlide === 0}
               />
             </div>
 
-            {/* Product Title & Spec */}
-            <div className="mt-3.5 px-1">
-              <h3 className="font-display text-base sm:text-lg font-bold text-slate-900 leading-tight">
-                {displayItem.title}
-              </h3>
-              <p className="text-xs text-slate-500 mt-0.5 font-medium">
-                {displayItem.spec}
-              </p>
-            </div>
-
-            {/* Dock de Modelos y Variantes (3 Columnas simétricas) */}
-            <div className="mt-3.5 pt-3 border-t border-slate-100">
-              <div className="grid grid-cols-3 gap-2">
-                {slide.satellites.map((sat, idx) => {
-                  const isSelected = activeThumb === idx;
-                  return (
-                    <button
-                      key={sat.title}
-                      type="button"
-                      onMouseEnter={() => setActiveThumb(idx)}
-                      onClick={() => setActiveThumb(activeThumb === idx ? null : idx)}
-                      className={cn(
-                        "flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl border text-left transition-all duration-200 cursor-pointer",
-                        isSelected
-                          ? "bg-alina-50/90 border-alina-300 ring-1 ring-alina-400 shadow-xs"
-                          : "bg-slate-50/70 border-slate-200/80 hover:bg-white hover:border-alina-200 hover:shadow-xs"
-                      )}
-                    >
-                      <div className="relative size-8 sm:size-10 rounded-lg bg-white border border-slate-100 overflow-hidden shrink-0 flex items-center justify-center p-0.5">
-                        <Image
-                          src={sat.image}
-                          alt={sat.title}
-                          width={40}
-                          height={40}
-                          className="object-contain size-full"
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1 pr-0.5">
-                        <span className="text-[9px] font-bold text-alina-600 uppercase tracking-tight block truncate">
-                          {sat.tag}
-                        </span>
-                        <p className="text-[10px] sm:text-[11px] font-semibold text-slate-800 leading-tight truncate">
-                          {sat.title}
-                        </p>
-                      </div>
-                    </button>
-                  );
-                })}
-              </div>
+            {/* Product 3: Flanking Right (floating, subtle tilt) */}
+            <div className="absolute right-1 sm:right-4 top-2 sm:top-6 w-32 sm:w-44 lg:w-52 aspect-square z-10 rotate-6 transition-all duration-500 hover:scale-105 hover:rotate-3">
+              <Image
+                src={slide.products[2]}
+                alt=""
+                fill
+                sizes="(max-width: 768px) 35vw, 220px"
+                className="object-contain filter drop-shadow-xl"
+              />
             </div>
 
           </div>
@@ -411,4 +250,3 @@ export function HeroSlider() {
     </section>
   );
 }
-
