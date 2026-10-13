@@ -81,8 +81,8 @@ export default function HomePage() {
         <HeroSlider />
 
         {/* Value props micro-bar: 4 balanced cards */}
-        <section className="bg-white">
-          <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 py-6 sm:px-6 lg:px-8">
+        <section className="bg-white pt-6 sm:pt-8 pb-0">
+          <div className="mx-auto grid w-[90%] min-w-[80%] max-w-[1720px] grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-4 sm:px-6 lg:px-8">
             {[
               [Store, "Tienda Virtual Especializada", "Insumos, bases y empaques reales de Alina Shop"],
               [Sparkles, "Corte Láser & Personalización", "Bases con grabado de logotipo para tu pastelería"],
@@ -101,8 +101,8 @@ export default function HomePage() {
         </section>
 
         {/* Categories Quick Navigation */}
-        <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 py-14 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-10 text-center">
+        <section className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 pt-12 pb-12 sm:pt-14 sm:pb-14 sm:px-6 lg:px-8">
+          <div className="mb-11 sm:mb-12 text-center">
             <h2 className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-slate-900 tracking-tight">
               Explora Nuestras Categorías
             </h2>
@@ -158,7 +158,7 @@ export default function HomePage() {
         <ComboBanner />
 
         {/* Featured Products Section */}
-        <section className="border-t border-slate-100 bg-slate-50/60 py-14">
+        <section className="border-t border-slate-100 bg-slate-50/60 py-12 sm:py-14">
           <div className="mx-auto w-[90%] min-w-[80%] max-w-[1720px] px-4 sm:px-6 lg:px-8">
             <div className="mb-8 flex items-end justify-between gap-4">
               <div>
