@@ -54,13 +54,15 @@ export function Footer() {
       {/* Main footer */}
       <div className="w-[90%] min-w-[80%] max-w-[1720px] mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <Image
-            src="/logo.jpg"
-            alt="Alina Shop"
-            width={200}
-            height={70}
-            className="h-14 md:h-16 w-auto object-contain brightness-200 invert mb-4"
-          />
+          <div className="inline-block bg-white px-3.5 py-2 rounded-xl shadow-xs mb-4">
+            <Image
+              src="/logo.jpg"
+              alt="Alina Shop"
+              width={200}
+              height={70}
+              className="h-10 sm:h-12 w-auto object-contain"
+            />
+          </div>
           <p className="text-xs leading-relaxed text-neutral-400 mb-4">
             Alina Shop es tu aliado en insumos de repostería profesional, bases para tortas en MDF personalizadas, toppers y empaques de alta calidad.
           </p>
