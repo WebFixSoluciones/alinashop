@@ -29,9 +29,9 @@ const slides: SlideData[] = [
     href: "/catalogo?categoria=bases-mdf",
     bgImage: "/images/slider/bg-bases.jpg",
     products: [
-      "/images/slider/transparent/base-corazones.png",
-      "/images/slider/transparent/base-flores.png",
-      "/images/slider/transparent/base-trebol.png",
+      "/images/slider/aplicaciones/base-1.jpg",
+      "/images/slider/aplicaciones/base-2.jpg",
+      "/images/slider/aplicaciones/base-3.jpg",
     ],
   },
   {
@@ -44,9 +44,9 @@ const slides: SlideData[] = [
     href: "/catalogo?categoria=toppers",
     bgImage: "/images/slider/bg-toppers.jpg",
     products: [
-      "/images/slider/transparent/topper-fechas.png",
-      "/images/slider/transparent/topper-cumpleanos.png",
-      "/images/slider/transparent/topper-comunion.png",
+      "/images/slider/aplicaciones/topper-1.jpg",
+      "/images/slider/aplicaciones/topper-2.jpg",
+      "/images/slider/aplicaciones/topper-3.jpg",
     ],
   },
   {
@@ -59,9 +59,9 @@ const slides: SlideData[] = [
     href: "/catalogo?categoria=cajas",
     bgImage: "/images/slider/bg-cajas.jpg",
     products: [
-      "/images/slider/transparent/caja-acetato-1.png",
-      "/images/slider/transparent/caja-kit-cinta.png",
-      "/images/slider/transparent/caja-cupcakes-dorada.png",
+      "/images/slider/aplicaciones/caja-1.jpg",
+      "/images/slider/aplicaciones/caja-2.jpg",
+      "/images/slider/aplicaciones/caja-3.jpg",
     ],
   },
   {
@@ -74,9 +74,9 @@ const slides: SlideData[] = [
     href: "/catalogo?categoria=complementos",
     bgImage: "/images/slider/bg-complementos.jpg",
     products: [
-      "/images/slider/transparent/cortadores-margarita.png",
-      "/images/slider/transparent/boquillas-manga.png",
-      "/images/slider/transparent/esferas-doradas.png",
+      "/images/slider/aplicaciones/herramienta-1.jpg",
+      "/images/slider/aplicaciones/herramienta-2.jpg",
+      "/images/slider/aplicaciones/herramienta-3.jpg",
     ],
   },
 ];
@@ -198,48 +198,48 @@ export function HeroSlider() {
           </div>
         </div>
 
-        {/* Right Column: Trio of isolated PNG products floating directly on the slider background */}
+        {/* Right Column: Trio of editorial product application showcases */}
         <div
           key={`products-${slide.id}`}
-          className="lg:col-span-6 relative flex items-center justify-center min-h-[300px] sm:min-h-[360px] lg:min-h-[440px] w-full animate-in fade-in zoom-in-95 duration-700 select-none"
+          className="lg:col-span-6 relative flex items-center justify-center min-h-[320px] sm:min-h-[380px] lg:min-h-[460px] w-full animate-in fade-in zoom-in-95 duration-700 select-none py-4"
         >
           {/* Ambient soft glow aura */}
           <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-alina-400/20 via-pink-300/15 to-amber-200/20 blur-3xl pointer-events-none" />
 
-          {/* Dynamic 3-Product Trio Composition (No white card, no names, pure transparent PNGs) */}
+          {/* Dynamic 3-Photo Trio Composition (Editorial Lookbook with clean white frames & smooth shadows) */}
           <div className="relative w-full max-w-lg aspect-[4/3] flex items-center justify-center">
             
             {/* Product 1: Flanking Left (floating, subtle tilt) */}
-            <div className="absolute left-1 sm:left-4 bottom-2 sm:bottom-6 w-32 sm:w-44 lg:w-52 aspect-square z-10 -rotate-6 transition-all duration-500 hover:scale-105 hover:-rotate-3">
+            <div className="absolute left-1 sm:left-4 bottom-2 sm:bottom-6 w-32 sm:w-44 lg:w-52 aspect-square z-10 -rotate-6 rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-white shadow-xl overflow-hidden bg-white transition-all duration-500 hover:scale-105 hover:-rotate-3 hover:z-30">
               <Image
                 src={slide.products[0]}
-                alt=""
+                alt={slide.title}
                 fill
                 sizes="(max-width: 768px) 35vw, 220px"
-                className="object-contain filter drop-shadow-xl"
+                className="object-cover size-full transition-transform duration-500 hover:scale-108"
               />
             </div>
 
             {/* Product 2: Central Hero Product (large, elevated, prominent) */}
-            <div className="relative w-44 sm:w-60 lg:w-72 aspect-square z-20 transition-all duration-500 hover:scale-110">
+            <div className="relative w-48 sm:w-64 lg:w-76 aspect-square z-20 rounded-3xl sm:rounded-[2rem] border-3 sm:border-4 border-white shadow-2xl overflow-hidden bg-white transition-all duration-500 hover:scale-105">
               <Image
                 src={slide.products[1]}
-                alt=""
+                alt={slide.title}
                 fill
-                sizes="(max-width: 768px) 50vw, 300px"
-                className="object-contain filter drop-shadow-2xl"
+                sizes="(max-width: 768px) 50vw, 320px"
+                className="object-cover size-full transition-transform duration-500 hover:scale-108"
                 priority={activeSlide === 0}
               />
             </div>
 
             {/* Product 3: Flanking Right (floating, subtle tilt) */}
-            <div className="absolute right-1 sm:right-4 top-2 sm:top-6 w-32 sm:w-44 lg:w-52 aspect-square z-10 rotate-6 transition-all duration-500 hover:scale-105 hover:rotate-3">
+            <div className="absolute right-1 sm:right-4 top-2 sm:top-6 w-32 sm:w-44 lg:w-52 aspect-square z-10 rotate-6 rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-white shadow-xl overflow-hidden bg-white transition-all duration-500 hover:scale-105 hover:rotate-3 hover:z-30">
               <Image
                 src={slide.products[2]}
-                alt=""
+                alt={slide.title}
                 fill
                 sizes="(max-width: 768px) 35vw, 220px"
-                className="object-contain filter drop-shadow-xl"
+                className="object-cover size-full transition-transform duration-500 hover:scale-108"
               />
             </div>
 
