@@ -11,7 +11,6 @@ import {
   TrendingUp,
   Settings,
   LogOut,
-  Shield,
   Users,
   Megaphone,
   ExternalLink,
@@ -51,28 +50,22 @@ export function AdminSidebar({ session }: AdminSidebarProps) {
 
   return (
     <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col shrink-0 min-h-screen border-r border-slate-800">
-      {/* Brand Header */}
-      <div className="p-5 border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="size-10 rounded-xl bg-slate-800 flex items-center justify-center p-1.5 border border-slate-700 shrink-0">
-            <Image
-              src="/logo.jpg"
-              alt="Alina"
-              width={32}
-              height={32}
-              className="object-contain brightness-200 invert"
-            />
-          </div>
-          <div className="min-w-0">
-            <span className="font-display font-bold text-white text-sm tracking-tight block truncate">
-              Alina Shop
-            </span>
-            <span className="text-[10px] text-slate-400 font-mono flex items-center gap-1">
-              <Shield className="size-2.5 text-emerald-400 shrink-0" />
-              <span>Panel de Control</span>
-            </span>
-          </div>
-        </div>
+      {/* Brand Header: Solo Logo Oficial Alina Shop */}
+      <div className="p-4 border-b border-slate-800">
+        <Link
+          href="/admin"
+          className="flex items-center justify-center rounded-2xl bg-white px-3 py-2.5 shadow-sm hover:opacity-95 transition-all group"
+          title="Alina Shop - Administrador"
+        >
+          <Image
+            src="/logo.jpg"
+            alt="Alina Shop"
+            width={180}
+            height={60}
+            className="h-10 sm:h-11 w-auto object-contain transition-transform duration-200 group-hover:scale-105"
+            priority
+          />
+        </Link>
 
         {/* User Identity Pill */}
         {session && (
