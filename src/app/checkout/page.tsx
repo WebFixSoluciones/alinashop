@@ -152,10 +152,9 @@ function CheckoutContent() {
       const orderNumber = data.orderNumber || "ALN-2026-1001";
       const orderId = data.orderId || "new";
 
-      clearCart();
-
-      // If WhatsApp order, open WhatsApp with confirmation text and redirect to success
+      // If WhatsApp order, clear cart, open WhatsApp with confirmation text and redirect to success
       if (formData.paymentMethod === "whatsapp") {
+        clearCart();
         const waText = `*¡Pedido Registrado con Éxito!*
 *N° Pedido:* ${orderNumber}
 *Cliente:* ${formData.fullName} (C.I: ${formData.idNumber})
@@ -170,12 +169,14 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
         return;
       }
 
-      // If Payphone payment:
+      // If Payphone payment: preserve cart in case user cancels or card is declined,
+      // cart is cleared automatically upon successful payment confirmation in /confirmar-payphone
       if (formData.paymentMethod === "payphone") {
         if (data.payUrl) {
           window.location.href = data.payUrl;
           return;
         }
+        clearCart();
         router.push(`/pedido/${orderId}/exito?num=${orderNumber}&method=payphone`);
         return;
       }
