@@ -37,6 +37,12 @@ export interface StoredOrder {
   trackingNumber?: string;
   courier?: string;
   trackingUrl?: string;
+  payphoneTransactionId?: string;
+  payphoneCardBrand?: string;
+  payphoneLastDigits?: string;
+  payphoneAuthorizationCode?: string;
+  payphonePaymentId?: string;
+  payphonePayUrl?: string;
   createdAt: string;
   updatedAt: string;
 }

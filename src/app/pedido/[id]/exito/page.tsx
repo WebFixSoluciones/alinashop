@@ -1,17 +1,25 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CheckCircle2, MessageCircle, Truck, ArrowRight, ShieldCheck } from "lucide-react";
+import { CheckCircle2, MessageCircle, Truck, ArrowRight, ShieldCheck, FileText } from "lucide-react";
+import { findOrderById, findOrderByOrderNumber } from "@/lib/orders-store";
 
 interface PageProps {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ num?: string; method?: string }>;
+  searchParams: Promise<{ num?: string; method?: string; tx?: string }>;
 }
 
 export default async function OrderSuccessPage({ params, searchParams }: PageProps) {
   const { id } = await params;
-  const { num, method } = await searchParams;
+  const { num, method, tx } = await searchParams;
   const orderNumber = num || `ALN-2026-${id.slice(-4)}`;
+
+  const order = findOrderById(id) || findOrderByOrderNumber(orderNumber);
+  const isPaidWithPayphone =
+    order?.paymentStatus === "PAGADO" ||
+    order?.paymentMethod === "payphone" ||
+    Boolean(tx) ||
+    Boolean(order?.payphoneTransactionId);
 
   return (
     <div className="min-h-screen bg-slate-50/60 flex flex-col items-center justify-center p-4 sm:p-6">
@@ -36,11 +44,17 @@ export default async function OrderSuccessPage({ params, searchParams }: PagePro
             {orderNumber}
           </div>
           <div className="text-xs text-slate-500 mt-2">
-            Método seleccionado:{" "}
+            Método de Pago:{" "}
             <strong className="text-slate-800">
-              {method === "whatsapp" ? "Pedido por WhatsApp (Transferencia)" : "Tarjeta con Payphone"}
+              {method === "whatsapp" ? "Pedido por WhatsApp (Transferencia)" : "Tarjeta de Crédito / Débito (Payphone)"}
             </strong>
           </div>
+          {isPaidWithPayphone && (
+            <div className="mt-2.5 pt-2 border-t border-slate-200/80 flex items-center gap-1.5 text-xs text-emerald-700 font-semibold">
+              <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Pago Acreditado · {order?.payphoneCardBrand || "Visa / Mastercard"}</span>
+            </div>
+          )}
         </div>
 
         <p className="text-xs text-slate-600 leading-relaxed mb-6">
@@ -49,6 +63,13 @@ export default async function OrderSuccessPage({ params, searchParams }: PagePro
 
         {/* Actions */}
         <div className="space-y-3">
+          <Link
+            href={`/cuenta/pedidos/${order?.id || id}/comprobante`}
+            className="w-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs transition-all shadow-2xs"
+          >
+            <FileText className="w-4 h-4 text-alina-600" />
+            <span>Ver Comprobante Digital</span>
+          </Link>
           <a
             href={`https://wa.me/593985890956?text=Hola%20Alina%20Shop,%20acabo%20de%20realizar%20el%20pedido%20*${orderNumber}*%20en%20la%20tienda%20virtual.`}
             target="_blank"

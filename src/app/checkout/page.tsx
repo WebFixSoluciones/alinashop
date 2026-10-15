@@ -172,8 +172,12 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
 
       // If Payphone payment:
       if (formData.paymentMethod === "payphone") {
-        // En modo demostración / local, si Payphone está en sandbox, redirigimos a confirmación exitosa con simulación
+        if (data.payUrl) {
+          window.location.href = data.payUrl;
+          return;
+        }
         router.push(`/pedido/${orderId}/exito?num=${orderNumber}&method=payphone`);
+        return;
       }
     } catch (err: any) {
       setErrorMessage(err.message || "Ocurrió un error inesperado. Por favor intenta de nuevo.");

@@ -27,9 +27,11 @@ export default function AdminSettingsPage() {
     tiktokUrl: "https://tiktok.com/@alinashop.ec",
 
     // Payphone
-    payphoneAppId: "live_app_alina_shop",
-    payphoneClientId: "live_client_alina_shop",
-    payphoneToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+    payphoneAppId: "JdIli4X3XE9xlXWuRsXag",
+    payphoneStoreId: "bf4a1bdc-5696-464c-b6b4-ed9abef31ebf",
+    payphoneClientId: "3abEmuDXl0qfEwnzimNrvQ",
+    payphoneToken:
+      "l-iTD8oIsT8etP31TEigMP82gLJ9dXAZlhUdVQTvSjP22eHXBXv9YwXM6AkXwcNXabZcKFtFZUI9H4frUZMjlDC8APCPkO6t5opH3QBYpR23PfA-1C0D14IxkacZbPrt1dpDtNpar64jwOOFzMVwi2WARMoljZQVCn9kitNcVtqmLrU4lV8nooPtxXLX_jkpyUYtkPSKhcNlRwRlKSNJ-uFsioLo7CkUc5HEHuw1YlbRvTXMrdwB4IjY9AczOVyDqCBpBTe43juMTmgrHw4T71IrncfSv14dBT5kyyzoJLnvMGqJysjZjApPETmDCU2pTC9mnw",
     payphoneIsSandbox: false,
 
     // Envíos
@@ -200,12 +202,24 @@ export default function AdminSettingsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1">
-                App ID de Payphone
+                App ID / Identificador Payphone
               </label>
               <input
                 type="text"
                 value={settings.payphoneAppId}
                 onChange={(e) => setSettings({ ...settings, payphoneAppId: e.target.value })}
+                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 font-mono focus:outline-none focus:border-alina-600"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
+                Tienda ID (storeId) de Payphone
+              </label>
+              <input
+                type="text"
+                value={settings.payphoneStoreId}
+                onChange={(e) => setSettings({ ...settings, payphoneStoreId: e.target.value })}
                 className="w-full border border-slate-300 rounded-lg px-3 py-2 text-xs text-slate-900 font-mono focus:outline-none focus:border-alina-600"
               />
             </div>

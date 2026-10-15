@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCustomerSession } from "@/lib/customer-auth";
 import { findCustomerByEmail } from "@/lib/customers-store";
 import { saveOrder, StoredOrder, StoredOrderItem } from "@/lib/orders-store";
+import { preparePayphonePayment } from "@/lib/payphone";
 
 export async function POST(req: Request) {
   try {
@@ -104,6 +105,37 @@ export async function POST(req: Request) {
       updatedAt: nowIso,
     };
 
+    // 4. Preparar link de pago con Payphone si es el método seleccionado
+    let payUrl: string | undefined;
+    let paymentId: string | undefined;
+
+    if (paymentMethod === "payphone") {
+      const origin =
+        req.headers.get("origin") ||
+        process.env.NEXT_PUBLIC_APP_URL ||
+        "https://www.alinashop.com.ec";
+      const baseUrl = origin.replace(/\/$/, "");
+      const responseUrl = `${baseUrl}/pedido/${orderId}/confirmar-payphone`;
+
+      const payphoneResult = await preparePayphonePayment({
+        orderId,
+        orderNumber,
+        amount: total,
+        clientEmail: newOrder.customerEmail,
+        clientPhone: newOrder.customerPhone,
+        responseUrl,
+      });
+
+      if (payphoneResult.success && payphoneResult.payUrl) {
+        payUrl = payphoneResult.payUrl;
+        paymentId = payphoneResult.paymentId;
+        newOrder.payphonePaymentId = paymentId;
+        newOrder.payphonePayUrl = payUrl;
+      } else {
+        console.warn("[Payphone Prepare Fallback]:", payphoneResult.error);
+      }
+    }
+
     saveOrder(newOrder);
 
     // 5. Opcionalmente persistir en Prisma si la base de datos SQL está activa
@@ -141,6 +173,8 @@ export async function POST(req: Request) {
       orderId,
       orderNumber,
       total,
+      payUrl,
+      paymentId,
     });
   } catch (error: any) {
     console.error("Order creation error:", error);
