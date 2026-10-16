@@ -106,15 +106,25 @@ export async function preparePayphonePayment(
       return { success: false, error: errMsg };
     }
 
-    // Payphone retorna paymentId y los links de pago directo
-    const payUrl = data.payWithCard || data.payUrl || data.payWithPayPhone;
+    // En la arquitectura oficial de Payphone, la URL de cobro requiere el parámetro query '&referrer='
+    // con el origen del comercio para habilitar el formulario de tarjeta en cualquier navegador
+    const domainOrigin = "https://www.alinashop.com.ec";
+    const appendReferrer = (url?: string) => {
+      if (!url) return undefined;
+      const sep = url.includes("?") ? "&" : "?";
+      return `${url}${sep}referrer=${encodeURIComponent(domainOrigin)}`;
+    };
+
+    const payWithCard = appendReferrer(data.payWithCard);
+    const payWithPayPhone = appendReferrer(data.payWithPayPhone);
+    const payUrl = payWithCard || appendReferrer(data.payUrl) || payWithPayPhone;
 
     return {
       success: true,
       paymentId: data.paymentId,
       payUrl: payUrl,
-      payWithCard: data.payWithCard,
-      payWithPayPhone: data.payWithPayPhone,
+      payWithCard: payWithCard,
+      payWithPayPhone: payWithPayPhone,
     };
   } catch (error: any) {
     console.error("[Payphone Prepare Exception]:", error);

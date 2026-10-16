@@ -46,6 +46,33 @@ function ConfirmarPayphoneContent({ orderId }: { orderId: string }) {
     txId?: string | number;
     cardBrand?: string;
   }>({});
+  const [isRetrying, setIsRetrying] = useState(false);
+
+  const handleRetryPayment = async () => {
+    setIsRetrying(true);
+    try {
+      const res = await fetch("/api/payphone/retry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success && data.payUrl) {
+        window.location.href = data.payUrl;
+        return;
+      }
+      if (data.alreadyPaid) {
+        router.push(`/pedido/${orderId}/exito?num=${data.orderNumber}&method=payphone`);
+        return;
+      }
+      alert(data.message || "No se pudo reintentar el pago. Redirigiendo a checkout...");
+      router.push("/checkout");
+    } catch (e: any) {
+      router.push("/checkout");
+    } finally {
+      setIsRetrying(false);
+    }
+  };
 
   // 1. Cargar detalles del pedido desde la API interna
   useEffect(() => {
@@ -274,23 +301,24 @@ function ConfirmarPayphoneContent({ orderId }: { orderId: string }) {
             </div>
 
             <div className="space-y-2.5 pt-2">
-              {order?.payphonePayUrl ? (
-                <a
-                  href={order.payphonePayUrl}
-                  className="w-full bg-alina-600 hover:bg-alina-700 text-white font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                  <span>Reintentar con Tarjeta (Payphone)</span>
-                </a>
-              ) : (
-                <Link
-                  href="/checkout"
-                  className="w-full bg-alina-600 hover:bg-alina-700 text-white font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                  <span>Reintentar en Checkout</span>
-                </Link>
-              )}
+              <button
+                type="button"
+                onClick={handleRetryPayment}
+                disabled={isRetrying}
+                className="w-full bg-alina-600 hover:bg-alina-700 disabled:opacity-75 text-white font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all cursor-pointer"
+              >
+                {isRetrying ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Conectando con Payphone...</span>
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="w-4 h-4" />
+                    <span>Reintentar Pago con Tarjeta</span>
+                  </>
+                )}
+              </button>
 
               <a
                 href={`https://wa.me/593985890956?text=${encodeURIComponent(
@@ -352,24 +380,25 @@ function ConfirmarPayphoneContent({ orderId }: { orderId: string }) {
             </div>
 
             <div className="space-y-2.5 pt-1">
-              {/* Opción 1: Reintentar pago con tarjeta si existe payUrl */}
-              {order?.payphonePayUrl ? (
-                <a
-                  href={order.payphonePayUrl}
-                  className="w-full bg-alina-600 hover:bg-alina-700 text-white font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
-                >
-                  <CreditCard className="w-4 h-4" />
-                  <span>Reintentar Pago con Tarjeta</span>
-                </a>
-              ) : (
-                <Link
-                  href="/checkout"
-                  className="w-full bg-alina-600 hover:bg-alina-700 text-white font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all"
-                >
-                  <RotateCcw className="w-4 h-4" />
-                  <span>Ir a Checkout a Pagar</span>
-                </Link>
-              )}
+              {/* Opción 1: Reintentar pago con tarjeta generando sesión fresca */}
+              <button
+                type="button"
+                onClick={handleRetryPayment}
+                disabled={isRetrying}
+                className="w-full bg-alina-600 hover:bg-alina-700 disabled:opacity-75 text-white font-display font-bold py-3 px-4 rounded-xl flex items-center justify-center gap-2 text-xs shadow-md transition-all cursor-pointer"
+              >
+                {isRetrying ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Conectando con Payphone...</span>
+                  </>
+                ) : (
+                  <>
+                    <CreditCard className="w-4 h-4" />
+                    <span>Reintentar Pago con Tarjeta</span>
+                  </>
+                )}
+              </button>
 
               {/* Opción 2: Pagar por WhatsApp / Transferencia */}
               <a
