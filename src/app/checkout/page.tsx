@@ -173,12 +173,20 @@ He seleccionado pago directo por transferencia/WhatsApp. Por favor envíenme los
       // cart is cleared automatically upon successful payment confirmation in /confirmar-payphone
       if (formData.paymentMethod === "payphone") {
         if (data.payUrl) {
-          window.location.href = data.payUrl;
+          // Crear navegación con política de referrer explícita para que Payphone reciba https://www.alinashop.com.ec/
+          const payLink = document.createElement("a");
+          payLink.href = data.payUrl;
+          payLink.rel = "opener";
+          payLink.referrerPolicy = "no-referrer-when-downgrade";
+          document.body.appendChild(payLink);
+          payLink.click();
+
+          setTimeout(() => {
+            window.location.assign(data.payUrl);
+          }, 350);
           return;
         }
-        clearCart();
-        router.push(`/pedido/${orderId}/exito?num=${orderNumber}&method=payphone`);
-        return;
+        throw new Error("No se pudo generar el enlace de cobro de Payphone.");
       }
     } catch (err: any) {
       setErrorMessage(err.message || "Ocurrió un error inesperado. Por favor intenta de nuevo.");

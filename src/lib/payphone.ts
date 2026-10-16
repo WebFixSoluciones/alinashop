@@ -6,8 +6,9 @@
 export const PAYPHONE_CONFIG = {
   // Token Bearer oficial asignado a la tienda
   token:
-    process.env.PAYPHONE_TOKEN ||
-    "WEHCg_JHrCa7XalF8VfDlY2Hfaig3u0gveJxmMrTAkTdC2KyD5cvKvWCUnH_3xp76RczIK9_s2lieSmNpKh8yK1T1PBpq4rTLp1PvQpHzjZTOOZ0Ou_R4_n6FF1hxOBHoQo-DuIFp-hqdWvWyze3HzR_tIv5A9FFrssSn99RSF74_Ep8JToCuQDbyHqDSX4MnPRjasxgATC737-PeppXjt8XFzuFSBeQ60KcFkKvES-cwRVe5AhhpdsOGkeQka3aUXM2hHS82FrztHbzDdW65a_8mAiC2a86N872YAtMdIdrW1GJxzYbhOHZZLk4q0BBb5NuWYjloHUKe3toMOLIGTQykYk",
+    process.env.PAYPHONE_TOKEN && !process.env.PAYPHONE_TOKEN.startsWith("l-iTD")
+      ? process.env.PAYPHONE_TOKEN
+      : "WEHCg_JHrCa7XalF8VfDlY2Hfaig3u0gveJxmMrTAkTdC2KyD5cvKvWCUnH_3xp76RczIK9_s2lieSmNpKh8yK1T1PBpq4rTLp1PvQpHzjZTOOZ0Ou_R4_n6FF1hxOBHoQo-DuIFp-hqdWvWyze3HzR_tIv5A9FFrssSn99RSF74_Ep8JToCuQDbyHqDSX4MnPRjasxgATC737-PeppXjt8XFzuFSBeQ60KcFkKvES-cwRVe5AhhpdsOGkeQka3aUXM2hHS82FrztHbzDdW65a_8mAiC2a86N872YAtMdIdrW1GJxzYbhOHZZLk4q0BBb5NuWYjloHUKe3toMOLIGTQykYk",
 
   // Tienda ID (storeId) configurado en Payphone Developer
   storeId:

@@ -126,14 +126,22 @@ export async function POST(req: Request) {
         responseUrl,
       });
 
-      if (payphoneResult.success && payphoneResult.payUrl) {
-        payUrl = payphoneResult.payUrl;
-        paymentId = payphoneResult.paymentId;
-        newOrder.payphonePaymentId = paymentId;
-        newOrder.payphonePayUrl = payUrl;
-      } else {
-        console.warn("[Payphone Prepare Fallback]:", payphoneResult.error);
+      if (!payphoneResult.success || !payphoneResult.payUrl) {
+        return NextResponse.json(
+          {
+            success: false,
+            message:
+              payphoneResult.error ||
+              "No se pudo conectar con la pasarela de pagos Payphone. Por favor intenta de nuevo o selecciona pago por WhatsApp.",
+          },
+          { status: 502 }
+        );
       }
+
+      payUrl = payphoneResult.payUrl;
+      paymentId = payphoneResult.paymentId;
+      newOrder.payphonePaymentId = paymentId;
+      newOrder.payphonePayUrl = payUrl;
     }
 
     saveOrder(newOrder);
