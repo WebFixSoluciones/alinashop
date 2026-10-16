@@ -15,10 +15,10 @@ export const PAYPHONE_CONFIG = {
     "bf4a1bdc-5696-464c-b6b4-ed9abef31ebf",
 
   // Identificador y Client ID
-  appId: process.env.PAYPHONE_APP_ID || "JdIli4X3XE9xlXWuRsXag",
-  clientId: process.env.PAYPHONE_CLIENT_ID || "3abEmuDXl0qfEwnzimNrvQ",
-  secretKey: process.env.PAYPHONE_SECRET_KEY || "2th5bQU7eEKzu9bxkntM7A",
-  encryptionKey: process.env.PAYPHONE_ENCRYPTION_KEY || "85bd80437c9b4805bd1c8238b6e15573",
+  appId: process.env.PAYPHONE_APP_ID || "5bBY14UlbEWezfcBJNbvA",
+  clientId: process.env.PAYPHONE_CLIENT_ID || "AOCbs3hpka4jQlLQzq0sg",
+  secretKey: process.env.PAYPHONE_SECRET_KEY || "QKad5umha0KKigQLDhyQNA",
+  encryptionKey: process.env.PAYPHONE_ENCRYPTION_KEY || "cc592df324d94732b6facac3c3dec21b",
 
   // Endpoints oficiales Payphone
   prepareEndpoint: "https://pay.payphonetodoesposible.com/api/button/Prepare",
